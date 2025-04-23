@@ -1,5 +1,5 @@
 name,llm_url,model_name,api_key
-Llama-3.1-8b (private),http://localhost:8081/v1,/Volumes/externalssd/dhopp1/ggufs/Meta-Llama-3.1-8B-Instruct-Q5_K_L.gguf,no-key
+Llama-3.1-8b (private),http://localhost:8081/v1,Meta-Llama-3.1-8B-Instruct-Q5_K_L.gguf,no-key
 Gemini 1.5 Pro (cloud),https://generativelanguage.googleapis.com/v1beta/openai,gemini-1.5-pro,API_KEY
 Gemini 2.0 Flash (cloud),https://generativelanguage.googleapis.com/v1beta/openai,gemini-2.0-flash,API_KEY
 Gemini 2.0 Flash Thinking (cloud),https://generativelanguage.googleapis.com/v1beta/openai,gemini-2.0-flash-thinking-exp,API_KEY
@@ -12,3 +12,6 @@ Llama 4 Scout 17b (cloud),https://openrouter.ai/api/v1,meta-llama/llama-4-scout:
 Llama 4 Maverick 17b (cloud),https://openrouter.ai/api/v1,meta-llama/llama-4-maverick:free,API_KEY
 Command A 3 (cloud),https://api.cohere.ai/compatibility/v1,command-a-03-2025,API_KEY
 Command R+ (cloud),https://api.cohere.ai/compatibility/v1,command-r-plus,API_KEY
+Codestral (cloud),https://api.mistral.ai/v1,codestral-latest,API_KEY
+Mistral Large (cloud),https://api.mistral.ai/v1,mistral-large-latest,API_KEY
+Pixtral Large (cloud),https://api.mistral.ai/v1,pixtral-large-latest,API_KEY
