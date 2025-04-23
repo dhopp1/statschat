@@ -38,6 +38,27 @@ def display_dataset(result):
     st.dataframe(result["dataset"], hide_index=True)
 
 
+def display_viz_call(result):
+    text = ""
+    if st.session_state["use_free_plot"]:
+        st.markdown(f'```py\n\n{result["plots"]["visualization_call"][0]}\n\n```')
+    else:
+        text += f'Name: `{result["plots"]["visualization_call"][0]["name"]}`\n\n'
+        text += (
+            f'Arguments: `{result["plots"]["visualization_call"][0]["arguments"]}`\n\n'
+        )
+        text += "Definition:\n\n"
+        text += (
+            "```py\n\n"
+            + inspect.getsource(
+                globals()[result["plots"]["visualization_call"][0]["name"]].func
+            )
+            + "\n\n```\n\n"
+        )
+
+        st.markdown(text)
+
+
 def display_explanation(result):
     st.markdown(result["explanation"])
 
@@ -65,6 +86,10 @@ def display_llm_output(result):
     # foldout for actual dataset
     with st.expander("Final dataset", expanded=False):
         display_dataset(result)
+
+    # foldout for viz call
+    with st.expander("Visualization call", expanded=False):
+        display_viz_call(result)
 
     # foldout for explanation
     with st.expander("Data manipulation explanation", expanded=False):
