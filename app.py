@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 
+from helper.chat import populate_chat, user_question
 from helper.llm import create_llm
 from helper.sidebar import (
     sidebar_llm_dropdown,
@@ -64,60 +65,8 @@ with st.sidebar:
 # create the LLM initially
 create_llm(force=False)
 
+# populate chat
+populate_chat()
+
 # User input
-title = st.text_input("What would you like to know?")
-
-st.markdown("")
-
-if title:
-    try:
-        with st.spinner("Processing your query...", show_time=True):
-            if "prior_query_id" not in st.session_state:
-                st.session_state["prior_query_id"] = None
-            st.session_state["prior_query_id"] = st.session_state["llm"].chat(
-                prompt=title,
-                tools=st.session_state["tools"],
-                plot_tools=st.session_state["viz_tools"],
-                validate=True,
-                use_free_plot=st.session_state["use_free_plot"],
-                prior_query_id=st.session_state["prior_query_id"],
-            )["tool_result"]["query_id"]
-
-            # explanation of data processing
-            st.markdown("### Explanation of data processing")
-            st.markdown(
-                st.session_state["llm"]._query_results[
-                    st.session_state["prior_query_id"]
-                ]["explanation"]
-            )
-
-            ### show dataframe
-            st.markdown("### Dataset")
-            st.dataframe(
-                st.session_state["llm"]._query_results[
-                    st.session_state["prior_query_id"]
-                ]["dataset"],
-                hide_index=True,
-            )
-
-            # commentary
-            st.markdown("### Commentary")
-            st.markdown(
-                st.session_state["llm"]
-                ._query_results[st.session_state["prior_query_id"]]["commentary"]
-                .replace("$", "\\$")
-            )
-
-            # plot
-            st.markdown("### Visualization")
-
-            st.pyplot(
-                st.session_state["llm"]._query_results[
-                    st.session_state["prior_query_id"]
-                ]["plots"]["invoked_result"][0]
-            )
-
-    except Exception:
-        st.error(
-            "There was an error processing your request. Try reformulating your question."
-        )
+user_question()
