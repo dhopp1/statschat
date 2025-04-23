@@ -1,15 +1,80 @@
+import inspect
 import streamlit as st
+
+from helper.tools import get_world_bank
+from helper.viz_tools import gen_plot
 
 
 def display_tool_call(result):
     tool_calls = result["tool_result"]["tool_call"]
     text = ""
     for i in range(len(tool_calls)):
-        text += f"Function call {i+1}\n\n"
+        text += f"### Function call {i+1}\n\n"
         text += f'Name: `{tool_calls[i]["name"]}`\n\n'
         text += f'Arguments: `{tool_calls[i]["arguments"]}`\n\n'
+        text += "Definition:\n\n"
+        text += (
+            "```py\n\n"
+            + inspect.getsource(globals()[tool_calls[i]["name"]].func)
+            + "\n\n```\n\n"
+        )
 
     st.markdown(text)
+
+
+def display_pd_code(result):
+    text = "### Data description provided to the LLM\n\n"
+    text += result["pd_code"]["data_desc"]
+
+    text += "\n\n### Python code run by the LLM\n\n```py\n"
+
+    text += result["pd_code"]["pd_code"]
+    text += "\n```"
+
+    st.markdown(text)
+
+
+def display_dataset(result):
+    st.dataframe(result["dataset"], hide_index=True)
+
+
+def display_explanation(result):
+    st.markdown(result["explanation"])
+
+
+def display_commentary(result):
+    st.markdown(
+        f'### Analysis and commentary\n\n{result["commentary"]}'.replace("$", "\\$")
+    )
+
+
+def display_viz(result):
+    st.markdown("### Visualization")
+    st.pyplot(result["plots"]["invoked_result"][0])
+
+
+def display_llm_output(result):
+    # foldout for initial tool call
+    with st.expander("Initial data call", expanded=False):
+        display_tool_call(result)
+
+    # foldout for pandas code
+    with st.expander("Python data manipulation", expanded=False):
+        display_pd_code(result)
+
+    # foldout for actual dataset
+    with st.expander("Final dataset", expanded=False):
+        display_dataset(result)
+
+    # foldout for explanation
+    with st.expander("Data manipulation explanation", expanded=False):
+        display_explanation(result)
+
+    # analysis/commentary
+    display_commentary(result)
+
+    # visualization
+    display_viz(result)
 
 
 def user_question():
@@ -40,14 +105,12 @@ def user_question():
                         "There was an error processing your request. Try reformulating your question."
                     )
 
-            # organizing model output
-            # foldout for initial tool call
-            with st.expander("Initial data call", expanded=False):
-                display_tool_call(
-                    st.session_state["llm"]._query_results[
-                        st.session_state["prior_query_id"]
-                    ]
-                )
+            # LLM response
+            display_llm_output(
+                st.session_state["llm"]._query_results[
+                    st.session_state["prior_query_id"]
+                ]
+            )
 
         # add prompt to chat history
         st.session_state["chat_history"].append({"role": "user", "content": prompt})
@@ -65,6 +128,8 @@ def populate_chat():
     if "chat_history" not in st.session_state:
         empty_chat = True
     elif len(st.session_state["chat_history"]) == 0:
+        empty_chat = True
+    elif len(st.session_state["llm"]._query_results) == 0:
         empty_chat = True
 
     if empty_chat:
@@ -91,9 +156,8 @@ def populate_chat():
                         st.session_state["chat_history"][i]["role"],
                         avatar="https://www.svgrepo.com/show/375527/ai-platform.svg",
                     ):
-                        with st.expander("Initial data call", expanded=False):
-                            display_tool_call(
-                                st.session_state["llm"]._query_results[
-                                    st.session_state["chat_history"][i]["content"]
-                                ]
-                            )
+                        display_llm_output(
+                            st.session_state["llm"]._query_results[
+                                st.session_state["chat_history"][i]["content"]
+                            ]
+                        )
