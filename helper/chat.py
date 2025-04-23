@@ -75,6 +75,12 @@ def display_viz(result):
 
 
 def display_llm_output(result):
+    # analysis/commentary
+    display_commentary(result)
+
+    # visualization
+    display_viz(result)
+    
     # foldout for initial tool call
     with st.expander("Initial data call", expanded=False):
         display_tool_call(result)
@@ -94,12 +100,6 @@ def display_llm_output(result):
     # foldout for explanation
     with st.expander("Data manipulation explanation", expanded=False):
         display_explanation(result)
-
-    # analysis/commentary
-    display_commentary(result)
-
-    # visualization
-    display_viz(result)
 
 
 def user_question():
