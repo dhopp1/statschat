@@ -11,7 +11,7 @@ def get_world_bank(
     Fetch data from World Bank API for a specific country
 
     Parameters:
-        country_code (str): ISO 3-letter country code
+        country_code (str): ISO 3-letter country code, or 'all' for all countries
         indicator (str): String of the indicator requested. Options are:
             'NY.GDP.MKTP.CD' for GDP
             'SP.POP.TOTL' for population
@@ -19,7 +19,7 @@ def get_world_bank(
         end_year (int): end year of the data
 
     Returns:
-        pandas.DataFrame: DataFrame containing the GDP data
+        pandas.DataFrame: DataFrame containing the data
     """
     # Build the API URL
     base_url = (
@@ -27,7 +27,7 @@ def get_world_bank(
     )
     params = {
         "format": "json",
-        "per_page": 100,  # Maximum number of results per page
+        "per_page": 30000,  # Maximum number of results per page
         "date": f"{str(start_year)}:{str(end_year)}",  # Data range from 1960 to most recent available
     }
 
@@ -50,20 +50,21 @@ def get_world_bank(
     records = data[1]
 
     # Create a list to store the data
-    gdp_data = []
+    return_data = []
 
     for record in records:
         if record["value"] is not None:  # Some years might not have data
-            gdp_data.append(
+            return_data.append(
                 {
                     "Year": record["date"],
-                    "GDP (current US$)": record["value"],
+                    record["indicator"]["value"]: record["value"],
                     "Country": record["country"]["value"],
+                    "ISO3": record["countryiso3code"],
                 }
             )
 
     # Convert to DataFrame
-    df = pd.DataFrame(gdp_data)
+    df = pd.DataFrame(return_data)
 
     # Convert Year to integer and sort by year
     df["Year"] = df["Year"].astype(int)
@@ -71,5 +72,16 @@ def get_world_bank(
 
     # Reset index
     df = df.reset_index(drop=True)
+
+    # add a column that says whether it's a country or not
+    country_iso3s = [
+        country["cca3"]
+        for country in requests.get(
+            "https://restcountries.com/v3.1/all?fields=cca3"
+        ).json()
+    ]
+    df["country_or_group"] = [
+        "country" if _ in country_iso3s else "group" for _ in df["ISO3"]
+    ]
 
     return df

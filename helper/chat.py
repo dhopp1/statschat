@@ -80,7 +80,7 @@ def display_llm_output(result):
 
     # visualization
     display_viz(result)
-    
+
     # foldout for initial tool call
     with st.expander("Initial data call", expanded=False):
         display_tool_call(result)

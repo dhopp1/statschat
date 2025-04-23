@@ -74,6 +74,9 @@ def gen_plot(
     ax.set_xlabel(xlabel, fontsize=12)
     ax.set_ylabel(ylabel, fontsize=12)
 
+    # rotate x-axis labels 45 degrees
+    ax.tick_params(axis="x", rotation=90)
+
     # Legend if grouped
     if group_col:
         ax.legend(title=group_col)
