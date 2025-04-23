@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 
+from helper.sidebar import sidebar_llm_dropdown
 from helper.ui import check_password
 from helper.tools import get_world_bank
 
@@ -17,16 +18,6 @@ system_prompts = pd.read_csv(
     "https://raw.githubusercontent.com/dhopp1/llads/refs/heads/main/system_prompts.csv"
 )
 
-# creating LLM
-st.session_state["llm"] = customLLM(
-    api_key="",
-    base_url="https://generativelanguage.googleapis.com/v1beta/openai",
-    model_name="gemini-2.0-flash",
-    temperature=0.0,
-    max_tokens=4096,
-    system_prompts=system_prompts,
-)
-
 tools = [get_world_bank]
 plot_tools = [gen_plot]
 
@@ -35,6 +26,26 @@ st.title("UNCTAD Statschat")
 
 if not check_password():
     st.stop()
+
+# sidebar
+with st.sidebar:
+    sidebar_llm_dropdown()
+
+# creating LLM
+st.session_state["llm"] = customLLM(
+    api_key=st.session_state["llm_info"]
+    .loc[lambda x: x["name"] == st.session_state["selected_llm"], "api_key"]
+    .values[0],
+    base_url=st.session_state["llm_info"]
+    .loc[lambda x: x["name"] == st.session_state["selected_llm"], "llm_url"]
+    .values[0],
+    model_name=st.session_state["llm_info"]
+    .loc[lambda x: x["name"] == st.session_state["selected_llm"], "model_name"]
+    .values[0],
+    temperature=0.0,
+    max_tokens=4096,
+    system_prompts=system_prompts,
+)
 
 # User input
 title = st.text_input("What would you like to know?")
