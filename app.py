@@ -1,12 +1,16 @@
 import streamlit as st
 import pandas as pd
 
-from helper.sidebar import sidebar_llm_dropdown
+from helper.llm import create_llm
+from helper.sidebar import (
+    sidebar_llm_dropdown,
+    sidebar_tools_selection,
+    sidebar_viz_tools_selection,
+)
 from helper.ui import check_password
 from helper.tools import get_world_bank
+from helper.viz_tools import gen_plot
 
-from llads.customLLM import customLLM
-from llads.visualizations import gen_plot
 
 st.set_page_config(
     page_title="Statschat",
@@ -18,9 +22,6 @@ system_prompts = pd.read_csv(
     "https://raw.githubusercontent.com/dhopp1/llads/refs/heads/main/system_prompts.csv"
 )
 
-tools = [get_world_bank]
-plot_tools = [gen_plot]
-
 # App title
 st.title("UNCTAD Statschat")
 
@@ -29,23 +30,39 @@ if not check_password():
 
 # sidebar
 with st.sidebar:
+    st.markdown("### Select LLM")
     sidebar_llm_dropdown()
 
-# creating LLM
-st.session_state["llm"] = customLLM(
-    api_key=st.session_state["llm_info"]
-    .loc[lambda x: x["name"] == st.session_state["selected_llm"], "api_key"]
-    .values[0],
-    base_url=st.session_state["llm_info"]
-    .loc[lambda x: x["name"] == st.session_state["selected_llm"], "llm_url"]
-    .values[0],
-    model_name=st.session_state["llm_info"]
-    .loc[lambda x: x["name"] == st.session_state["selected_llm"], "model_name"]
-    .values[0],
-    temperature=0.0,
-    max_tokens=4096,
-    system_prompts=system_prompts,
-)
+    st.markdown("### Data available to LLM")
+    sidebar_tools_selection()
+
+    st.markdown("### Visualizations available to LLM")
+    sidebar_viz_tools_selection()
+
+    # setting tools and viz tools available to the LLM
+    st.session_state["tools"] = [
+        eval(_)
+        for _ in list(
+            st.session_state["selected_tools"]
+            .loc[lambda x: x["Make available to LLM"] == True, "function_name"]
+            .values
+        )
+    ]
+    st.session_state["viz_tools"] = [
+        eval(_)
+        for _ in list(
+            st.session_state["selected_viz_tools"]
+            .loc[lambda x: x["Make available to LLM"] == True, "function_name"]
+            .values
+        )
+    ]
+    if len(st.session_state["viz_tools"]) == 0:
+        st.session_state["use_free_plot"] = True
+    else:
+        st.session_state["use_free_plot"] = False
+
+# create the LLM initially
+create_llm(force=False)
 
 # User input
 title = st.text_input("What would you like to know?")
@@ -54,15 +71,15 @@ st.markdown("")
 
 if title:
     try:
-        with st.spinner("Processing your query..."):
+        with st.spinner("Processing your query...", show_time=True):
             if "prior_query_id" not in st.session_state:
                 st.session_state["prior_query_id"] = None
             st.session_state["prior_query_id"] = st.session_state["llm"].chat(
                 prompt=title,
-                tools=tools,
-                plot_tools=plot_tools,
+                tools=st.session_state["tools"],
+                plot_tools=st.session_state["viz_tools"],
                 validate=True,
-                use_free_plot=True,
+                use_free_plot=st.session_state["use_free_plot"],
                 prior_query_id=st.session_state["prior_query_id"],
             )["tool_result"]["query_id"]
 
@@ -93,13 +110,12 @@ if title:
 
             # plot
             st.markdown("### Visualization")
+
             st.pyplot(
                 st.session_state["llm"]._query_results[
                     st.session_state["prior_query_id"]
                 ]["plots"]["invoked_result"][0]
             )
-
-            st.session_state["answer_up"] = True
 
     except Exception:
         st.error(
