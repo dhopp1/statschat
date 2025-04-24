@@ -166,7 +166,7 @@ def user_question():
                     wb_context = None
                 # wb indicator list step
 
-                if True:  # try:
+                try:
                     st.session_state["prior_query_id"] = st.session_state["llm"].chat(
                         prompt=prompt,
                         tools=st.session_state["tools"],
@@ -176,7 +176,7 @@ def user_question():
                         prior_query_id=st.session_state["prior_query_id"],
                         addt_context_gen_tool_call=wb_context,
                     )["tool_result"]["query_id"]
-                else:  # except:
+                except:
                     st.error(
                         "There was an error processing your request. Try reformulating your question."
                     )
