@@ -8,13 +8,11 @@ def get_world_bank(
     country_code: str, indicator: str, start_year: int, end_year: int
 ) -> pd.DataFrame:
     """
-    Fetch data from World Bank API for a specific country
+    Fetch data from World Bank API
 
     Parameters:
         country_code (str): ISO 3-letter country code, or 'all' for all countries
-        indicator (str): String of the indicator requested. Options are:
-            'NY.GDP.MKTP.CD' for GDP
-            'SP.POP.TOTL' for population
+        indicator (str): String of the indicator requested.
         start_year (int): start year of the data
         end_year (int): end year of the data
 

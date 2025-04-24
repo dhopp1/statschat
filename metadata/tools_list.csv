@@ -1,2 +1,2 @@
 name,function_name,description
-World Bank,get_world_bank,World bank GDP (NY.GDP.MKTP.CD) and/or population (SP.POP.TOTL) data.
+World Bank,get_world_bank,Any data available via the World Bank API
