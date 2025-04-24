@@ -152,15 +152,20 @@ def user_question():
                     substrings = [_.lower().strip() for _ in substrings.split(",")]
 
                     wb_context = (
-                        st.session_state["wb_indicator_key"]
-                        .loc[
-                            lambda x: x["name"]
-                            .str.lower()
-                            .str.contains("|".join(substrings), na=False, regex=True),
-                            :,
-                        ]
-                        .reset_index(drop=True)
-                        .to_markdown(index=False)
+                        f"\n\n Here are some World Bank indicators that may be relevant to the user's question:\n\n"
+                        + (
+                            st.session_state["wb_indicator_key"]
+                            .loc[
+                                lambda x: x["name"]
+                                .str.lower()
+                                .str.contains(
+                                    "|".join(substrings), na=False, regex=True
+                                ),
+                                :,
+                            ]
+                            .reset_index(drop=True)
+                            .to_markdown(index=False)
+                        )
                     )
                 except:
                     wb_context = None
