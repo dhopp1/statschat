@@ -7,26 +7,27 @@ from helper.viz_tools import gen_plot
 
 def display_tool_call(result):
     tool_calls = result["tool_result"]["tool_call"]
-    text = ""
     for i in range(len(tool_calls)):
+        text = ""
         text += f"### Function call {i+1}\n\n"
         text += f'Name: `{tool_calls[i]["name"]}`\n\n'
         text += f'Arguments: `{tool_calls[i]["arguments"]}`\n\n'
-        text += "Definition:\n\n"
-        text += (
+        st.markdown(text)
+
+        text = "Definition:"
+        hover_text = (
             "```py\n\n"
             + inspect.getsource(globals()[tool_calls[i]["name"]].func)
             + "\n\n```\n\n"
         )
-
-    st.markdown(text)
+        st.markdown(text, help=hover_text)
 
 
 def display_pd_code(result):
-    text = "### Data description provided to the LLM\n\n"
-    text += result["pd_code"]["data_desc"]
-
-    text += "\n\n### Python code run by the LLM\n\n```py\n"
+    st.markdown(
+        "### Description of data given to LLM:", help=result["pd_code"]["data_desc"]
+    )
+    text = "\n\n### Python code run by the LLM\n\n```py\n"
 
     text += result["pd_code"]["pd_code"]
     text += "\n```"
@@ -39,16 +40,16 @@ def display_dataset(result):
 
 
 def display_viz_call(result):
-    text = ""
     if st.session_state["use_free_plot"]:
         st.markdown(f'```py\n\n{result["plots"]["visualization_call"][0]}\n\n```')
     else:
-        text += f'Name: `{result["plots"]["visualization_call"][0]["name"]}`\n\n'
+        text = f'Name: `{result["plots"]["visualization_call"][0]["name"]}`\n\n'
         text += (
             f'Arguments: `{result["plots"]["visualization_call"][0]["arguments"]}`\n\n'
         )
-        text += "Definition:\n\n"
-        text += (
+        st.markdown(text)
+
+        hover_text = (
             "```py\n\n"
             + inspect.getsource(
                 globals()[result["plots"]["visualization_call"][0]["name"]].func
@@ -56,7 +57,7 @@ def display_viz_call(result):
             + "\n\n```\n\n"
         )
 
-        st.markdown(text)
+        st.markdown("Definition:", help=hover_text)
 
 
 def display_explanation(result):
