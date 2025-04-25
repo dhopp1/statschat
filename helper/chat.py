@@ -85,23 +85,48 @@ def display_llm_output(result):
 
     # foldout for initial tool call
     with st.expander("Initial data call", expanded=False):
-        display_tool_call(result)
+        try:
+            display_tool_call(result)
+        except:
+            st.error(
+                "An error was encountered during the initial data call step. Please try reformulating your query."
+            )
 
     # foldout for pandas code
     with st.expander("Python data manipulation", expanded=False):
-        display_pd_code(result)
+        try:
+            display_pd_code(result)
+        except:
+            st.error(
+                "An error was encountered during the code manipulation step. Please try reformulating your query."
+            )
 
     # foldout for actual dataset
     with st.expander("Final dataset", expanded=False):
-        display_dataset(result)
+        try:
+            display_dataset(result)
+        except:
+            st.error(
+                "An error was encountered during the final dataset step. Please try reformulating your query."
+            )
 
     # foldout for viz call
     with st.expander("Visualization call", expanded=False):
-        display_viz_call(result)
+        try:
+            display_viz_call(result)
+        except:
+            st.error(
+                "An error was encountered during the visualization step. Please try reformulating your query."
+            )
 
     # foldout for explanation
     with st.expander("Data manipulation explanation", expanded=False):
-        display_explanation(result)
+        try:
+            display_explanation(result)
+        except:
+            st.error(
+                "An error was encountered during the data explanation step. Please try reformulating your query."
+            )
 
 
 def user_question():
