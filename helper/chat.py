@@ -1,6 +1,8 @@
 import inspect
 import streamlit as st
+import sys
 
+from helper.progress_bar import Logger
 from helper.tools import get_world_bank  # need for the function definition displays
 from helper.viz_tools import gen_plot  # need for the function definition displays
 
@@ -219,15 +221,25 @@ def user_question():
                     wb_context = None
 
                 # wb indicator list step
+
+                old_stdout = sys.stdout
+                sys.stdout = Logger(st.progress(0), st.empty())
+
                 st.session_state["prior_query_id"] = st.session_state["llm"].chat(
                     prompt=prompt,
                     tools=st.session_state["tools"],
                     plot_tools=st.session_state["viz_tools"],
-                    validate=True,
+                    validate=False,
                     use_free_plot=st.session_state["use_free_plot"],
                     prior_query_id=st.session_state["prior_query_id"],
                     addt_context_gen_tool_call=wb_context,
                 )["tool_result"]["query_id"]
+
+                try:
+                    sys.stdout = sys.stdout.clear()
+                    sys.stdout = old_stdout
+                except:
+                    pass
 
             # LLM response
             display_llm_output(
