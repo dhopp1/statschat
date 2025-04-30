@@ -7,6 +7,7 @@ from helper.sidebar import (
     sidebar_llm_dropdown,
     sidebar_tools_selection,
     sidebar_viz_tools_selection,
+    sidebar_wb_selection,
 )
 from helper.ui import check_password
 from helper.tools import get_world_bank
@@ -34,7 +35,11 @@ with st.sidebar:
     st.markdown("### Select LLM")
     sidebar_llm_dropdown()
 
-    st.markdown("### Data available to LLM")
+    st.markdown("### WB indicators")
+    with st.expander("Table of WB indicators"):
+        sidebar_wb_selection()
+
+    st.markdown("### Data sources available to LLM")
     sidebar_tools_selection()
 
     st.markdown("### Visualizations available to LLM")

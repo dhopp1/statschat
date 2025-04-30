@@ -1,9 +1,8 @@
 import inspect
 import streamlit as st
 
-from helper.tools import get_world_bank
-from helper.viz_tools import gen_plot
-from helper.wb import get_wb_indicator_list
+from helper.tools import get_world_bank  # need for the function definition displays
+from helper.viz_tools import gen_plot  # need for the function definition displays
 
 
 def display_tool_call(result):
@@ -62,18 +61,23 @@ def display_viz_call(result):
 
 
 def display_explanation(result):
-    st.markdown(result["explanation"])
+    st.markdown(result["explanation"]["explanation"])
 
 
 def display_commentary(result):
     st.markdown(
-        f'### Analysis and commentary\n\n{result["commentary"]}'.replace("$", "\\$")
+        f'### Analysis and commentary\n\n{result["commentary"]["commentary"]}'.replace(
+            "$", "\\$"
+        )
     )
 
 
 def display_viz(result):
     st.markdown("### Visualization")
-    st.pyplot(result["plots"]["invoked_result"][0])
+    try:
+        st.pyplot(result["plots"]["invoked_result"][0])
+    except:
+        st.markdown("There was an error generating the plot.")
 
 
 def display_llm_output(result):
@@ -144,72 +148,36 @@ def user_question():
         ):
             with st.spinner("Processing your query...", show_time=True):
                 # wb indicator list step
-                try:
-                    if "wb_indicator_key" not in st.session_state:
-                        st.session_state["wb_indicator_key"] = get_wb_indicator_list()
-
-                    if st.session_state["prior_query_id"] is not None:
-                        prior_query_ids = [
-                            st.session_state["prior_query_id"]
-                        ] + st.session_state["llm"]._query_results[
-                            st.session_state["prior_query_id"]
-                        ][
-                            "context_query_ids"
+                if (
+                    len(
+                        st.session_state["selected_wb_series"].loc[
+                            lambda x: x["Make available to LLM"] == True, :
                         ]
-                        complete_responses = [
-                            st.session_state["llm"]._query_results[_]
-                            for _ in prior_query_ids
-                        ]
-
-                        condense_query = f"Given this new question: '{prompt}'\n\nAnd these prior exchanges:\n\n"
-                        for i in range(len(complete_responses)):
-                            condense_query += f"""Question: '{complete_responses[i]["initial_prompt"]}'\n\n"""
-                            condense_query += f"""Answer: '{complete_responses[i]["commentary"]}'\n\n"""
-
-                        condense_query += "Output a query that can stand alone without further context."
-
-                        condensed_prompt = st.session_state["llm"](condense_query)
-                    else:
-                        condensed_prompt = prompt
-
-                    wb_prompt = f"Given this question:\n\n'{condensed_prompt}'\n\n return a list of one or more keywords that could be relevant to it in a search of the World Bank database for relevant indicators. Include different formulations as well as words in isolation as well as in phrases. Rather include too many keywords than too few. Return your answer in the form of a comma-separated list of keywords."
-                    substrings = st.session_state["llm"](wb_prompt)
-                    substrings = [_.lower().strip() for _ in substrings.split(",")]
-
-                    wb_context = (
-                        f"\n\n Here are some World Bank indicators that may be relevant to the user's question:\n\n"
-                        + (
-                            st.session_state["wb_indicator_key"]
-                            .loc[
-                                lambda x: x["name"]
-                                .str.lower()
-                                .str.contains(
-                                    "|".join(substrings), na=False, regex=True
-                                ),
-                                :,
-                            ]
-                            .reset_index(drop=True)
-                            .to_markdown(index=False)
-                        )
                     )
-                except:
+                    > 0
+                ):
+                    wb_context = "\n\n Here are some World Bank indicators that may be relevant to the user's question:\n\n" + st.session_state[
+                        "selected_wb_series"
+                    ].loc[
+                        lambda x: x["Make available to LLM"] == True, :
+                    ].reset_index(
+                        drop=True
+                    ).to_markdown(
+                        index=False
+                    )
+                else:
                     wb_context = None
-                # wb indicator list step
 
-                try:
-                    st.session_state["prior_query_id"] = st.session_state["llm"].chat(
-                        prompt=prompt,
-                        tools=st.session_state["tools"],
-                        plot_tools=st.session_state["viz_tools"],
-                        validate=True,
-                        use_free_plot=st.session_state["use_free_plot"],
-                        prior_query_id=st.session_state["prior_query_id"],
-                        addt_context_gen_tool_call=wb_context,
-                    )["tool_result"]["query_id"]
-                except:
-                    st.error(
-                        "There was an error processing your request. Try reformulating your question."
-                    )
+                # wb indicator list step
+                st.session_state["prior_query_id"] = st.session_state["llm"].chat(
+                    prompt=prompt,
+                    tools=st.session_state["tools"],
+                    plot_tools=st.session_state["viz_tools"],
+                    validate=True,
+                    use_free_plot=st.session_state["use_free_plot"],
+                    prior_query_id=st.session_state["prior_query_id"],
+                    addt_context_gen_tool_call=wb_context,
+                )["tool_result"]["query_id"]
 
             # LLM response
             display_llm_output(
@@ -239,13 +207,8 @@ def populate_chat():
         empty_chat = True
 
     if empty_chat:
-        st.markdown(
-            """<div class="icon_text"><img width=50 src='https://www.svgrepo.com/show/375527/ai-platform.svg'></div>""",
-            unsafe_allow_html=True,
-        )
-        st.markdown(
-            """<div class="icon_text"<h4>What would you like to know?</h4></div>""",
-            unsafe_allow_html=True,
+        st.info(
+            "**Note**, you must either specificy the code of the World Bank indicator(s) you would like to query directly in your prompt (e.g., `SP.POP.TOTL`), or select them in the `WB indicators` table in the sidebar."
         )
     else:
         with st.session_state["message_box"].container():

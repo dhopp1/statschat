@@ -2,6 +2,7 @@ import pandas as pd
 import streamlit as st
 
 from helper.llm import create_llm
+from helper.wb import get_wb_indicator_list
 
 
 def sidebar_llm_dropdown():
@@ -17,6 +18,28 @@ def sidebar_llm_dropdown():
         key="selected_llm",
         on_change=create_llm,
         label_visibility="collapsed",
+    )
+
+
+def sidebar_wb_selection():
+    if "wb_indicator_key" not in st.session_state:
+        st.session_state["wb_indicator_key"] = get_wb_indicator_list()
+
+    st.session_state["wb_indicator_key"]["Make available to LLM"] = False
+
+    st.session_state["selected_wb_series"] = st.data_editor(
+        st.session_state["wb_indicator_key"],
+        column_config={
+            "Make available to LLM": st.column_config.CheckboxColumn(
+                "Make available to LLM"
+            )
+        },
+        disabled=[
+            col
+            for col in st.session_state["wb_indicator_key"].columns
+            if col != "Make available to LLM"
+        ],
+        hide_index=True,
     )
 
 
