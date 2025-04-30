@@ -80,6 +80,47 @@ def display_viz(result):
         st.markdown("There was an error generating the plot.")
 
 
+def display_time_token(result):
+    text = ""
+    # initial tool call
+    text += "### Initial data call\n"
+    text += f"Seconds taken: `{round(result['tool_result']['seconds_taken'], 2)}`\n\n"
+    text += f"Input tokens: `{result['tool_result']['n_tokens_input']}`\n\n"
+    text += f"Output tokens: `{result['tool_result']['n_tokens_output']}`\n\n"
+
+    # pandas manipulation
+    text += "### Python data manipulation\n"
+    text += f"Seconds taken: `{round(result['pd_code']['seconds_taken'], 2)}`\n\n"
+    text += f"Input tokens: `{result['pd_code']['n_tokens_input']}`\n\n"
+    text += f"Output tokens: `{result['pd_code']['n_tokens_output']}`\n\n"
+
+    # explanation
+    text += "### Data manipulation explanation\n"
+    text += f"Seconds taken: `{round(result['explanation']['seconds_taken'], 2)}`\n\n"
+    text += f"Input tokens: `{result['explanation']['n_tokens_input']}`\n\n"
+    text += f"Output tokens: `{result['explanation']['n_tokens_output']}`\n\n"
+
+    # commentary
+    text += "### Analysis/commentary\n"
+    text += f"Seconds taken: `{round(result['commentary']['seconds_taken'], 2)}`\n\n"
+    text += f"Input tokens: `{result['commentary']['n_tokens_input']}`\n\n"
+    text += f"Output tokens: `{result['commentary']['n_tokens_output']}`\n\n"
+
+    # viz call
+    text += "### Visualization call\n"
+    text += f"Seconds taken: `{round(result['plots']['seconds_taken'], 2)}`\n\n"
+    text += f"Input tokens: `{result['plots']['n_tokens_input']}`\n\n"
+    text += f"Output tokens: `{result['plots']['n_tokens_output']}`\n\n"
+
+    # total
+    text += "### Total process\n"
+    text += f"Seconds taken: `{round(result['tool_result']['seconds_taken'] + result['pd_code']['seconds_taken'] + result['explanation']['seconds_taken'] + result['commentary']['seconds_taken'] + result['plots']['seconds_taken'], 2)}`\n\n"
+    text += f"Input tokens: `{result['tool_result']['n_tokens_input'] + result['pd_code']['n_tokens_input'] + result['explanation']['n_tokens_input'] + result['commentary']['n_tokens_input'] + result['plots']['n_tokens_input']}`\n\n"
+    text += f"Output tokens: `{result['tool_result']['n_tokens_output'] + result['pd_code']['n_tokens_output'] + result['explanation']['n_tokens_output'] + result['commentary']['n_tokens_output'] + result['plots']['n_tokens_output']}`\n\n"
+
+    st.markdown(text)
+
+
 def display_llm_output(result):
     # analysis/commentary
     display_commentary(result)
@@ -130,6 +171,15 @@ def display_llm_output(result):
         except:
             st.error(
                 "An error was encountered during the data explanation step. Please try reformulating your query."
+            )
+
+    # foldout for time and tokens
+    with st.expander("Time taken and token consumption", expanded=False):
+        if True:  # try:
+            display_time_token(result)
+        else:  # except:
+            st.error(
+                "An error was encountered during the time and token step. Please try reformulating your query."
             )
 
 
