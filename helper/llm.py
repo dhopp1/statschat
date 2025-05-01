@@ -4,10 +4,20 @@ import streamlit as st
 
 
 def create_llm(force=True):
-    if "system_prompts" not in st.session_state:
+    if (
+        "system_prompts" not in st.session_state
+        and "custom_system_prompt_df" not in st.session_state
+    ):
         st.session_state["system_prompts"] = pd.read_csv(
             "https://raw.githubusercontent.com/dhopp1/llads/refs/heads/main/system_prompts.csv"
         )
+    else:
+        try:
+            st.session_state["system_prompts"] = st.session_state[
+                "custom_system_prompt_df"
+            ]
+        except:
+            pass
 
     if "llm" not in st.session_state or force:
         st.session_state["llm"] = customLLM(

@@ -1,8 +1,27 @@
 import pandas as pd
 import streamlit as st
+import time
 
 from helper.llm import create_llm
 from helper.wb import get_wb_indicator_list
+
+
+def upload_system_prompt():
+    st.session_state["custom_system_prompt_df"] = pd.read_csv(
+        st.session_state["custom_system_prompt_file"]
+    )
+    st.info("Custom system prompts successfully uploaded!")
+    time.sleep(3)
+    create_llm(force=True)
+
+
+def sidebar_system_prompt_uploader():
+    st.session_state["custom_system_prompt_file"] = st.file_uploader(
+        "Upload your own system prompts",
+        type=[".csv"],
+        help="You can start with the file available [here](https://github.com/dhopp1/llads/blob/main/system_prompts.csv) and tweak it then reupload.",
+    )
+    st.button("Upload system prompts", on_click=upload_system_prompt)
 
 
 def sidebar_llm_dropdown():

@@ -5,6 +5,7 @@ from helper.chat import populate_chat, user_question
 from helper.llm import create_llm
 from helper.sidebar import (
     sidebar_llm_dropdown,
+    sidebar_system_prompt_uploader,
     sidebar_tools_selection,
     sidebar_viz_tools_selection,
     sidebar_wb_selection,
@@ -34,6 +35,9 @@ if not check_password():
 with st.sidebar:
     st.markdown("### Select LLM")
     sidebar_llm_dropdown()
+
+    with st.expander("Custom system prompts"):
+        sidebar_system_prompt_uploader()
 
     st.markdown("### WB indicators")
     with st.expander("Table of WB indicators"):
