@@ -1,2 +1,3 @@
 name,function_name,description
+UNCTADstat,get_unctadstat,Any data available via the UNCTADstat API
 World Bank,get_world_bank,Any data available via the World Bank API
