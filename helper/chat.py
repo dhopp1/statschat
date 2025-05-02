@@ -1,10 +1,40 @@
 import inspect
+import pandas as pd
 import streamlit as st
 import sys
 
 from helper.progress_bar import Logger
-from helper.tools import get_world_bank  # need for the function definition displays
+from helper.tools import (
+    get_world_bank,
+    get_unctadstat,
+)  # need for the function definition displays
 from helper.viz_tools import gen_plot  # need for the function definition displays
+
+
+def df_to_string(df):
+    """
+    Converts a Pandas DataFrame to a single string using Row-by-Row Serialization.
+
+    Args:
+        df: The Pandas DataFrame to convert.
+
+    Returns:
+        A string representation of the DataFrame, with each row serialized
+        and rows separated by a newline character.  NaN values are replaced
+        with "NA".
+    """
+
+    def row_to_text(row):
+        text = ""
+        for col in df.columns:
+            value = row[col]
+            if pd.isna(value):
+                value = "NA"
+            text += f"{col}: {value}; "
+        return text.strip()  # Remove trailing semicolon and space
+
+    # Apply the function to each row and join the results with newlines
+    return "\n\n".join(df.apply(row_to_text, axis=1).tolist())
 
 
 def display_tool_call(result):
@@ -208,19 +238,45 @@ def user_question():
                     )
                     > 0
                 ):
-                    wb_context = "\n\n Here are some World Bank indicators that may be relevant to the user's question:\n\n" + st.session_state[
-                        "selected_wb_series"
-                    ].loc[
-                        lambda x: x["Make available to LLM"] == True, :
-                    ].reset_index(
-                        drop=True
-                    ).to_markdown(
-                        index=False
+                    wb_context = (
+                        "\n\n Here are some World Bank indicators that may be relevant to the user's question:\n\n"
+                        + df_to_string(
+                            st.session_state["selected_wb_series"]
+                            .loc[lambda x: x["Make available to LLM"] == True, :]
+                            .drop(columns=["Make available to LLM"])
+                            .reset_index(drop=True)
+                        )
                     )
                 else:
                     wb_context = None
-
                 # wb indicator list step
+                # unctadstat indicator step
+                if (
+                    len(
+                        st.session_state["selected_unctad_series"].loc[
+                            lambda x: x["Make available to LLM"] == True, :
+                        ]
+                    )
+                    > 0
+                ):
+                    unctad_context = (
+                        "\n\n Here are some UNCTADstat indicators that may be relevant to the user's question:\n\n"
+                        + df_to_string(
+                            st.session_state["selected_unctad_series"]
+                            .loc[lambda x: x["Make available to LLM"] == True, :]
+                            .drop(columns=["Make available to LLM"])
+                            .reset_index(drop=True)
+                        )
+                    )
+                else:
+                    unctad_context = None
+
+                addt_context_gen_tool_call = (
+                    f"{unctad_context}\n\n{wb_context}"
+                    if unctad_context and wb_context
+                    else unctad_context or wb_context or None
+                )
+                # unctadstat indicator step
 
                 old_stdout = sys.stdout
                 sys.stdout = Logger(st.progress(0), st.empty())
@@ -232,7 +288,7 @@ def user_question():
                     validate=False,
                     use_free_plot=st.session_state["use_free_plot"],
                     prior_query_id=st.session_state["prior_query_id"],
-                    addt_context_gen_tool_call=wb_context,
+                    addt_context_gen_tool_call=addt_context_gen_tool_call,
                 )["tool_result"]["query_id"]
 
                 try:
@@ -270,7 +326,12 @@ def populate_chat():
 
     if empty_chat:
         st.info(
-            "**Note**, you must either specificy the code of the World Bank indicator(s) you would like to query directly in your prompt (e.g., `SP.POP.TOTL`), or select them in the `WB indicators` table in the sidebar."
+            """### UNCTADstat
+For UNCTADstat indicators, select the ones you want available to the LLM in the `UNCTADstat indicators` table in the sidebar.
+
+### World Bank
+For World Bank indicators, either specify the indicator's code directly in your prompt (e.g., `SP.POP.TOTL`), or select them in the `WB indicators` table in the sidebar.
+"""
         )
     else:
         with st.session_state["message_box"].container():

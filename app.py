@@ -7,11 +7,12 @@ from helper.sidebar import (
     sidebar_llm_dropdown,
     sidebar_system_prompt_uploader,
     sidebar_tools_selection,
+    sidebar_unctad_selection,
     sidebar_viz_tools_selection,
     sidebar_wb_selection,
 )
 from helper.ui import check_password
-from helper.tools import get_world_bank
+from helper.tools import get_unctadstat, get_world_bank
 from helper.viz_tools import gen_plot
 
 
@@ -38,6 +39,10 @@ with st.sidebar:
 
     with st.expander("Custom system prompts"):
         sidebar_system_prompt_uploader()
+
+    st.markdown("### UNCTADstat indicators")
+    with st.expander("Table of UNCTADstat indicators"):
+        sidebar_unctad_selection()
 
     st.markdown("### WB indicators")
     with st.expander("Table of WB indicators"):

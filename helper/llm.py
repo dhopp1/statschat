@@ -8,9 +8,7 @@ def create_llm(force=True):
         "system_prompts" not in st.session_state
         and "custom_system_prompt_df" not in st.session_state
     ):
-        st.session_state["system_prompts"] = pd.read_csv(
-            "https://raw.githubusercontent.com/dhopp1/llads/refs/heads/main/system_prompts.csv"
-        )
+        st.session_state["system_prompts"] = pd.read_csv("metadata/system_prompts.csv")
     else:
         try:
             st.session_state["system_prompts"] = st.session_state[

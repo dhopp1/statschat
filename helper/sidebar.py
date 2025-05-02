@@ -40,6 +40,30 @@ def sidebar_llm_dropdown():
     )
 
 
+def sidebar_unctad_selection():
+    if "unctad_indicator_key" not in st.session_state:
+        st.session_state["unctad_indicator_key"] = pd.read_csv(
+            "metadata/unctadstat_key.csv"
+        ).drop(columns=["return_columns", "notes"])
+
+    st.session_state["unctad_indicator_key"]["Make available to LLM"] = True
+
+    st.session_state["selected_unctad_series"] = st.data_editor(
+        st.session_state["unctad_indicator_key"],
+        column_config={
+            "Make available to LLM": st.column_config.CheckboxColumn(
+                "Make available to LLM"
+            )
+        },
+        disabled=[
+            col
+            for col in st.session_state["unctad_indicator_key"].columns
+            if col != "Make available to LLM"
+        ],
+        hide_index=True,
+    )
+
+
 def sidebar_wb_selection():
     if "wb_indicator_key" not in st.session_state:
         st.session_state["wb_indicator_key"] = get_wb_indicator_list()
