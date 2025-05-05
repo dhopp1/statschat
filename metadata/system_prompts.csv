@@ -54,7 +54,7 @@ pandas manipulation call,"You are given this initial prompt (the current date is
 {data_dict_desc}. 
 
 Using Pandas, manipulate the dataset so that you can best answer the initial prompt. Create the output dataset in long format. Save the output in a variable called '{result_dataset_name}'. 
-The functions have already been called, there is no need to call them again or define the dataframes manually in code, use the data already stored in the variable names described. Import any libraries required to run the code. Output only Python code.","date_string: today's date in YYYY-MM-DD format
+The functions have already been called, there is no need to call them again or define the dataframes manually in code, use the data already stored in the variable names described. Import any libraries required to run the code. Output only Python code. If the user asks for something like, 'which countries have the highest or lowest X indicator', sort the dataframe to best answer their question.","date_string: today's date in YYYY-MM-DD format
 prompt: the user's initial prompt
 data_dict_desc: the data dictionary intro and body describing the results of the tool calls available to the LLM
 result_dataset_name: name of the result dataset in a string",instructions for manipulating the intermediate datasets in pandas to create a single final result dataset
