@@ -5,3 +5,4 @@ id,report_code,report_name,indicator_code,indicator_name,return_columns,notes
 4,US.PopGR,"Total population growth rates, annual, 1950-2050",M4017/Value,Annual average growth rate,"Economy/Label,Period/Label,M4017/Value",
 5,US.PopDependency,"Total, child and old-age dependency ratios, annual 1950-2050",M3759/Value,Persons per hundred persons aged 15-64,"Economy/Label,Year,Series/Label,M3759/Value",
 6,US.InclusiveGrowth,Inclusive Growth Index (IGI),M6081/Value,Inclusive growth,"Economy/Label,Year,Category/Label,M6081/Value",
+7,US.Gender_DomesticValueAdded,Domestic value added content in gross exports by sex and broad sector,M5067/Value,Percentage of Domestic Value Added,"Economy/Label,Year,Components/Label,Industry/Label,Sex/Label,M5067/Value",
