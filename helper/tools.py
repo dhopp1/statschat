@@ -173,9 +173,12 @@ def get_unctadstat(
         start_year = 1950
     if end_year is None:
         end_year = datetime.datetime.now().year
-    year_filter = (
-        f"""Year in ({",".join([str(_) for _ in range(start_year, end_year + 1)])})"""
-    )
+
+    # different date filter for population growth report
+    if report_code in ["US.PopGR"]:
+        year_filter = f"""Period/Label in ({",".join(["'" + str(_) + "'" for _ in range(start_year, end_year + 1)])})"""
+    else:
+        year_filter = f"""Year in ({",".join([str(_) for _ in range(start_year, end_year + 1)])})"""
 
     # country filter
     if country_code == "all":
