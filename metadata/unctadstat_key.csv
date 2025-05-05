@@ -3,3 +3,4 @@ id,report_code,report_name,indicator_code,indicator_name,return_columns,notes
 2,US.PopTotal,"Total and urban population, annual",M5044/Value,Urban population as percentage of total population,"Economy/Label,Year,M5044/Value",
 3,US.PopAgeStruct,"Population structure by gender and age-group, annual, 1950-2050",M3700/Value,Absolute value,"Economy/Label,Year,AgeClass/Label,Sex/Label,M3700/Value",
 4,US.PopGR,"Total population growth rates, annual, 1950-2050",M4017/Value,Annual average growth rate,"Economy/Label,Period/Label,M4017/Value",
+5,US.PopDependency,"Total, child and old-age dependency ratios, annual 1950-2050",M3759/Value,Persons per hundred persons aged 15-64,"Economy/Label,Year,Series/Label,M3759/Value",
