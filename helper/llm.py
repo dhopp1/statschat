@@ -18,6 +18,13 @@ def create_llm(force=True):
             pass
 
     if "llm" not in st.session_state or force:
+        if "Gemini 2.5 Flash" in st.session_state["selected_llm"]:
+            reasoning_effort = "none"
+            if "Thinking" in st.session_state["selected_llm"]:
+                reasoning_effort = "medium"
+        else:
+            reasoning_effort = None
+
         st.session_state["llm"] = customLLM(
             api_key=st.session_state["llm_info"]
             .loc[lambda x: x["name"] == st.session_state["selected_llm"], "api_key"]
@@ -30,6 +37,7 @@ def create_llm(force=True):
             .values[0],
             temperature=0.0,
             max_tokens=4096,
+            reasoning_effort=reasoning_effort,
             system_prompts=st.session_state["system_prompts"],
         )
 
