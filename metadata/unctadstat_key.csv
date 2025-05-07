@@ -6,3 +6,7 @@ id,report_code,report_name,indicator_code,indicator_name,return_columns,notes
 5,US.PopDependency,"Total, child and old-age dependency ratios, annual 1950-2050",M3759/Value,Persons per hundred persons aged 15-64,"Economy/Label,Year,Series/Label,M3759/Value",
 6,US.InclusiveGrowth,Inclusive Growth Index (IGI),M6081/Value,Inclusive growth,"Economy/Label,Year,Category/Label,M6081/Value",
 7,US.Gender_DomesticValueAdded,Domestic value added content in gross exports by sex and broad sector,M5067/Value,Percentage of Domestic Value Added,"Economy/Label,Year,Components/Label,Industry/Label,Sex/Label,M5067/Value",
+8,US.Gender_TradableIndustries,Employment and average monthly earnings in tradable and non-tradable industries,M5080/Value,Percentage of employees,"Economy/Label,Year,Sex/Label,Industry/Label,M5080/Value",
+9,US.Gender_TradableIndustries,Employment and average monthly earnings in tradable and non-tradable industries,M3763/Value,Number of employees in thousands,"Economy/Label,Year,Sex/Label,Industry/Label,M3763/Value",
+10,US.Gender_TradableIndustries,Employment and average monthly earnings in tradable and non-tradable industries,M0170/Value,Average monthly earnings of employees (US$),"Economy/Label,Year,Sex/Label,Industry/Label,M0170/Value",
+11,US.Gender_TradableIndustries,Employment and average monthly earnings in tradable and non-tradable industries,M0171/Value,Average monthly earnings of employees (2017 PPP $),"Economy/Label,Year,Sex/Label,Industry/Label,M0171/Value",
