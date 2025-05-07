@@ -26,3 +26,8 @@ id,report_code,report_name,indicator_code,indicator_name,return_columns,notes
 25,US.TradeServICT,"International trade in ICT services, value, shares and growth, annual",M4024/Value,Growth rate (over previous period),"Economy/Label,Year,Flow/Label,M4024/Value",
 26,US.BioTradeMerchGDPShare,"Trade and biodiversity - Biotrade as percentage of Gross Domestic Product, annual",M5065/Value,Percentage of biotrade in GDP,"Economy/Label,Year,M5065/Value",
 27,US.BioTradeMerchProdConcent,"Trade and Biodiversity - Product concentration indices of exports and imports, annual",M6039/Value,Product concentration index,"Economy/Label,Year,Flow/Label,M6039/Value",
+28,US.OceanExportsPerCapitaIndividualEconomies,"Ocean goods trade: trade per capita, individual economies, annual",M0110/Value,US$ at current prices per capita,"Economy/Label,Year,M0110/Value",
+29,US.OceanExportsPerCapitaRegionalAggregates,"Ocean goods trade: trade per capita, estimated global and regional aggregates, annual",M0110/Value,US$ at current prices per capita,"Economy/Label,Year,M0110/Value",
+30,US.OceanServices,"Ocean services trade: value, growth and per capita, annual",M0100/Value,US$ at current prices,"Economy/Label,Year,Flow/Label,Category/Label,M0100/Value",
+31,US.OceanServices,"Ocean services trade: value, growth and per capita, annual",M4024/Value,Growth rate (over previous period),"Economy/Label,Year,Flow/Label,Category/Label,M4024/Value",
+32,US.OceanServices,"Ocean services trade: value, growth and per capita, annual",M0110/Value,US$ at current prices per capita,"Economy/Label,Year,Flow/Label,Category/Label,M0110/Value",
