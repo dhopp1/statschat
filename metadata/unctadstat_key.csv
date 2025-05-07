@@ -10,3 +10,4 @@ id,report_code,report_name,indicator_code,indicator_name,return_columns,notes
 9,US.Gender_TradableIndustries,Employment and average monthly earnings in tradable and non-tradable industries,M3763/Value,Number of employees in thousands,"Economy/Label,Year,Sex/Label,Industry/Label,M3763/Value",
 10,US.Gender_TradableIndustries,Employment and average monthly earnings in tradable and non-tradable industries,M0170/Value,Average monthly earnings of employees (US$),"Economy/Label,Year,Sex/Label,Industry/Label,M0170/Value",
 11,US.Gender_TradableIndustries,Employment and average monthly earnings in tradable and non-tradable industries,M0171/Value,Average monthly earnings of employees (2017 PPP $),"Economy/Label,Year,Sex/Label,Industry/Label,M0171/Value",
+12,US.FTRI,"Frontier technology readiness index, annual",M6700/Value,FTRI Index,"Economy/Label,Year,Category/Label,M6700/Value",
