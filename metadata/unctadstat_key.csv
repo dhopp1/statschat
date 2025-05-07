@@ -25,3 +25,4 @@ id,report_code,report_name,indicator_code,indicator_name,return_columns,notes
 24,US.TradeServICT,"International trade in ICT services, value, shares and growth, annual",M5022/Value,Percentage of total trade in services,"Economy/Label,Year,Flow/Label,M5022/Value",
 25,US.TradeServICT,"International trade in ICT services, value, shares and growth, annual",M4024/Value,Growth rate (over previous period),"Economy/Label,Year,Flow/Label,M4024/Value",
 26,US.BioTradeMerchGDPShare,"Trade and biodiversity - Biotrade as percentage of Gross Domestic Product, annual",M5065/Value,Percentage of biotrade in GDP,"Economy/Label,Year,M5065/Value",
+27,US.BioTradeMerchProdConcent,"Trade and Biodiversity - Product concentration indices of exports and imports, annual",M6039/Value,Product concentration index,"Economy/Label,Year,Flow/Label,M6039/Value",
