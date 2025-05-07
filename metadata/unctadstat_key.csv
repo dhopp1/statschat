@@ -39,3 +39,5 @@ id,report_code,report_name,indicator_code,indicator_name,return_columns,notes
 38,US.MerchantFleet,"Merchant fleet by flag of registration and by type of ship, annual",M6900/Value,Number of ships,"Economy/Label,Year,ShipType/Label,M6900/Value",
 39,US.MerchantFleet,"Merchant fleet by flag of registration and by type of ship, annual",M7000/Value,Gross Tonnage,"Economy/Label,Year,ShipType/Label,M7000/Value",
 40,US.MerchantFleet,"Merchant fleet by flag of registration and by type of ship, annual",M3762/Value,Average age of vessels (years),"Economy/Label,Year,ShipType/Label,M3762/Value",
+41,US.SeaborneTrade,"World seaborne trade by type of cargo, annual",M2200/Value,Metric tons,"Economy/Label,Year,CargoType/Label,M2200/Value",
+42,US.ContPortThroughput,"Container port throughput, annual",M1900/Value,TEU (Twenty foot Equivalent Unit),"Economy/Label,Year,M1900/Value",
