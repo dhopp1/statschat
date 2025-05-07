@@ -12,3 +12,4 @@ id,report_code,report_name,indicator_code,indicator_name,return_columns,notes
 11,US.Gender_TradableIndustries,Employment and average monthly earnings in tradable and non-tradable industries,M0171/Value,Average monthly earnings of employees (2017 PPP $),"Economy/Label,Year,Sex/Label,Industry/Label,M0171/Value",
 12,US.FTRI,"Frontier technology readiness index, annual",M6700/Value,FTRI Index,"Economy/Label,Year,Category/Label,M6700/Value",
 13,US.IctProductionSector,"ICT producing sector core indicators, annual",M5059/Value,Percentage of total business sector,"Economy/Label,Year,Variable/Label,M5059/Value",
+14,US.IctUseLocation,"Core indicators on ICT use in business by location type, annual",M5060/Value,Percentage,"Economy/Label,Year,UseOfIct/Label,LocationType/Label,M5060/Value",
