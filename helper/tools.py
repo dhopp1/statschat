@@ -196,9 +196,14 @@ def get_unctadstat(
                     lambda x: x["ISO3"].isin(country_code), "UNCTAD_code"
                 ].values
             )
-        country_filter = (
-            f"""Economy/Code in ({','.join(["'" + _ + "'" for _ in country_codes])})"""
-        )
+
+        # different country filter for vessel value report
+        if report_code in ["US.VesselValueByOwnership"]:
+            country_filter = f"""BeneficialOwnership/Code in ({','.join(["'" + _ + "'" for _ in country_codes])})"""
+        elif report_code in ["US.VesselValueByRegistration"]:
+            country_filter = f"""FlagOfRegistration/Code in ({','.join(["'" + _ + "'" for _ in country_codes])})"""
+        else:
+            country_filter = f"""Economy/Code in ({','.join(["'" + _ + "'" for _ in country_codes])})"""
 
     # combined filter
     combined_filter = (
