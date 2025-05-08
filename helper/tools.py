@@ -94,8 +94,8 @@ def get_unctadstat(
     report_code: str,
     indicator_code: str,
     country_code: Union[str, List[str]],
-    start_year: Optional[int] = None,
-    end_year: Optional[int] = None,
+    start_year: Optional[Union[int, str]] = None,
+    end_year: Optional[Union[int, str]] = None,
 ) -> pd.DataFrame:
     """
     Fetch data from UNCTADstat.
@@ -104,8 +104,8 @@ def get_unctadstat(
         report_code: the code of the desired dataset.
         indicator_code: the desired indicator code or name of the dataset.
         country_code (str or list[str]): either a single ISO 3-letter country code, a list of ISO 3-letter country codes, or 'all' for all countries and groups.
-        start_year (int): start year of the data. If start_year and end_year are None, it will return all available years
-        end_year (int): end year of the data
+        start_year (int or str): int start year of the data. If start_year and end_year are None, it will return all available years. For semi-annual/semester data, pass string like '2023S01' for first half of 2023, '2023S02' for second half, etc.
+        end_year (int or str): int end year of the data.  For semi-annual/semester data, pass string like '2023S01' for first half of 2023, '2023S02' for second half, etc.
 
     Returns:
         pandas.DataFrame: DataFrame containing the data
@@ -157,6 +157,13 @@ def get_unctadstat(
     column_name = unctadstat_key["indicator_code"].values[0]
     return_columns = unctadstat_key["return_columns"].values[0]
 
+    # if passed a S01 for start or end_year, change report to US.PortCalls_S for semi-annual data
+    semi_annual_port = report_code == "US.PortCalls" and (
+        isinstance(start_year, str) or isinstance(end_year, str)
+    )
+    if semi_annual_port:
+        report_code += "_S"
+
     # url construction
     base_url = "https://unctadstat-user-api.unctad.org"
     version = "cur"
@@ -170,13 +177,21 @@ def get_unctadstat(
 
     # year filter
     if start_year is None:
-        start_year = 1950
+        if semi_annual_port:
+            start_year = "1950S01"
+        else:
+            start_year = 1950
     if end_year is None:
-        end_year = datetime.datetime.now().year
+        if semi_annual_port:
+            end_year = str(datetime.datetime.now().year) + "S02"
+        else:
+            end_year = datetime.datetime.now().year
 
     # different date filter for population growth report
     if report_code in ["US.PopGR"]:
         year_filter = f"""Period/Label in ({",".join(["'" + str(_) + "'" for _ in range(start_year, end_year + 1)])})"""
+    elif semi_annual_port:
+        year_filter = f"""Period/Code in ({",".join([f"'{year}S{season:02}'" for year in list(range(int(start_year[:4]), int(end_year[:4])+1)) for season in range(1, 3)])})"""
     else:
         year_filter = f"""Year in ({",".join([str(_) for _ in range(start_year, end_year + 1)])})"""
 
@@ -211,6 +226,9 @@ def get_unctadstat(
         if year_filter and country_filter
         else year_filter or country_filter or ""
     )
+
+    if semi_annual_port:
+        return_columns = return_columns.replace("Year", "Period/Label")
 
     params = {
         "$filter": combined_filter,
