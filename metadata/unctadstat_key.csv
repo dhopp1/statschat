@@ -103,3 +103,6 @@ id,report_code,report_name,indicator_code,indicator_name,return_columns,notes
 102,US.CreativeServ_Indiv_Tot,International trade in creative services: estimates for individual economies (analytical),M5022/Value,Percentage of total trade in services,"Economy/Label,Year,Flow/Label,M5022/Value",
 103,US.CreativeServ_Indiv_Tot,International trade in creative services: estimates for individual economies (analytical),M0100/Value,US$ at current prices,"Economy/Label,Year,Flow/Label,M0100/Value",
 104,US.CreativeServ_Indiv_Tot,International trade in creative services: estimates for individual economies (analytical),M4023/Value,"Growth rate, year-on-year","Economy/Label,Year,Flow/Label,M4023/Value",
+105,US.CreativeServ_Group_E,Creative services exports of selected groups of economies (analytical),M5022/Value,Percentage of total trade in services,"Economy/Label,Year,CreativeService/Label,M5022/Value",
+106,US.CreativeServ_Group_E,Creative services exports of selected groups of economies (analytical),M0100/Value,US$ at current prices,"Economy/Label,Year,CreativeService/Label,M0100/Value",
+107,US.CreativeServ_Group_E,Creative services exports of selected groups of economies (analytical),M4023/Value,"Growth rate, year-on-year","Economy/Label,Year,CreativeService/Label,M4023/Value",
