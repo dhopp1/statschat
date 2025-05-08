@@ -99,3 +99,4 @@ id,report_code,report_name,indicator_code,indicator_name,return_columns,notes
 98,US.ConcentDiversIndices,"Merchandise: Product concentration and diversification indices of exports and imports, annual",M6036/Value,Concentration Index,"Economy/Label,Year,Flow/Label,M6036/Value",
 99,US.ConcentDiversIndices,"Merchandise: Product concentration and diversification indices of exports and imports, annual",M3700/Value,Number of products,"Economy/Label,Year,Flow/Label,M3700/Value",
 100,US.ConcentDiversIndices,"Merchandise: Product concentration and diversification indices of exports and imports, annual",M6037/Value,Diversification Index,"Economy/Label,Year,Flow/Label,M6037/Value",
+101,US.MerchTheilIndices,"Merchandise: Theil concentration indices of exports and imports, annual",M6082/Value,Theil Concentration Index,"Economy/Label,Year,Flow/Label,Series/Label,M6082/Value",
