@@ -96,3 +96,6 @@ id,report_code,report_name,indicator_code,indicator_name,return_columns,notes
 95,US.MerchVolumeQuarterly,"Volume growth rates of merchandise exports and imports, quarterly (analytical)",M4023/Value,"Growth rate, year-on-year","Economy/Label,Quarter/Code,Flow/Label,M4023/Value",
 96,US.MerchVolumeQuarterly,"Volume growth rates of merchandise exports and imports, quarterly (analytical)",M4027/Value,"Growth rate (over previous period), seasonally adjusted","Economy/Label,Quarter/Code,Flow/Label,M4027/Value",
 97,US.TermsOfTrade,"Merchandise: Trade value, volume, unit value, terms of trade indices and purchasing power index of exports, annual",M6475/Value,Index Base 2015,"Economy/Label,Year,Index/Label,M6475/Value",
+98,US.ConcentDiversIndices,"Merchandise: Product concentration and diversification indices of exports and imports, annual",M6036/Value,Concentration Index,"Economy/Label,Year,Flow/Label,M6036/Value",
+99,US.ConcentDiversIndices,"Merchandise: Product concentration and diversification indices of exports and imports, annual",M3700/Value,Number of products,"Economy/Label,Year,Flow/Label,M3700/Value",
+100,US.ConcentDiversIndices,"Merchandise: Product concentration and diversification indices of exports and imports, annual",M6037/Value,Diversification Index,"Economy/Label,Year,Flow/Label,M6037/Value",
