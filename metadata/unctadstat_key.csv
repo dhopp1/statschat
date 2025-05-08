@@ -85,3 +85,4 @@ id,report_code,report_name,indicator_code,indicator_name,return_columns,notes
 84,US.PCI,"Productive capacities index, annual, 2000-2022",M6080/Value,Productive Capacities Index,"Economy/Label,Year,Category/Label,M6080/Value",
 85,US.Cpi_A,"Consumer price indices, annual",M6510/Value,Index Base 2010,"Economy/Label,Year,M6510/Value",
 86,US.Cpi_A,"Consumer price indices, annual",M4017/Value,Annual average growth rate,"Economy/Label,Year,M4017/Value",
+87,US.TradeMerchTotal,"Merchandise: Total trade and share, annual",M5011/Value,Percentage of total world,"Economy/Label,Year,Flow/Label,M5011/Value",
