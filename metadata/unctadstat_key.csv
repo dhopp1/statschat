@@ -88,3 +88,5 @@ id,report_code,report_name,indicator_code,indicator_name,return_columns,notes
 87,US.TradeMerchTotal,"Merchandise: Total trade and share, annual",M5011/Value,Percentage of total world,"Economy/Label,Year,Flow/Label,M5011/Value",
 88,US.TradeMerchTotal,"Merchandise: Total trade and share, annual",M0100/Value,US$ at current prices,"Economy/Label,Year,Flow/Label,M0100/Value",
 89,US.TradeMerchGR,"Merchandise: Total trade growth rates, annual",M4017/Value,Annual average growth rate,"Economy/Label,Year,Flow/Label,M4017/Value",
+90,US.TradeMerchBalance,"Merchandise: Trade balance, annual",M5015/Value,Percentage of imports,"Economy/Label,Year,Flow/Label,M5015/Value",
+91,US.TradeMerchBalance,"Merchandise: Trade balance, annual",M0100/Value,US$ at current prices,"Economy/Label,Year,Flow/Label,M0100/Value",
