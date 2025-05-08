@@ -54,3 +54,7 @@ id,report_code,report_name,indicator_code,indicator_name,return_columns,notes
 53,US.LSCI,Liner shipping connectivity index,M4024/Value,Growth rate (over previous period),"Economy/Label,Quarter/Code,M4024/Value",
 54,US.LSCI,Liner shipping connectivity index,M6047/Value,Index,"Economy/Label,Quarter/Code,M6047/Value",
 55,US.LSCI,Liner shipping connectivity index,M8004/Value,Ranking per quarter,"Economy/Label,Quarter/Code,M8004/Value",
+56,US.ShipBuilding,"Ships built by country of building, annual",M5063/Value,Percentage of total all economies,"Economy/Label,Year,M5063/Value",
+57,US.ShipBuilding,"Ships built by country of building, annual",M7000/Value,Gross Tonnage,"Economy/Label,Year,M7000/Value",
+58,US.ShipScrapping,"Ship recycling, by country, annual",M5063/Value,Percentage of total all economies,"Economy/Label,Year,M5063/Value",
+59,US.ShipScrapping,"Ship recycling, by country, annual",M7000/Value,Gross Tonnage,"Economy/Label,Year,M7000/Value",
