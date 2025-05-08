@@ -80,3 +80,5 @@ id,report_code,report_name,indicator_code,indicator_name,return_columns,notes
 79,US.FdiFlowsStock,"Foreign direct investment: Inward and outward flows and stock, annual",M0110/Value,US$ at current prices per capita,"Economy/Label,Year,Direction/Label,Flow/Label,M0110/Value",
 80,US.FdiFlowsStock,"Foreign direct investment: Inward and outward flows and stock, annual",M5025/Value,Percentage of Gross Domestic Product,"Economy/Label,Year,Direction/Label,Flow/Label,M5025/Value",
 81,US.FdiFlowsStock,"Foreign direct investment: Inward and outward flows and stock, annual",M5026/Value,Percentage of Gross Fixed Capital Formation,"Economy/Label,Year,Direction/Label,Flow/Label,M5026/Value",
+82,US.Remittances,"Personal remittances: receipts and payments, annual",M5025/Value,Percentage of Gross Domestic Product,"Economy/Label,Year,Flow/Label,M5025/Value",
+83,US.Remittances,"Personal remittances: receipts and payments, annual",M0100/Value,US$ at current prices,"Economy/Label,Year,Flow/Label,M0100/Value",
