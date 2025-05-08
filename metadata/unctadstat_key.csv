@@ -83,3 +83,5 @@ id,report_code,report_name,indicator_code,indicator_name,return_columns,notes
 82,US.Remittances,"Personal remittances: receipts and payments, annual",M5025/Value,Percentage of Gross Domestic Product,"Economy/Label,Year,Flow/Label,M5025/Value",
 83,US.Remittances,"Personal remittances: receipts and payments, annual",M0100/Value,US$ at current prices,"Economy/Label,Year,Flow/Label,M0100/Value",
 84,US.PCI,"Productive capacities index, annual, 2000-2022",M6080/Value,Productive Capacities Index,"Economy/Label,Year,Category/Label,M6080/Value",
+85,US.Cpi_A,"Consumer price indices, annual",M6510/Value,Index Base 2010,"Economy/Label,Year,M6510/Value",
+86,US.Cpi_A,"Consumer price indices, annual",M4017/Value,Annual average growth rate,"Economy/Label,Year,M4017/Value",
