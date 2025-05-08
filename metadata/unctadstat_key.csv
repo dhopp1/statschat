@@ -58,3 +58,7 @@ id,report_code,report_name,indicator_code,indicator_name,return_columns,notes
 57,US.ShipBuilding,"Ships built by country of building, annual",M7000/Value,Gross Tonnage,"Economy/Label,Year,M7000/Value",
 58,US.ShipScrapping,"Ship recycling, by country, annual",M5063/Value,Percentage of total all economies,"Economy/Label,Year,M5063/Value",
 59,US.ShipScrapping,"Ship recycling, by country, annual",M7000/Value,Gross Tonnage,"Economy/Label,Year,M7000/Value",
+60,US.GDPTotal,"Gross domestic product: Total and per capita, current and constant (2015) prices, annual",M0100/Value,US$ at current prices,"Economy/Label,Year,M0100/Value",
+61,US.GDPTotal,"Gross domestic product: Total and per capita, current and constant (2015) prices, annual",M0110/Value,US$ at current prices per capita,"Economy/Label,Year,M0110/Value",
+62,US.GDPTotal,"Gross domestic product: Total and per capita, current and constant (2015) prices, annual",M0940/Value,US$ at constant prices (2015),"Economy/Label,Year,M0940/Value",
+63,US.GDPTotal,"Gross domestic product: Total and per capita, current and constant (2015) prices, annual",M0950/Value,US$ at constant prices (2015) per capita,"Economy/Label,Year,M0950/Value",
