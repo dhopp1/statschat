@@ -100,3 +100,6 @@ id,report_code,report_name,indicator_code,indicator_name,return_columns,notes
 99,US.ConcentDiversIndices,"Merchandise: Product concentration and diversification indices of exports and imports, annual",M3700/Value,Number of products,"Economy/Label,Year,Flow/Label,M3700/Value",
 100,US.ConcentDiversIndices,"Merchandise: Product concentration and diversification indices of exports and imports, annual",M6037/Value,Diversification Index,"Economy/Label,Year,Flow/Label,M6037/Value",
 101,US.MerchTheilIndices,"Merchandise: Theil concentration indices of exports and imports, annual",M6082/Value,Theil Concentration Index,"Economy/Label,Year,Flow/Label,Series/Label,M6082/Value",
+102,US.CreativeServ_Indiv_Tot,International trade in creative services: estimates for individual economies (analytical),M5022/Value,Percentage of total trade in services,"Economy/Label,Year,Flow/Label,M5022/Value",
+103,US.CreativeServ_Indiv_Tot,International trade in creative services: estimates for individual economies (analytical),M0100/Value,US$ at current prices,"Economy/Label,Year,Flow/Label,M0100/Value",
+104,US.CreativeServ_Indiv_Tot,International trade in creative services: estimates for individual economies (analytical),M4023/Value,"Growth rate, year-on-year","Economy/Label,Year,Flow/Label,M4023/Value",
