@@ -64,3 +64,5 @@ id,report_code,report_name,indicator_code,indicator_name,return_columns,notes
 63,US.GDPTotal,"Gross domestic product: Total and per capita, current and constant (2015) prices, annual",M0950/Value,US$ at constant prices (2015) per capita,"Economy/Label,Year,M0950/Value",
 64,US.GDPGR,"Real gross domestic product: Total and per capita, growth rates, annual",M4010/Value,Annual average growth rate per capita,"Economy/Label,Year,M4010/Value",
 65,US.GDPGR,"Real gross domestic product: Total and per capita, growth rates, annual",M4017/Value,Annual average growth rate,"Economy/Label,Year,M4017/Value",
+66,US.GNI,"Nominal GNI, total and per capita, annual",M0110/Value,US dollars at current prices per capita,"Economy/Label,Year,M0110/Value",
+67,US.GNI,"Nominal GNI, total and per capita, annual",M0100/Value,US dollars at current prices,"Economy/Label,Year,M0100/Value",
