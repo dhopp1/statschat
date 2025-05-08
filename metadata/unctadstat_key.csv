@@ -66,3 +66,5 @@ id,report_code,report_name,indicator_code,indicator_name,return_columns,notes
 65,US.GDPGR,"Real gross domestic product: Total and per capita, growth rates, annual",M4017/Value,Annual average growth rate,"Economy/Label,Year,M4017/Value",
 66,US.GNI,"Nominal GNI, total and per capita, annual",M0110/Value,US dollars at current prices per capita,"Economy/Label,Year,M0110/Value",
 67,US.GNI,"Nominal GNI, total and per capita, annual",M0100/Value,US dollars at current prices,"Economy/Label,Year,M0100/Value",
+68,US.GoodsAndServicesBpm6,"Goods and services (BPM6): Exports and imports of goods and services, annual",M5024/Value,Percentage of total trade in goods and services,"Economy/Label,Year,Flow/Label,Series/Label,M5024/Value",
+69,US.GoodsAndServicesBpm6,"Goods and services (BPM6): Exports and imports of goods and services, annual",M0100/Value,US$ at current prices,"Economy/Label,Year,Flow/Label,Series/Label,M0100/Value",
