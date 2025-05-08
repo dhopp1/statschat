@@ -94,8 +94,8 @@ def get_unctadstat(
     report_code: str,
     indicator_code: str,
     country_code: Union[str, List[str]],
-    start_year: Optional[Union[int, str]] = None,
-    end_year: Optional[Union[int, str]] = None,
+    start_date: Optional[Union[int, str]] = None,
+    end_date: Optional[Union[int, str]] = None,
 ) -> pd.DataFrame:
     """
     Fetch data from UNCTADstat.
@@ -104,8 +104,8 @@ def get_unctadstat(
         report_code: the code of the desired dataset.
         indicator_code: the desired indicator code or name of the dataset.
         country_code (str or list[str]): either a single ISO 3-letter country code, a list of ISO 3-letter country codes, or 'all' for all countries and groups.
-        start_year (int or str): int start year of the data. If start_year and end_year are None, it will return all available years. For semi-annual/semester data, pass string like '2023S01' for first half of 2023, '2023S02' for second half, etc.
-        end_year (int or str): int end year of the data.  For semi-annual/semester data, pass string like '2023S01' for first half of 2023, '2023S02' for second half, etc.
+        start_date (int or str): int start year of the data. If None, it will return from the earliest available date. For semi-annual/semester data, pass string like '2023S01' for first half of 2023, '2023S02' for second half, etc. For quarterly data, pass a string like '2023Q01', '2023Q04', etc. For monthly data, pass a string like '2023M01', '2023M10', etc.
+        end_date (int or str): int end year of the data. If None, it will return until the present year.  For semi-annual/semester data, pass string like '2023S01' for first half of 2023, '2023S02' for second half, etc For quarterly data, pass a string like '2023Q01', '2023Q04', etc. For monthly data, pass a string like '2023M01', '2023M10', etc.
 
     Returns:
         pandas.DataFrame: DataFrame containing the data
@@ -157,12 +157,19 @@ def get_unctadstat(
     column_name = unctadstat_key["indicator_code"].values[0]
     return_columns = unctadstat_key["return_columns"].values[0]
 
-    # if passed a S01 for start or end_year, change report to US.PortCalls_S for semi-annual data
+    # if passed a S01 for start or end_date, change report to US.PortCalls_S for semi-annual data
     semi_annual_port = report_code in ["US.PortCalls", "US.PortCallsArrivals"] and (
-        isinstance(start_year, str) or isinstance(end_year, str)
+        isinstance(start_date, str) or isinstance(end_date, str)
     )
     if semi_annual_port:
         report_code += "_S"
+
+    # if passed a M01 for start or end_date, change report to US.PortCalls_M for monthly data
+    monthly_liner = report_code in ["US.LSCI"] and (
+        "M" in str(start_date) or "M" in str(end_date)
+    )
+    if monthly_liner:
+        report_code += "_M"
 
     # url construction
     base_url = "https://unctadstat-user-api.unctad.org"
@@ -175,25 +182,48 @@ def get_unctadstat(
         "clientsecret": os.environ.get("UNCTADSTAT_CLIENTSECRET"),
     }
 
-    # year filter
-    if start_year is None:
+    # date filter
+    if start_date is None:
         if semi_annual_port:
-            start_year = "1950S01"
+            start_date = "1950S01"
+        if report_code == "US.LSCI":
+            if monthly_liner:
+                start_date = "1950M01"
+            else:
+                start_date = "1950Q01"
         else:
-            start_year = 1950
-    if end_year is None:
+            start_date = 1950
+    if end_date is None:
         if semi_annual_port:
-            end_year = str(datetime.datetime.now().year) + "S02"
+            end_date = str(datetime.datetime.now().year) + "S02"
+        if report_code in ["US.LSCI", "US.LSCI_M"]:
+            if monthly_liner:
+                end_date = f"{datetime.datetime.now().year}M12"
+            else:
+                end_date = f"{datetime.datetime.now().year}Q04"
         else:
-            end_year = datetime.datetime.now().year
+            end_date = datetime.datetime.now().year
+
+    if report_code == "US.LSCI":
+        if isinstance(start_date, int):
+            start_date = f"{start_date}Q01"
+        if isinstance(end_date, int):
+            end_date = f"{end_date}Q04"
 
     # different date filter for population growth report
     if report_code in ["US.PopGR"]:
-        year_filter = f"""Period/Label in ({",".join(["'" + str(_) + "'" for _ in range(start_year, end_year + 1)])})"""
+        date_filter = f"""Period/Label in ({",".join(["'" + str(_) + "'" for _ in range(start_date, end_date + 1)])})"""
     elif semi_annual_port:
-        year_filter = f"""Period/Code in ({",".join([f"'{year}S{season:02}'" for year in list(range(int(start_year[:4]), int(end_year[:4])+1)) for season in range(1, 3)])})"""
+        date_filter = f"""Period/Code in ({",".join([f"'{year}S{season:02}'" for year in list(range(int(start_date[:4]), int(end_date[:4])+1)) for season in range(1, 3) if f"{year}S{season:02}" >= start_date and f"{year}S{season:02}" <= end_date])})"""
+    elif report_code in ["US.LSCI", "US.LSCI_M"]:
+        if monthly_liner:
+            date_filter = f"""Month/Code in ({",".join([f"'{year}M{month:02}'" for year in list(range(int(start_date[:4]), int(end_date[:4])+1)) for month in range(1, 13) if f"{year}M{month:02}" >= start_date and f"{year}M{month:02}" <= end_date])})"""
+        else:
+            date_filter = f"""Quarter/Code in ({",".join([f"'{year}Q{quarter:02}'" for year in list(range(int(start_date[:4]), int(end_date[:4])+1)) for quarter in range(1, 5) if f"{year}Q{quarter:02}" >= start_date and f"{year}Q{quarter:02}" <= end_date])})"""
     else:
-        year_filter = f"""Year in ({",".join([str(_) for _ in range(start_year, end_year + 1)])})"""
+        date_filter = (
+            f"""Year in ({",".join([str(_) for _ in range(start_date, end_date+1)])})"""
+        )
 
     # country filter
     if country_code == "all":
@@ -222,13 +252,17 @@ def get_unctadstat(
 
     # combined filter
     combined_filter = (
-        f"{year_filter} and {country_filter}"
-        if year_filter and country_filter
-        else year_filter or country_filter or ""
+        f"{date_filter} and {country_filter}"
+        if date_filter and country_filter
+        else date_filter or country_filter or ""
     )
 
     if semi_annual_port:
-        return_columns = return_columns.replace("Year", "Period/Label")
+        return_columns = return_columns.replace("Year", "Period/Code")
+    if monthly_liner:
+        return_columns = return_columns.replace("Quarter/Code", "Month/Code").replace(
+            "M6047/Value", "M6048/Value"
+        )
 
     params = {
         "$filter": combined_filter,
@@ -244,5 +278,54 @@ def get_unctadstat(
             column_name.replace("/", "_"): unctadstat_key["indicator_name"].values[0]
         }
     )  # replacing code name with readable name
+
+    # converting semester, quarterly, and monthly to date format
+    if semi_annual_port:
+        df["Period_Code"] = [
+            (
+                lambda d: datetime.date(int(d[:4]), 6 if d[4:] == "S01" else 12, 1)
+                if isinstance(d, str)
+                and len(d) == 7
+                and d[4] == "S"
+                and d[5:7].isdigit()
+                and (d[5:7] == "01" or d[5:7] == "02")
+                else None
+            )(d)
+            for d in df["Period_Code"]
+        ]
+
+    if report_code in ["US.LSCI", "US.LSCI_M"]:
+        if monthly_liner:
+            df["Month_Code"] = [
+                datetime.datetime.strptime(d, "%YM%m").date() for d in df["Month_Code"]
+            ]
+        else:
+            df["Quarter_Code"] = [
+                (
+                    lambda d: datetime.date(int(d[:4]), (int(d[5:]) - 1) * 3 + 3, 1)
+                    if isinstance(d, str)
+                    and len(d) == 7
+                    and d[4] == "Q"
+                    and d[5:].isdigit()
+                    and 1 <= int(d[5:]) <= 4
+                    else None
+                )(d)
+                for d in df["Quarter_Code"]
+            ]
+
+    # naming date column
+    df = df.rename(
+        columns={
+            col: "date"
+            for col in [
+                "Period_Label",
+                "Period_Code",
+                "Year",
+                "Month_Code",
+                "Quarter_Code",
+            ]
+            if col in df.columns
+        }
+    )
 
     return df

@@ -50,3 +50,7 @@ id,report_code,report_name,indicator_code,indicator_name,return_columns,notes
 49,US.PortCalls,"Port call and performance statistics: time spent in ports, vessel age and size, annual",M2321/Value,Maximum cargo carrying capacity (dwt) of vessels,"Economy/Label,Year,CommercialMarket/Label,M2321/Value",
 50,US.PortCalls,"Port call and performance statistics: time spent in ports, vessel age and size, annual",M1921/Value,Maximum container carrying capacity (TEU) of container ships,"Economy/Label,Year,CommercialMarket/Label,M1921/Value",
 51,US.PortCallsArrivals,"Port call and performance statistics: number of port calls, annual",M3760/Value,Number of port calls,"Economy/Label,Year,CommercialMarket/Label,M3760/Value",
+52,US.LSCI,Liner shipping connectivity index,M4023/Value,"Growth rate, year-on-year","Economy/Label,Quarter/Code,M4023/Value",
+53,US.LSCI,Liner shipping connectivity index,M4024/Value,Growth rate (over previous period),"Economy/Label,Quarter/Code,M4024/Value",
+54,US.LSCI,Liner shipping connectivity index,M6047/Value,Index,"Economy/Label,Quarter/Code,M6047/Value",
+55,US.LSCI,Liner shipping connectivity index,M8004/Value,Ranking per quarter,"Economy/Label,Quarter/Code,M8004/Value",
