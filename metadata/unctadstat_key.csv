@@ -95,3 +95,4 @@ id,report_code,report_name,indicator_code,indicator_name,return_columns,notes
 94,US.MerchVolumeQuarterly,"Volume growth rates of merchandise exports and imports, quarterly (analytical)",M4024/Value,Growth rate (over previous period),"Economy/Label,Quarter/Code,Flow/Label,M4024/Value",
 95,US.MerchVolumeQuarterly,"Volume growth rates of merchandise exports and imports, quarterly (analytical)",M4023/Value,"Growth rate, year-on-year","Economy/Label,Quarter/Code,Flow/Label,M4023/Value",
 96,US.MerchVolumeQuarterly,"Volume growth rates of merchandise exports and imports, quarterly (analytical)",M4027/Value,"Growth rate (over previous period), seasonally adjusted","Economy/Label,Quarter/Code,Flow/Label,M4027/Value",
+97,US.TermsOfTrade,"Merchandise: Trade value, volume, unit value, terms of trade indices and purchasing power index of exports, annual",M6475/Value,Index Base 2015,"Economy/Label,Year,Index/Label,M6475/Value",
