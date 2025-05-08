@@ -82,3 +82,4 @@ id,report_code,report_name,indicator_code,indicator_name,return_columns,notes
 81,US.FdiFlowsStock,"Foreign direct investment: Inward and outward flows and stock, annual",M5026/Value,Percentage of Gross Fixed Capital Formation,"Economy/Label,Year,Direction/Label,Flow/Label,M5026/Value",
 82,US.Remittances,"Personal remittances: receipts and payments, annual",M5025/Value,Percentage of Gross Domestic Product,"Economy/Label,Year,Flow/Label,M5025/Value",
 83,US.Remittances,"Personal remittances: receipts and payments, annual",M0100/Value,US$ at current prices,"Economy/Label,Year,Flow/Label,M0100/Value",
+84,US.PCI,"Productive capacities index, annual, 2000-2022",M6080/Value,Productive Capacities Index,"Economy/Label,Year,Category/Label,M6080/Value",
