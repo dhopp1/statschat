@@ -186,7 +186,7 @@ def get_unctadstat(
     if start_date is None:
         if semi_annual_port:
             start_date = "1950S01"
-        elif report_code == "US.LSCI":
+        elif report_code in ["US.LSCI", "US.LSCI_M", "US.MerchVolumeQuarterly"]:
             if monthly_liner:
                 start_date = "1950M01"
             else:
@@ -198,7 +198,7 @@ def get_unctadstat(
     if end_date is None:
         if semi_annual_port:
             end_date = str(datetime.datetime.now().year) + "S02"
-        elif report_code in ["US.LSCI", "US.LSCI_M"]:
+        elif report_code in ["US.LSCI", "US.LSCI_M", "US.MerchVolumeQuarterly"]:
             if monthly_liner:
                 end_date = f"{datetime.datetime.now().year}M12"
             else:
@@ -208,7 +208,7 @@ def get_unctadstat(
         else:
             end_date = datetime.datetime.now().year
 
-    if report_code == "US.LSCI":
+    if report_code in ["US.LSCI", "US.MerchVolumeQuarterly"]:
         if isinstance(start_date, int):
             start_date = f"{start_date}Q01"
         if isinstance(end_date, int):
@@ -219,7 +219,7 @@ def get_unctadstat(
         date_filter = f"""Period/Label in ({",".join(["'" + str(_) + "'" for _ in range(start_date, end_date + 1)])})"""
     elif semi_annual_port:
         date_filter = f"""Period/Code in ({",".join([f"'{year}S{season:02}'" for year in list(range(int(start_date[:4]), int(end_date[:4])+1)) for season in range(1, 3) if f"{year}S{season:02}" >= start_date and f"{year}S{season:02}" <= end_date])})"""
-    elif report_code in ["US.LSCI", "US.LSCI_M"]:
+    elif report_code in ["US.LSCI", "US.LSCI_M", "US.MerchVolumeQuarterly"]:
         if monthly_liner:
             date_filter = f"""Month/Code in ({",".join([f"'{year}M{month:02}'" for year in list(range(int(start_date[:4]), int(end_date[:4])+1)) for month in range(1, 13) if f"{year}M{month:02}" >= start_date and f"{year}M{month:02}" <= end_date])})"""
         else:
@@ -300,7 +300,7 @@ def get_unctadstat(
             for d in df["Period_Code"]
         ]
 
-    if report_code in ["US.LSCI", "US.LSCI_M"]:
+    if report_code in ["US.LSCI", "US.LSCI_M", "US.MerchVolumeQuarterly"]:
         if monthly_liner:
             df["Month_Code"] = [
                 datetime.datetime.strptime(d, "%YM%m").date() for d in df["Month_Code"]
