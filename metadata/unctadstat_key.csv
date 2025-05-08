@@ -71,3 +71,5 @@ id,report_code,report_name,indicator_code,indicator_name,return_columns,notes
 70,US.GoodsAndServBalanceBpm6,"Goods and services (BPM6): Trade balance indicators, annual",M6014/Value,Normalized trade balance,"Economy/Label,Year,Series/Label,M6014/Value",
 71,US.GoodsAndServBalanceBpm6,"Goods and services (BPM6): Trade balance indicators, annual",M5025/Value,Percentage of Gross Domestic Product,"Economy/Label,Year,Series/Label,M5025/Value",
 72,US.GoodsAndServBalanceBpm6,"Goods and services (BPM6): Trade balance indicators, annual",M5015/Value,Percentage of imports,"Economy/Label,Year,Series/Label,M5015/Value",
+73,US.GoodsAndServTradeOpennessBpm6,"Goods and services (BPM6): Trade openness indicators, annual",M0100/Value,US$ at current prices,"Economy/Label,Year,Flow/Label,Series/Label,M0100/Value",
+74,US.GoodsAndServTradeOpennessBpm6,"Goods and services (BPM6): Trade openness indicators, annual",M5025/Value,Percentage of Gross Domestic Product,"Economy/Label,Year,Flow/Label,Series/Label,M5025/Value",
