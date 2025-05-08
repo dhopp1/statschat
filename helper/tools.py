@@ -158,7 +158,7 @@ def get_unctadstat(
     return_columns = unctadstat_key["return_columns"].values[0]
 
     # if passed a S01 for start or end_year, change report to US.PortCalls_S for semi-annual data
-    semi_annual_port = report_code == "US.PortCalls" and (
+    semi_annual_port = report_code in ["US.PortCalls", "US.PortCallsArrivals"] and (
         isinstance(start_year, str) or isinstance(end_year, str)
     )
     if semi_annual_port:
