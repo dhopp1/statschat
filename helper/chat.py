@@ -285,7 +285,7 @@ def user_question():
                     prompt=prompt,
                     tools=st.session_state["tools"],
                     plot_tools=st.session_state["viz_tools"],
-                    validate=False,
+                    validate=True,
                     use_free_plot=st.session_state["use_free_plot"],
                     prior_query_id=st.session_state["prior_query_id"],
                     addt_context_gen_tool_call=addt_context_gen_tool_call,
