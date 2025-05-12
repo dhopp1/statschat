@@ -103,7 +103,82 @@ def get_unctadstat(
     Parameters:
         report_code: the code of the desired dataset.
         indicator_code: the desired indicator code or name of the dataset.
-        country_code (str or list[str]): either a single ISO 3-letter country code, a list of ISO 3-letter country codes, or 'all' for all countries and groups.
+        geography (str or list[str]): either a single ISO 3-letter country code, a list of ISO 3-letter country codes, 'all' for all countries and groups, a single one of the following country group names, or a list of the following country group names. ISO3 and country group names cannot be passed in the same list:
+            'Africa'
+            'Americas'
+            'Asia'
+            'Asia and Oceania'
+            'Australia and New Zealand'
+            'BioTrade countries'
+            'BRICS'
+            'Caribbean'
+            'CBD (Convention on Biological Diversity)'
+            'Central America'
+            'Central and Southern Asia'
+            'Central Asia'
+            'CITES (Convention on International Trade in Endangered Species of Wild Fauna and Flora)'
+            'Developed economies'
+            'Developed economies: Americas'
+            'Developed economies: Asia'
+            'Developed economies: Asia and Oceania'
+            'Developed economies: Europe'
+            'Developed economies: Oceania'
+            'Developing economies'
+            'Developing economies excluding China'
+            'Developing economies excluding LDCs'
+            'Developing economies: Africa'
+            'Developing economies: Americas'
+            'Developing economies: Asia'
+            'Developing economies: Asia and Oceania'
+            'Developing economies: Central Asia'
+            'Developing economies: Eastern Asia'
+            'Developing economies: Northern Africa'
+            'Developing economies: Oceania'
+            'Developing economies: South-eastern Asia'
+            'Developing economies: Southern Asia'
+            'Developing economies: Sub-Saharan Africa'
+            'Developing economies: Western Asia'
+            'Eastern Africa'
+            'Eastern and South-Eastern Asia'
+            'Eastern Asia'
+            'Eastern Europe'
+            'Europe'
+            'Europe, Northern America, Australia and New Zealand'
+            'European Union (2020 ‚Ä¶)'
+            'G-77 (Group of 77)'
+            'G20 (Group of Twenty)'
+            'Latin America and the Caribbean'
+            'LDCs (Least developed countries)'
+            'LDCs: Africa'
+            'LDCs: Asia'
+            'LDCs: Islands and Haiti'
+            'LLDCs (Landlocked developing countries)'
+            'LMMC (Like-Minded Megadiverse Countries)'
+            'Middle Africa'
+            'Nagoya Protocol on Access and Benefit Sharing'
+            'Northern Africa'
+            'Northern America'
+            'Northern America and Europe'
+            'Northern Europe'
+            'Oceania'
+            'Oceania excluding Australia and New Zealand'
+            'OECD (Organisation for Economic Cooperation and Development)'
+            'Other territories'
+            'SIDS (Small island developing States) (UN-OHRLLS)'
+            'SIDS: Atlantic and Indian Ocean'
+            'SIDS: Caribbean'
+            'SIDS: Pacific'
+            'South America'
+            'South-eastern Asia'
+            'Southern Africa'
+            'Southern Asia'
+            'Southern Europe'
+            'Sub-Saharan Africa'
+            'Western Africa'
+            'Western Asia'
+            'Western Asia and Northern Africa'
+            'Western Europe'
+            'World'
         start_date (int or str): int start year of the data. If None, it will return from the earliest available date. For semi-annual/semester data, pass string like '2023S01' for first half of 2023, '2023S02' for second half, etc. For quarterly data, pass a string like '2023Q01', '2023Q04', etc. For monthly data, pass a string like '2023M01', '2023M10', etc.
         end_date (int or str): int end year of the data. If None, it will return until the present year.  For semi-annual/semester data, pass string like '2023S01' for first half of 2023, '2023S02' for second half, etc For quarterly data, pass a string like '2023Q01', '2023Q04', etc. For monthly data, pass a string like '2023M01', '2023M10', etc.
 
@@ -232,29 +307,39 @@ def get_unctadstat(
         )
 
     # country filter
+    country_label_code = "Code"
+
     if country_code == "all":
         country_filter = ""
     else:
         if isinstance(country_code, str):
-            country_codes = [
-                country_key.loc[
-                    lambda x: x["ISO3"] == country_code, "UNCTAD_code"
-                ].values[0]
-            ]
+            if len(country_code) == 3:  # iso3
+                country_codes = [
+                    country_key.loc[
+                        lambda x: x["ISO3"] == country_code, "UNCTAD_code"
+                    ].values[0]
+                ]
+            else:  # non-iso3, country group
+                country_label_code = "Label"
+                country_codes = [country_code]
         else:
-            country_codes = list(
-                country_key.loc[
-                    lambda x: x["ISO3"].isin(country_code), "UNCTAD_code"
-                ].values
-            )
+            if len(country_code[0]) == 3:  # iso3
+                country_codes = list(
+                    country_key.loc[
+                        lambda x: x["ISO3"].isin(country_code), "UNCTAD_code"
+                    ].values
+                )
+            else:  # non-iso3, country group
+                country_label_code = "Label"
+                country_codes = country_code
 
         # different country filter for vessel value report
         if report_code in ["US.VesselValueByOwnership"]:
-            country_filter = f"""BeneficialOwnership/Code in ({','.join(["'" + _ + "'" for _ in country_codes])})"""
+            country_filter = f"""BeneficialOwnership/{country_label_code} in ({','.join(["'" + _ + "'" for _ in country_codes])})"""
         elif report_code in ["US.VesselValueByRegistration"]:
-            country_filter = f"""FlagOfRegistration/Code in ({','.join(["'" + _ + "'" for _ in country_codes])})"""
+            country_filter = f"""FlagOfRegistration/{country_label_code} in ({','.join(["'" + _ + "'" for _ in country_codes])})"""
         else:
-            country_filter = f"""Economy/Code in ({','.join(["'" + _ + "'" for _ in country_codes])})"""
+            country_filter = f"""Economy/{country_label_code} in ({','.join(["'" + _ + "'" for _ in country_codes])})"""
 
     # combined filter
     combined_filter = (
@@ -289,13 +374,15 @@ def get_unctadstat(
     if semi_annual_port:
         df["Period_Code"] = [
             (
-                lambda d: datetime.date(int(d[:4]), 6 if d[4:] == "S01" else 12, 1)
-                if isinstance(d, str)
-                and len(d) == 7
-                and d[4] == "S"
-                and d[5:7].isdigit()
-                and (d[5:7] == "01" or d[5:7] == "02")
-                else None
+                lambda d: (
+                    datetime.date(int(d[:4]), 6 if d[4:] == "S01" else 12, 1)
+                    if isinstance(d, str)
+                    and len(d) == 7
+                    and d[4] == "S"
+                    and d[5:7].isdigit()
+                    and (d[5:7] == "01" or d[5:7] == "02")
+                    else None
+                )
             )(d)
             for d in df["Period_Code"]
         ]
@@ -308,13 +395,15 @@ def get_unctadstat(
         else:
             df["Quarter_Code"] = [
                 (
-                    lambda d: datetime.date(int(d[:4]), (int(d[5:]) - 1) * 3 + 3, 1)
-                    if isinstance(d, str)
-                    and len(d) == 7
-                    and d[4] == "Q"
-                    and d[5:].isdigit()
-                    and 1 <= int(d[5:]) <= 4
-                    else None
+                    lambda d: (
+                        datetime.date(int(d[:4]), (int(d[5:]) - 1) * 3 + 3, 1)
+                        if isinstance(d, str)
+                        and len(d) == 7
+                        and d[4] == "Q"
+                        and d[5:].isdigit()
+                        and 1 <= int(d[5:]) <= 4
+                        else None
+                    )
                 )(d)
                 for d in df["Quarter_Code"]
             ]
