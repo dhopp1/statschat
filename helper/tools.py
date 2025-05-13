@@ -150,6 +150,10 @@ def gen_country_filter(country_key, country_group_key, geography, group_or_count
                         )
                     ]
 
+    # world should be '0000' not '0'
+    if len(country_codes) == 1 and country_codes[0] == "0":
+        country_codes = ["0000"]
+
     return country_codes
 
 
@@ -673,18 +677,21 @@ def get_unctadstat_tradelike(
     country_filter += f""" and Partner/Code in ({','.join(["'" + _ + "'" for _ in geography_b_country_codes])})"""
 
     # product filter
+    # product column name
+    if report_code in ["US.IctGoodsValue"]:
+        total_product = "ICT00"
+        product_colname = "IctGoodsCategory"
+
     if isinstance(products, str):
         if products == "all":
             product_filter = ""
         elif products == "total":
-            # logic for the 'total' column for each individual report
-            if report_code == "US.IctGoodsValue":
-                products = ["ICT00"]
+            products = [total_product]
         else:
             products = [products]
 
     if not (isinstance(products, str)):
-        product_filter = f""" and IctGoodsCategory/Code in ({','.join("'" + _ + "'" for _ in products)})"""
+        product_filter = f""" and {product_colname}/Code in ({','.join("'" + _ + "'" for _ in products)})"""
 
     # add flow filter
     if isinstance(flow, str):
