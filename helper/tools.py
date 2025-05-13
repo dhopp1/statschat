@@ -672,9 +672,11 @@ def get_unctadstat_tradelike(
     )
 
     # final country filter
-    country_filter = f"""Economy/Code in ({','.join(["'" + _ + "'" for _ in geography_a_country_codes])})"""
-
-    country_filter += f""" and Partner/Code in ({','.join(["'" + _ + "'" for _ in geography_b_country_codes])})"""
+    if report_code in ["US.BioTradeMerchMarketConcent"]:  # no geography element
+        country_filter = ""
+    else:
+        country_filter = f"""Economy/Code in ({','.join(["'" + _ + "'" for _ in geography_a_country_codes])})"""
+        country_filter += f""" and Partner/Code in ({','.join(["'" + _ + "'" for _ in geography_b_country_codes])})"""
 
     # product filter
     product_colname = "Product"
@@ -683,7 +685,11 @@ def get_unctadstat_tradelike(
     if report_code in ["US.IctGoodsValue"]:
         total_product = "ICT00"
         product_colname = "IctGoodsCategory"
-    elif report_code in ["US.BiotradeMerch", "US.BiotradeMerchGR"]:
+    elif report_code in [
+        "US.BiotradeMerch",
+        "US.BiotradeMerchGR",
+        "US.BioTradeMerchMarketConcent",
+    ]:
         total_product = "B_TOT"
     else:  # table doesn't have a product field
         total_product = "NA"
