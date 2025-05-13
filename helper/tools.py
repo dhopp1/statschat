@@ -685,6 +685,9 @@ def get_unctadstat_tradelike(
         product_colname = "IctGoodsCategory"
     elif report_code in ["US.BiotradeMerch", "US.BiotradeMerchGR"]:
         total_product = "B_TOT"
+    else:  # table doesn't have a product field
+        total_product = "NA"
+        products = "all"
 
     if isinstance(products, str):
         if products == "all":
