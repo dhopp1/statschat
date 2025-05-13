@@ -1,3 +1,4 @@
 name,function_name,description
-UNCTADstat,get_unctadstat,Any data available via the UNCTADstat API
+UNCTADstat,get_unctadstat,Any data available via the UNCTADstat API that's not to do with trade or has bilateral country pairs
+UNCTADstat tradelike,get_unctadstat_tradelike,Any data available via the UNCTADstat API that has to do with trade or bilateral country pairs
 World Bank,get_world_bank,Any data available via the World Bank API

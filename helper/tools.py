@@ -89,6 +89,144 @@ def get_world_bank(
     return df
 
 
+### UNCTADstat helper functions
+
+
+def gen_country_filter(country_key, country_group_key, geography, group_or_countries):
+    if geography == "all":
+        country_codes = list(country_key.loc[:, "UNCTAD_code"].values)
+    else:
+        if isinstance(geography, str):
+            if len(geography) == 3:  # iso3
+                country_codes = [
+                    country_key.loc[
+                        lambda x: x["ISO3"] == geography, "UNCTAD_code"
+                    ].values[0]
+                ]
+            else:  # non-iso3, country group
+                if group_or_countries == "group":
+                    country_codes = [
+                        str(
+                            country_group_key.loc[
+                                lambda x: x["parent_label"] == geography, "parent_code"
+                            ].values[0]
+                        )
+                    ]
+                else:
+                    country_codes = list(
+                        country_group_key.loc[
+                            lambda x: x["parent_label"] == geography, "child_code"
+                        ].values
+                    )
+        else:
+            if len(geography[0]) == 3:  # iso3
+                country_codes = [
+                    str(_)
+                    for _ in list(
+                        country_key.loc[
+                            lambda x: x["ISO3"].isin(geography), "UNCTAD_code"
+                        ].values
+                    )
+                ]
+            else:  # non-iso3, country group
+                if group_or_countries == "group":
+                    country_codes = [
+                        str(_)
+                        for _ in list(
+                            country_group_key.loc[
+                                lambda x: x["parent_label"].isin(geography),
+                                "parent_code",
+                            ].values
+                        )
+                    ]
+                else:
+                    country_codes = [
+                        str(_)
+                        for _ in list(
+                            country_group_key.loc[
+                                lambda x: x["parent_label"].isin(geography),
+                                "child_code",
+                            ].values
+                        )
+                    ]
+
+    return country_codes
+
+
+def get_country_key():
+    if not (os.path.exists("metadata/country_key.csv")):
+        headers = {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
+        }
+        response = requests.get(
+            "https://unctadstat.unctad.org/EN/Classifications/DimCountries_Transcode_Iso3166-1_UnctadStat.xls",
+            headers=headers,
+        )
+        excel_file = io.BytesIO(response.content)
+        country_key = pd.read_excel(excel_file)
+
+        # file cleanup
+        country_key = country_key.iloc[3:, [1, 4, 5]]
+        country_key.columns = ["ISO3", "UNCTAD_code", "UNCTAD_name"]
+        country_key = country_key.loc[
+            lambda x: pd.Series([len(str(_)) == 3 for _ in x["ISO3"]])
+            & (~pd.isna(x["ISO3"])),
+            :,
+        ].reset_index(
+            drop=True
+        )  # drop non ISO3 countries
+
+        country_key.to_csv("metadata/country_key.csv", index=False)
+    else:
+        country_key = pd.read_csv("metadata/country_key.csv")
+
+    return country_key
+
+
+def get_country_group_key():
+    if not (os.path.exists("metadata/country_group_key.csv")):
+        headers = {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
+        }
+        response = requests.get(
+            "https://unctadstat.unctad.org/EN/Classifications/Dim_Countries_Hierarchy_UnctadStat_All_Flat.csv",
+            headers=headers,
+        )
+        csv_file = io.BytesIO(response.content)
+        country_group_key = pd.read_csv(csv_file)
+        country_group_key.columns = [
+            "parent_code",
+            "parent_label",
+            "child_code",
+            "child_label",
+        ]
+
+        country_group_key.to_csv("metadata/country_group_key.csv", index=False)
+    else:
+        country_group_key = pd.read_csv("metadata/country_group_key.csv")
+
+    return country_group_key
+
+
+def filter_unctadstat_key(unctadstat_key, report_code, indicator_code):
+    tmp = unctadstat_key.loc[
+        lambda x: (x["report_code"] == report_code)
+        & ((x["indicator_code"] == indicator_code)),
+        :,
+    ].reset_index(drop=True)
+    if len(tmp) == 0:
+        tmp = unctadstat_key.loc[
+            lambda x: (x["report_code"] == report_code)
+            & ((x["indicator_name"] == indicator_code)),
+            :,
+        ].reset_index(drop=True)
+
+    return tmp
+
+
+### UNCTADstat helper functions
+
+
 @tool
 def get_unctadstat(
     report_code: str,
@@ -189,70 +327,16 @@ def get_unctadstat(
     """
 
     # country key
-    if not (os.path.exists("metadata/country_key.csv")):
-        headers = {
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
-        }
-        response = requests.get(
-            "https://unctadstat.unctad.org/EN/Classifications/DimCountries_Transcode_Iso3166-1_UnctadStat.xls",
-            headers=headers,
-        )
-        excel_file = io.BytesIO(response.content)
-        country_key = pd.read_excel(excel_file)
-
-        # file cleanup
-        country_key = country_key.iloc[3:, [1, 4, 5]]
-        country_key.columns = ["ISO3", "UNCTAD_code", "UNCTAD_name"]
-        country_key = country_key.loc[
-            lambda x: pd.Series([len(str(_)) == 3 for _ in x["ISO3"]])
-            & (~pd.isna(x["ISO3"])),
-            :,
-        ].reset_index(
-            drop=True
-        )  # drop non ISO3 countries
-
-        country_key.to_csv("metadata/country_key.csv", index=False)
-    else:
-        country_key = pd.read_csv("metadata/country_key.csv")
+    country_key = get_country_key()
 
     # country group key
-    if not (os.path.exists("metadata/country_group_key.csv")):
-        headers = {
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
-        }
-        response = requests.get(
-            "https://unctadstat.unctad.org/EN/Classifications/Dim_Countries_Hierarchy_UnctadStat_All_Flat.csv",
-            headers=headers,
-        )
-        csv_file = io.BytesIO(response.content)
-        country_group_key = pd.read_csv(csv_file)
-        country_group_key.columns = [
-            "parent_code",
-            "parent_label",
-            "child_code",
-            "child_label",
-        ]
-
-        country_group_key.to_csv("metadata/country_group_key.csv", index=False)
-    else:
-        country_group_key = pd.read_csv("metadata/country_group_key.csv")
+    country_group_key = get_country_group_key()
 
     # unctadstat key
     unctadstat_key = pd.read_csv("metadata/unctadstat_key.csv")
 
     # make robust to the LLM calling the indicator_name instead
-    tmp = unctadstat_key.loc[
-        lambda x: (x["report_code"] == report_code)
-        & ((x["indicator_code"] == indicator_code)),
-        :,
-    ].reset_index(drop=True)
-    if len(tmp) == 0:
-        tmp = unctadstat_key.loc[
-            lambda x: (x["report_code"] == report_code)
-            & ((x["indicator_name"] == indicator_code)),
-            :,
-        ].reset_index(drop=True)
-    unctadstat_key = tmp
+    unctadstat_key = filter_unctadstat_key(unctadstat_key, report_code, indicator_code)
     column_name = unctadstat_key["indicator_code"].values[0]
     return_columns = unctadstat_key["return_columns"].values[0]
 
@@ -334,59 +418,9 @@ def get_unctadstat(
     if geography == "all":
         country_codes = list(country_key.loc[:, "UNCTAD_code"].values)
     else:
-        if isinstance(geography, str):
-            if len(geography) == 3:  # iso3
-                country_codes = [
-                    country_key.loc[
-                        lambda x: x["ISO3"] == geography, "UNCTAD_code"
-                    ].values[0]
-                ]
-            else:  # non-iso3, country group
-                if group_or_countries == "group":
-                    country_codes = [
-                        str(
-                            country_group_key.loc[
-                                lambda x: x["parent_label"] == geography, "parent_code"
-                            ].values[0]
-                        )
-                    ]
-                else:
-                    country_codes = list(
-                        country_group_key.loc[
-                            lambda x: x["parent_label"] == geography, "child_code"
-                        ].values
-                    )
-        else:
-            if len(geography[0]) == 3:  # iso3
-                country_codes = [
-                    str(_)
-                    for _ in list(
-                        country_key.loc[
-                            lambda x: x["ISO3"].isin(geography), "UNCTAD_code"
-                        ].values
-                    )
-                ]
-            else:  # non-iso3, country group
-                if group_or_countries == "group":
-                    country_codes = [
-                        str(_)
-                        for _ in list(
-                            country_group_key.loc[
-                                lambda x: x["parent_label"].isin(geography),
-                                "parent_code",
-                            ].values
-                        )
-                    ]
-                else:
-                    country_codes = [
-                        str(_)
-                        for _ in list(
-                            country_group_key.loc[
-                                lambda x: x["parent_label"].isin(geography),
-                                "child_code",
-                            ].values
-                        )
-                    ]
+        country_codes = gen_country_filter(
+            country_key, country_group_key, geography, group_or_countries
+        )
 
     # different country filter for vessel value report
     if report_code in ["US.VesselValueByOwnership"]:
@@ -464,6 +498,222 @@ def get_unctadstat(
                 )(d)
                 for d in df["Quarter_Code"]
             ]
+
+    # naming date column
+    df = df.rename(
+        columns={
+            col: "date"
+            for col in [
+                "Period_Label",
+                "Period_Code",
+                "Year",
+                "Month_Code",
+                "Quarter_Code",
+            ]
+            if col in df.columns
+        }
+    )
+
+    return df
+
+
+@tool
+def get_unctadstat_tradelike(
+    report_code: str,
+    indicator_code: str,
+    geography_a: Union[str, List[str]] = "World",
+    geography_b: Union[str, List[str]] = "World",
+    group_or_countries_a: str = "group",
+    group_or_countries_b: str = "group",
+    start_date: Optional[Union[int, str]] = None,
+    end_date: Optional[Union[int, str]] = None,
+    flow: Union[str, List[str]] = "Exports",
+    products: Union[str, List[str]] = "TOTAL",
+) -> pd.DataFrame:
+    """
+    Fetch data from UNCTADstat.
+
+    Parameters:
+        report_code: the code of the desired dataset.
+        indicator_code: the desired indicator code or name of the dataset.
+        geography_a (str or list[str]): either a single ISO 3-letter country code, a list of ISO 3-letter country codes, 'all' for all countries, a single one of the following country group names, or a list of the following country group names. ISO3 and country group names cannot be passed in the same list. Individual country names cannot be passed to this parameter, use ISO3 codes if you want figures for individual countries:
+            'Africa'
+            'Americas'
+            'Asia'
+            'Asia and Oceania'
+            'Australia and New Zealand'
+            'BioTrade countries'
+            'BRICS'
+            'Caribbean'
+            'CBD (Convention on Biological Diversity)'
+            'Central America'
+            'Central and Southern Asia'
+            'Central Asia'
+            'CITES (Convention on International Trade in Endangered Species of Wild Fauna and Flora)'
+            'Developed economies'
+            'Developed economies: Americas'
+            'Developed economies: Asia'
+            'Developed economies: Asia and Oceania'
+            'Developed economies: Europe'
+            'Developed economies: Oceania'
+            'Developing economies'
+            'Developing economies excluding China'
+            'Developing economies excluding LDCs'
+            'Developing economies: Africa'
+            'Developing economies: Americas'
+            'Developing economies: Asia'
+            'Developing economies: Asia and Oceania'
+            'Developing economies: Central Asia'
+            'Developing economies: Eastern Asia'
+            'Developing economies: Northern Africa'
+            'Developing economies: Oceania'
+            'Developing economies: South-eastern Asia'
+            'Developing economies: Southern Asia'
+            'Developing economies: Sub-Saharan Africa'
+            'Developing economies: Western Asia'
+            'Eastern Africa'
+            'Eastern and South-Eastern Asia'
+            'Eastern Asia'
+            'Eastern Europe'
+            'Europe'
+            'Europe, Northern America, Australia and New Zealand'
+            'European Union (2020 ‚Ä¶)'
+            'G-77 (Group of 77)'
+            'G20 (Group of Twenty)'
+            'Latin America and the Caribbean'
+            'LDCs (Least developed countries)'
+            'LDCs: Africa'
+            'LDCs: Asia'
+            'LDCs: Islands and Haiti'
+            'LLDCs (Landlocked developing countries)'
+            'LMMC (Like-Minded Megadiverse Countries)'
+            'Middle Africa'
+            'Nagoya Protocol on Access and Benefit Sharing'
+            'Northern Africa'
+            'Northern America'
+            'Northern America and Europe'
+            'Northern Europe'
+            'Oceania'
+            'Oceania excluding Australia and New Zealand'
+            'OECD (Organisation for Economic Cooperation and Development)'
+            'Other territories'
+            'SIDS (Small island developing States) (UN-OHRLLS)'
+            'SIDS: Atlantic and Indian Ocean'
+            'SIDS: Caribbean'
+            'SIDS: Pacific'
+            'South America'
+            'South-eastern Asia'
+            'Southern Africa'
+            'Southern Asia'
+            'Southern Europe'
+            'Sub-Saharan Africa'
+            'Western Africa'
+            'Western Asia'
+            'Western Asia and Northern Africa'
+            'Western Europe'
+            'World'
+        geography_b (str or list[str]):same as 'geography_b', with the same options, but for the second geography of interest, e.g., partner geography for trade, second country for bilateral connectivity, etc.
+        group_or_countries_a (str): either 'group' or 'countries'. Only relevant if the 'geography_a' parameter is a country group. 'group' to return only the aggregate figure for that group, 'countries' to return the individual figures for each country that constitutes that group.
+        group_or_countries_b (str): same as 'group_or_countries_a' but for the second geography
+        start_date (int or str): int start year of the data. If None, it will return from the earliest available date. For semi-annual/semester data, pass string like '2023S01' for first half of 2023, '2023S02' for second half, etc. For quarterly data, pass a string like '2023Q01', '2023Q04', etc. For monthly data, pass a string like '2023M01', '2023M10', etc.
+        end_date (int or str): int end year of the data. If None, it will return until the present year.  For semi-annual/semester data, pass string like '2023S01' for first half of 2023, '2023S02' for second half, etc For quarterly data, pass a string like '2023Q01', '2023Q04', etc. For monthly data, pass a string like '2023M01', '2023M10', etc.
+        flow (str or list[str]): if relevant, either a string of the desired trade flow, or a list of strings of desired trade flows. Options are: 'Exports', 'Imports', 'Re-exports', 'Re-imports', 'Balance'. Defaults to 'Exports'.
+        products (str or list[str]): if relevant, either a string of the desired product code, or a list of strings of the desired product codes. Defaults to 'TOTAL' to return the aggregate metric for all products.
+
+    Returns:
+        pandas.DataFrame: DataFrame containing the data
+    """
+
+    # country key
+    country_key = get_country_key()
+
+    # country group key
+    country_group_key = get_country_group_key()
+
+    # unctadstat key
+    unctadstat_key = pd.read_csv("metadata/unctadstat_key.csv")
+
+    # make robust to the LLM calling the indicator_name instead
+    unctadstat_key = filter_unctadstat_key(unctadstat_key, report_code, indicator_code)
+    column_name = unctadstat_key["indicator_code"].values[0]
+    return_columns = unctadstat_key["return_columns"].values[0]
+
+    # url construction
+    base_url = "https://unctadstat-user-api.unctad.org"
+    version = "cur"
+
+    call_url = f"{base_url}/{report_code}/{version}/Facts"
+
+    headers = {
+        "clientid": os.environ.get("UNCTADSTAT_CLIENTID"),
+        "clientsecret": os.environ.get("UNCTADSTAT_CLIENTSECRET"),
+    }
+
+    # date filter
+    if start_date is None:
+        start_date = 1950
+    if end_date is None:
+        end_date = datetime.datetime.now().year
+
+    date_filter = (
+        f"""Year in ({",".join([str(_) for _ in range(start_date, end_date+1)])})"""
+    )
+
+    # geography filters
+    geography_a_country_codes = gen_country_filter(
+        country_key, country_group_key, geography_a, group_or_countries_a
+    )
+    geography_b_country_codes = gen_country_filter(
+        country_key, country_group_key, geography_b, group_or_countries_b
+    )
+
+    # final country filter
+    country_filter = f"""Economy/Code in ({','.join(["'" + _ + "'" for _ in geography_a_country_codes])})"""
+
+    country_filter += f""" and Partner/Code in ({','.join(["'" + _ + "'" for _ in geography_b_country_codes])})"""
+
+    # product filter
+    if isinstance(products, str):
+        products = [products]
+
+    product_filter = f""" and IctGoodsCategory/Code in ({','.join("'" + _ + "'" for _ in products)})"""
+
+    # add flow filter
+    if isinstance(flow, str):
+        if flow != "all":
+            flow = [flow]
+
+    if flow != "all":
+        flow_filter = (
+            f""" and Flow/Label in ({','.join("'" + _ + "'" for _ in flow)})"""
+        )
+    else:
+        flow_filter = ""
+
+    # combined filter
+    combined_filter = (
+        f"{date_filter} and {country_filter}"
+        if date_filter and country_filter
+        else date_filter or country_filter or ""
+    )
+
+    combined_filter += product_filter
+    combined_filter += flow_filter
+
+    params = {
+        "$filter": combined_filter,
+        "$select": return_columns,
+        "$format": "csv",
+    }
+
+    response = requests.post(call_url, headers=headers, data=params)
+
+    df = pd.read_csv(io.StringIO(response.text))
+    df = df.rename(
+        columns={
+            column_name.replace("/", "_"): unctadstat_key["indicator_name"].values[0]
+        }
+    )  # replacing code name with readable name
 
     # naming date column
     df = df.rename(

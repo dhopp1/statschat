@@ -12,7 +12,7 @@ from helper.sidebar import (
     sidebar_wb_selection,
 )
 from helper.ui import check_password
-from helper.tools import get_unctadstat, get_world_bank
+from helper.tools import get_unctadstat, get_unctadstat_tradelike, get_world_bank
 from helper.viz_tools import gen_plot
 
 

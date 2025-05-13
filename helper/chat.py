@@ -7,6 +7,7 @@ from helper.progress_bar import Logger
 from helper.tools import (
     get_world_bank,
     get_unctadstat,
+    get_unctadstat_tradelike,
 )  # need for the function definition displays
 from helper.viz_tools import gen_plot  # need for the function definition displays
 
