@@ -528,7 +528,7 @@ def get_unctadstat_tradelike(
     start_date: Optional[Union[int, str]] = None,
     end_date: Optional[Union[int, str]] = None,
     flow: Union[str, List[str]] = "Exports",
-    products: Union[str, List[str]] = "TOTAL",
+    products: Union[str, List[str]] = "total",
 ) -> pd.DataFrame:
     """
     Fetch data from UNCTADstat.
@@ -618,7 +618,7 @@ def get_unctadstat_tradelike(
         start_date (int or str): int start year of the data. If None, it will return from the earliest available date. For semi-annual/semester data, pass string like '2023S01' for first half of 2023, '2023S02' for second half, etc. For quarterly data, pass a string like '2023Q01', '2023Q04', etc. For monthly data, pass a string like '2023M01', '2023M10', etc.
         end_date (int or str): int end year of the data. If None, it will return until the present year.  For semi-annual/semester data, pass string like '2023S01' for first half of 2023, '2023S02' for second half, etc For quarterly data, pass a string like '2023Q01', '2023Q04', etc. For monthly data, pass a string like '2023M01', '2023M10', etc.
         flow (str or list[str]): if relevant, either a string of the desired trade flow, or a list of strings of desired trade flows. Options are: 'Exports', 'Imports', 'Re-exports', 'Re-imports', 'Balance'. Defaults to 'Exports'.
-        products (str or list[str]): if relevant, either a string of the desired product code, or a list of strings of the desired product codes. Defaults to 'TOTAL' to return the aggregate metric for all products.
+        products (str or list[str]): if relevant, either a string of the desired product code, or a list of strings of the desired product codes. 'total' to return only the aggregate metric for all products. 'all' to return all products.
 
     Returns:
         pandas.DataFrame: DataFrame containing the data
@@ -674,9 +674,17 @@ def get_unctadstat_tradelike(
 
     # product filter
     if isinstance(products, str):
-        products = [products]
+        if products == "all":
+            product_filter = ""
+        elif products == "total":
+            # logic for the 'total' column for each individual report
+            if report_code == "US.IctGoodsValue":
+                products = ["ICT00"]
+        else:
+            products = [products]
 
-    product_filter = f""" and IctGoodsCategory/Code in ({','.join("'" + _ + "'" for _ in products)})"""
+    if not (isinstance(products, str)):
+        product_filter = f""" and IctGoodsCategory/Code in ({','.join("'" + _ + "'" for _ in products)})"""
 
     # add flow filter
     if isinstance(flow, str):
