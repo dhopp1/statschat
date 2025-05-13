@@ -677,10 +677,14 @@ def get_unctadstat_tradelike(
     country_filter += f""" and Partner/Code in ({','.join(["'" + _ + "'" for _ in geography_b_country_codes])})"""
 
     # product filter
-    # product column name
+    product_colname = "Product"
+
+    # total product name
     if report_code in ["US.IctGoodsValue"]:
         total_product = "ICT00"
         product_colname = "IctGoodsCategory"
+    elif report_code in ["US.BiotradeMerch"]:
+        total_product = "B_TOT"
 
     if isinstance(products, str):
         if products == "all":
