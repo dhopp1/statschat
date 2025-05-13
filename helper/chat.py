@@ -40,6 +40,11 @@ def df_to_string(df):
 
 def display_tool_call(result):
     tool_calls = result["tool_result"]["tool_call"]
+    invoked_results = result["tool_result"]["invoked_result"]
+
+    if isinstance(invoked_results, pd.DataFrame):
+        invoked_results = [invoked_results]
+
     for i in range(len(tool_calls)):
         text = ""
         text += f"### Function call {i+1}\n\n"
@@ -54,6 +59,8 @@ def display_tool_call(result):
             + "\n\n```\n\n"
         )
         st.markdown(text, help=hover_text)
+        st.markdown("Resulting data:\n\n")
+        st.dataframe(invoked_results[i], hide_index=True)
 
 
 def display_pd_code(result):
