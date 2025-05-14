@@ -692,6 +692,7 @@ def get_unctadstat_tradelike(
             "US.BiotradeMerchRCA",
             "US.OceanRCAIndividualEconomies",
             "US.OceanRCARegionalAggregates",
+            "US.OceanTheilIndicesIndividualEconomies",
         ]:  # no partner for these tables
             country_filter += f""" and Partner/Code in ({','.join(["'" + _ + "'" for _ in geography_b_country_codes])})"""
 
@@ -715,6 +716,7 @@ def get_unctadstat_tradelike(
         "US.OceanTradeRegionalAggregates",
         "US.OceanRCAIndividualEconomies",
         "US.OceanRCARegionalAggregates",
+        "US.OceanTheilIndicesIndividualEconomies",
     ]:
         total_product = "O_TOT"
     else:  # table doesn't have a product field
