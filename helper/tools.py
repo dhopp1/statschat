@@ -706,6 +706,8 @@ def get_unctadstat_tradelike(
         "US.BiotradeMerchRCA",
     ]:
         total_product = "B_TOT"
+    elif report_code in ["US.OceanTradeIndividualEconomies"]:
+        total_product = "O_TOT"
     else:  # table doesn't have a product field
         total_product = "NA"
         products = "all"
