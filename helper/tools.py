@@ -680,13 +680,20 @@ def get_unctadstat_tradelike(
     )
 
     # final country filter
+    economy_label = "Economy"
+    partner_label = "Partner"
+    if report_code in ["US.FleetBeneficialOwners"]:
+        economy_label = "BeneficialOwnership"
+        partner_label = "FlagOfRegistration"
+        flow = "all"
+
     if report_code in [
         "US.BioTradeMerchMarketConcent",
         "US.BioTradeMerchStructChange",
     ]:  # no geography element
         country_filter = ""
     else:
-        country_filter = f"""Economy/Code in ({','.join(["'" + _ + "'" for _ in geography_a_country_codes])})"""
+        country_filter = f"""{economy_label}/Code in ({','.join(["'" + _ + "'" for _ in geography_a_country_codes])})"""
 
         if report_code not in [
             "US.BiotradeMerchRCA",
@@ -694,7 +701,7 @@ def get_unctadstat_tradelike(
             "US.OceanRCARegionalAggregates",
             "US.OceanTheilIndicesIndividualEconomies",
         ]:  # no partner for these tables
-            country_filter += f""" and Partner/Code in ({','.join(["'" + _ + "'" for _ in geography_b_country_codes])})"""
+            country_filter += f""" and {partner_label}/Code in ({','.join(["'" + _ + "'" for _ in geography_b_country_codes])})"""
 
     # product filter
     product_colname = "Product"
