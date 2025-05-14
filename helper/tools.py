@@ -680,7 +680,10 @@ def get_unctadstat_tradelike(
     )
 
     # final country filter
-    if report_code in ["US.BioTradeMerchMarketConcent"]:  # no geography element
+    if report_code in [
+        "US.BioTradeMerchMarketConcent",
+        "US.BioTradeMerchStructChange",
+    ]:  # no geography element
         country_filter = ""
     else:
         country_filter = f"""Economy/Code in ({','.join(["'" + _ + "'" for _ in geography_a_country_codes])})"""
@@ -697,6 +700,7 @@ def get_unctadstat_tradelike(
         "US.BiotradeMerch",
         "US.BiotradeMerchGR",
         "US.BioTradeMerchMarketConcent",
+        "US.BioTradeMerchStructChange",
     ]:
         total_product = "B_TOT"
     else:  # table doesn't have a product field
