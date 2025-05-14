@@ -89,148 +89,6 @@ def get_world_bank(
     return df
 
 
-### UNCTADstat helper functions
-
-
-def gen_country_filter(country_key, country_group_key, geography, group_or_countries):
-    if geography == "all":
-        country_codes = list(country_key.loc[:, "UNCTAD_code"].values)
-    else:
-        if isinstance(geography, str):
-            if len(geography) == 3:  # iso3
-                country_codes = [
-                    country_key.loc[
-                        lambda x: x["ISO3"] == geography, "UNCTAD_code"
-                    ].values[0]
-                ]
-            else:  # non-iso3, country group
-                if group_or_countries == "group":
-                    country_codes = [
-                        str(
-                            country_group_key.loc[
-                                lambda x: x["parent_label"] == geography, "parent_code"
-                            ].values[0]
-                        )
-                    ]
-                else:
-                    country_codes = list(
-                        country_group_key.loc[
-                            lambda x: x["parent_label"] == geography, "child_code"
-                        ].values
-                    )
-        else:
-            if len(geography[0]) == 3:  # iso3
-                country_codes = [
-                    str(_)
-                    for _ in list(
-                        country_key.loc[
-                            lambda x: x["ISO3"].isin(geography), "UNCTAD_code"
-                        ].values
-                    )
-                ]
-            else:  # non-iso3, country group
-                if group_or_countries == "group":
-                    country_codes = [
-                        str(_)
-                        for _ in list(
-                            country_group_key.loc[
-                                lambda x: x["parent_label"].isin(geography),
-                                "parent_code",
-                            ].values
-                        )
-                    ]
-                else:
-                    country_codes = [
-                        str(_)
-                        for _ in list(
-                            country_group_key.loc[
-                                lambda x: x["parent_label"].isin(geography),
-                                "child_code",
-                            ].values
-                        )
-                    ]
-
-    # world should be '0000' not '0'
-    if len(country_codes) == 1 and country_codes[0] == "0":
-        country_codes = ["0000"]
-
-    return country_codes
-
-
-def get_country_key():
-    if not (os.path.exists("metadata/country_key.csv")):
-        headers = {
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
-        }
-        response = requests.get(
-            "https://unctadstat.unctad.org/EN/Classifications/DimCountries_Transcode_Iso3166-1_UnctadStat.xls",
-            headers=headers,
-        )
-        excel_file = io.BytesIO(response.content)
-        country_key = pd.read_excel(excel_file)
-
-        # file cleanup
-        country_key = country_key.iloc[3:, [1, 4, 5]]
-        country_key.columns = ["ISO3", "UNCTAD_code", "UNCTAD_name"]
-        country_key = country_key.loc[
-            lambda x: pd.Series([len(str(_)) == 3 for _ in x["ISO3"]])
-            & (~pd.isna(x["ISO3"])),
-            :,
-        ].reset_index(
-            drop=True
-        )  # drop non ISO3 countries
-
-        country_key.to_csv("metadata/country_key.csv", index=False)
-    else:
-        country_key = pd.read_csv("metadata/country_key.csv")
-
-    return country_key
-
-
-def get_country_group_key():
-    if not (os.path.exists("metadata/country_group_key.csv")):
-        headers = {
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
-        }
-        response = requests.get(
-            "https://unctadstat.unctad.org/EN/Classifications/Dim_Countries_Hierarchy_UnctadStat_All_Flat.csv",
-            headers=headers,
-        )
-        csv_file = io.BytesIO(response.content)
-        country_group_key = pd.read_csv(csv_file)
-        country_group_key.columns = [
-            "parent_code",
-            "parent_label",
-            "child_code",
-            "child_label",
-        ]
-
-        country_group_key.to_csv("metadata/country_group_key.csv", index=False)
-    else:
-        country_group_key = pd.read_csv("metadata/country_group_key.csv")
-
-    return country_group_key
-
-
-def filter_unctadstat_key(unctadstat_key, report_code, indicator_code):
-    tmp = unctadstat_key.loc[
-        lambda x: (x["report_code"] == report_code)
-        & ((x["indicator_code"] == indicator_code)),
-        :,
-    ].reset_index(drop=True)
-    if len(tmp) == 0:
-        tmp = unctadstat_key.loc[
-            lambda x: (x["report_code"] == report_code)
-            & ((x["indicator_name"] == indicator_code)),
-            :,
-        ].reset_index(drop=True)
-
-    return tmp
-
-
-### UNCTADstat helper functions
-
-
 @tool
 def get_unctadstat(
     report_code: str,
@@ -331,15 +189,94 @@ def get_unctadstat(
     """
 
     # country key
+    def get_country_key():
+        if not (os.path.exists("metadata/country_key.csv")):
+            headers = {
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
+            }
+            response = requests.get(
+                "https://unctadstat.unctad.org/EN/Classifications/DimCountries_Transcode_Iso3166-1_UnctadStat.xls",
+                headers=headers,
+            )
+            excel_file = io.BytesIO(response.content)
+            country_key = pd.read_excel(excel_file)
+
+            # file cleanup
+            country_key = country_key.iloc[3:, [1, 4, 5]]
+            country_key.columns = ["ISO3", "UNCTAD_code", "UNCTAD_name"]
+            country_key = country_key.loc[
+                lambda x: pd.Series([len(str(_)) == 3 for _ in x["ISO3"]])
+                & (~pd.isna(x["ISO3"])),
+                :,
+            ].reset_index(
+                drop=True
+            )  # drop non ISO3 countries
+
+            try:
+                country_key.to_csv("metadata/country_key.csv", index=False)
+            except:
+                pass
+        else:
+            country_key = pd.read_csv("metadata/country_key.csv")
+
+        return country_key
+
     country_key = get_country_key()
 
     # country group key
+    def get_country_group_key():
+        if not (os.path.exists("metadata/country_group_key.csv")):
+            headers = {
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
+            }
+            response = requests.get(
+                "https://unctadstat.unctad.org/EN/Classifications/Dim_Countries_Hierarchy_UnctadStat_All_Flat.csv",
+                headers=headers,
+            )
+            csv_file = io.BytesIO(response.content)
+            country_group_key = pd.read_csv(csv_file)
+            country_group_key.columns = [
+                "parent_code",
+                "parent_label",
+                "child_code",
+                "child_label",
+            ]
+
+            try:
+                country_group_key.to_csv("metadata/country_group_key.csv", index=False)
+            except:
+                pass
+        else:
+            country_group_key = pd.read_csv("metadata/country_group_key.csv")
+
+        return country_group_key
+
     country_group_key = get_country_group_key()
 
     # unctadstat key
-    unctadstat_key = pd.read_csv("metadata/unctadstat_key.csv")
+    try:
+        unctadstat_key = pd.read_csv("metadata/unctadstat_key.csv")
+    except:
+        unctadstat_key = pd.read_csv(
+            "https://raw.githubusercontent.com/dhopp1/statschat/refs/heads/main/metadata/unctadstat_key.csv"
+        )
 
     # make robust to the LLM calling the indicator_name instead
+    def filter_unctadstat_key(unctadstat_key, report_code, indicator_code):
+        tmp = unctadstat_key.loc[
+            lambda x: (x["report_code"] == report_code)
+            & ((x["indicator_code"] == indicator_code)),
+            :,
+        ].reset_index(drop=True)
+        if len(tmp) == 0:
+            tmp = unctadstat_key.loc[
+                lambda x: (x["report_code"] == report_code)
+                & ((x["indicator_name"] == indicator_code)),
+                :,
+            ].reset_index(drop=True)
+
+        return tmp
+
     unctadstat_key = filter_unctadstat_key(unctadstat_key, report_code, indicator_code)
     column_name = unctadstat_key["indicator_code"].values[0]
     return_columns = unctadstat_key["return_columns"].values[0]
@@ -422,6 +359,75 @@ def get_unctadstat(
     if geography == "all":
         country_codes = list(country_key.loc[:, "UNCTAD_code"].values)
     else:
+
+        def gen_country_filter(
+            country_key, country_group_key, geography, group_or_countries
+        ):
+            if geography == "all":
+                country_codes = list(country_key.loc[:, "UNCTAD_code"].values)
+            else:
+                if isinstance(geography, str):
+                    if len(geography) == 3:  # iso3
+                        country_codes = [
+                            country_key.loc[
+                                lambda x: x["ISO3"] == geography, "UNCTAD_code"
+                            ].values[0]
+                        ]
+                    else:  # non-iso3, country group
+                        if group_or_countries == "group":
+                            country_codes = [
+                                str(
+                                    country_group_key.loc[
+                                        lambda x: x["parent_label"] == geography,
+                                        "parent_code",
+                                    ].values[0]
+                                )
+                            ]
+                        else:
+                            country_codes = list(
+                                country_group_key.loc[
+                                    lambda x: x["parent_label"] == geography,
+                                    "child_code",
+                                ].values
+                            )
+                else:
+                    if len(geography[0]) == 3:  # iso3
+                        country_codes = [
+                            str(_)
+                            for _ in list(
+                                country_key.loc[
+                                    lambda x: x["ISO3"].isin(geography), "UNCTAD_code"
+                                ].values
+                            )
+                        ]
+                    else:  # non-iso3, country group
+                        if group_or_countries == "group":
+                            country_codes = [
+                                str(_)
+                                for _ in list(
+                                    country_group_key.loc[
+                                        lambda x: x["parent_label"].isin(geography),
+                                        "parent_code",
+                                    ].values
+                                )
+                            ]
+                        else:
+                            country_codes = [
+                                str(_)
+                                for _ in list(
+                                    country_group_key.loc[
+                                        lambda x: x["parent_label"].isin(geography),
+                                        "child_code",
+                                    ].values
+                                )
+                            ]
+
+            # world should be '0000' not '0'
+            if len(country_codes) == 1 and country_codes[0] == "0":
+                country_codes = ["0000"]
+
+            return country_codes
+
         country_codes = gen_country_filter(
             country_key, country_group_key, geography, group_or_countries
         )
@@ -629,15 +635,89 @@ def get_unctadstat_tradelike(
     """
 
     # country key
+    def get_country_key():
+        if not (os.path.exists("metadata/country_key.csv")):
+            headers = {
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
+            }
+            response = requests.get(
+                "https://unctadstat.unctad.org/EN/Classifications/DimCountries_Transcode_Iso3166-1_UnctadStat.xls",
+                headers=headers,
+            )
+            excel_file = io.BytesIO(response.content)
+            country_key = pd.read_excel(excel_file)
+
+            # file cleanup
+            country_key = country_key.iloc[3:, [1, 4, 5]]
+            country_key.columns = ["ISO3", "UNCTAD_code", "UNCTAD_name"]
+            country_key = country_key.loc[
+                lambda x: pd.Series([len(str(_)) == 3 for _ in x["ISO3"]])
+                & (~pd.isna(x["ISO3"])),
+                :,
+            ].reset_index(
+                drop=True
+            )  # drop non ISO3 countries
+
+            try:
+                country_key.to_csv("metadata/country_key.csv", index=False)
+            except:
+                pass
+        else:
+            country_key = pd.read_csv("metadata/country_key.csv")
+
+        return country_key
+
     country_key = get_country_key()
 
     # country group key
+    def get_country_group_key():
+        if not (os.path.exists("metadata/country_group_key.csv")):
+            headers = {
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
+            }
+            response = requests.get(
+                "https://unctadstat.unctad.org/EN/Classifications/Dim_Countries_Hierarchy_UnctadStat_All_Flat.csv",
+                headers=headers,
+            )
+            csv_file = io.BytesIO(response.content)
+            country_group_key = pd.read_csv(csv_file)
+            country_group_key.columns = [
+                "parent_code",
+                "parent_label",
+                "child_code",
+                "child_label",
+            ]
+
+            try:
+                country_group_key.to_csv("metadata/country_group_key.csv", index=False)
+            except:
+                pass
+        else:
+            country_group_key = pd.read_csv("metadata/country_group_key.csv")
+
+        return country_group_key
+
     country_group_key = get_country_group_key()
 
     # unctadstat key
     unctadstat_key = pd.read_csv("metadata/unctadstat_key.csv")
 
     # make robust to the LLM calling the indicator_name instead
+    def filter_unctadstat_key(unctadstat_key, report_code, indicator_code):
+        tmp = unctadstat_key.loc[
+            lambda x: (x["report_code"] == report_code)
+            & ((x["indicator_code"] == indicator_code)),
+            :,
+        ].reset_index(drop=True)
+        if len(tmp) == 0:
+            tmp = unctadstat_key.loc[
+                lambda x: (x["report_code"] == report_code)
+                & ((x["indicator_name"] == indicator_code)),
+                :,
+            ].reset_index(drop=True)
+
+        return tmp
+
     unctadstat_key = filter_unctadstat_key(unctadstat_key, report_code, indicator_code)
     column_name = unctadstat_key["indicator_code"].values[0]
     return_columns = unctadstat_key["return_columns"].values[0]
@@ -664,6 +744,73 @@ def get_unctadstat_tradelike(
     )
 
     # geography filters
+    def gen_country_filter(
+        country_key, country_group_key, geography, group_or_countries
+    ):
+        if geography == "all":
+            country_codes = list(country_key.loc[:, "UNCTAD_code"].values)
+        else:
+            if isinstance(geography, str):
+                if len(geography) == 3:  # iso3
+                    country_codes = [
+                        country_key.loc[
+                            lambda x: x["ISO3"] == geography, "UNCTAD_code"
+                        ].values[0]
+                    ]
+                else:  # non-iso3, country group
+                    if group_or_countries == "group":
+                        country_codes = [
+                            str(
+                                country_group_key.loc[
+                                    lambda x: x["parent_label"] == geography,
+                                    "parent_code",
+                                ].values[0]
+                            )
+                        ]
+                    else:
+                        country_codes = list(
+                            country_group_key.loc[
+                                lambda x: x["parent_label"] == geography, "child_code"
+                            ].values
+                        )
+            else:
+                if len(geography[0]) == 3:  # iso3
+                    country_codes = [
+                        str(_)
+                        for _ in list(
+                            country_key.loc[
+                                lambda x: x["ISO3"].isin(geography), "UNCTAD_code"
+                            ].values
+                        )
+                    ]
+                else:  # non-iso3, country group
+                    if group_or_countries == "group":
+                        country_codes = [
+                            str(_)
+                            for _ in list(
+                                country_group_key.loc[
+                                    lambda x: x["parent_label"].isin(geography),
+                                    "parent_code",
+                                ].values
+                            )
+                        ]
+                    else:
+                        country_codes = [
+                            str(_)
+                            for _ in list(
+                                country_group_key.loc[
+                                    lambda x: x["parent_label"].isin(geography),
+                                    "child_code",
+                                ].values
+                            )
+                        ]
+
+        # world should be '0000' not '0'
+        if len(country_codes) == 1 and country_codes[0] == "0":
+            country_codes = ["0000"]
+
+        return country_codes
+
     geography_a_country_codes = gen_country_filter(
         country_key, country_group_key, geography_a, group_or_countries_a
     )

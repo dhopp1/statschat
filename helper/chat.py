@@ -9,6 +9,8 @@ from helper.tools import (
     get_unctadstat,
     get_unctadstat_tradelike,
 )  # need for the function definition displays
+import helper.tools
+import helper.viz_tools
 from helper.viz_tools import gen_plot  # need for the function definition displays
 
 
@@ -213,6 +215,10 @@ def display_llm_output(result):
                 "An error was encountered during the data explanation step. Please try reformulating your query."
             )
 
+    # foldout for full python script
+    with st.expander("Full runnable Python script", expanded=False):
+        st.markdown(result["python_script"])
+
     # foldout for time and tokens
     with st.expander("Time taken and token consumption", expanded=False):
         if True:  # try:
@@ -297,6 +303,7 @@ def user_question():
                     use_free_plot=st.session_state["use_free_plot"],
                     prior_query_id=st.session_state["prior_query_id"],
                     addt_context_gen_tool_call=addt_context_gen_tool_call,
+                    modules=[helper.tools, helper.viz_tools],
                 )["tool_result"]["query_id"]
 
                 try:

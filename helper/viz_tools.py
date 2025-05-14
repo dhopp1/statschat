@@ -28,7 +28,10 @@ def gen_plot(
     - plot_type: 'line' or 'bar'
     """
 
-    df = pd.read_csv(df)
+    try:
+        df = pd.read_csv(df)
+    except:
+        pass
 
     fig, ax = plt.subplots(figsize=(8, 6))
 
