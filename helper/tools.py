@@ -662,14 +662,31 @@ def get_unctadstat_tradelike(
     }
 
     # date filter
-    if start_date is None:
-        start_date = 1950
-    if end_date is None:
-        end_date = datetime.datetime.now().year
+    quarterly = False
+    if report_code in ["US.LSBCI"]:
+        quarterly = True
+        if isinstance(start_date, int):
+            start_date = f"{start_date}Q01"
+        if isinstance(end_date, int):
+            end_date = f"{end_date}Q04"
 
-    date_filter = (
-        f"""Year in ({",".join([str(_) for _ in range(start_date, end_date+1)])})"""
-    )
+    if start_date is None:
+        if quarterly:
+            start_date = "1950Q01"
+        else:
+            start_date = 1950
+    if end_date is None:
+        if quarterly:
+            end_date = f"{datetime.datetime.now().year}Q04"
+        else:
+            end_date = datetime.datetime.now().year
+
+    if quarterly:
+        date_filter = f"""Quarter/Code in ({",".join([f"'{year}Q{quarter:02}'" for year in list(range(int(start_date[:4]), int(end_date[:4])+1)) for quarter in range(1, 5) if f"{year}Q{quarter:02}" >= start_date and f"{year}Q{quarter:02}" <= end_date])})"""
+    else:
+        date_filter = (
+            f"""Year in ({",".join([str(_) for _ in range(start_date, end_date+1)])})"""
+        )
 
     # geography filters
     geography_a_country_codes = gen_country_filter(
@@ -685,6 +702,9 @@ def get_unctadstat_tradelike(
     if report_code in ["US.FleetBeneficialOwners"]:
         economy_label = "BeneficialOwnership"
         partner_label = "FlagOfRegistration"
+        flow = "all"
+
+    if report_code in ["US.LSBCI"]:
         flow = "all"
 
     if report_code in [
@@ -785,6 +805,23 @@ def get_unctadstat_tradelike(
             column_name.replace("/", "_"): unctadstat_key["indicator_name"].values[0]
         }
     )  # replacing code name with readable name
+
+    # converting to date
+    if quarterly:
+        df["Quarter_Code"] = [
+            (
+                lambda d: (
+                    datetime.date(int(d[:4]), (int(d[5:]) - 1) * 3 + 3, 1)
+                    if isinstance(d, str)
+                    and len(d) == 7
+                    and d[4] == "Q"
+                    and d[5:].isdigit()
+                    and 1 <= int(d[5:]) <= 4
+                    else None
+                )
+            )(d)
+            for d in df["Quarter_Code"]
+        ]
 
     # naming date column
     df = df.rename(

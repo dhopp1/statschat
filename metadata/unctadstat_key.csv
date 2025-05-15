@@ -134,3 +134,4 @@ id,report_code,report_name,indicator_code,indicator_name,return_columns,function
 133,US.FleetBeneficialOwners,"Merchant fleet by country of beneficial ownership, annual (analytical)",M5041/Value,Percentage of total fleet,"BeneficialOwnership/Label,Year,FlagOfRegistration/Label,M5041/Value",get_unctadstat_tradelike,
 134,US.FleetBeneficialOwners,"Merchant fleet by country of beneficial ownership, annual (analytical)",M2300/Value,Dead weight tons,"BeneficialOwnership/Label,Year,FlagOfRegistration/Label,M2300/Value",get_unctadstat_tradelike,
 135,US.FleetBeneficialOwners,"Merchant fleet by country of beneficial ownership, annual (analytical)",M6900/Value,Number of ships,"BeneficialOwnership/Label,Year,FlagOfRegistration/Label,M6900/Value",get_unctadstat_tradelike,
+136,US.LSBCI,"Liner shipping bilateral connectivity index, quarterly (analytical)",M6700/Value,Liner index,"Economy/Label,Partner/Label,Quarter/Code,M6700/Value",get_unctadstat_tradelike,
