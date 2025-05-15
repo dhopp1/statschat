@@ -461,6 +461,8 @@ def get_unctadstat(
 
     if report_code in ["US.PLSCI"] and (geography == "all" or geography == "World"):
         country_filter = ""
+    if report_code in ["US.CommodityPriceIndices_A"]:
+        country_filter = ""
 
     # combined filter
     combined_filter = (

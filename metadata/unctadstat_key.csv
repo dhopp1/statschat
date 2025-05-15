@@ -142,3 +142,5 @@ id,report_code,report_name,indicator_code,indicator_name,return_columns,function
 141,US.GDPComponent,"Gross domestic product: GDP by type of expenditure, VA by kind of economic activity, total and shares, annual",M0100/Value,US$ at current prices,"Economy/Label,Year,Component/Label,M0100/Value",get_unctadstat,
 142,US.GDPComponent,"Gross domestic product: GDP by type of expenditure, VA by kind of economic activity, total and shares, annual",M0940/Value,US$ at constant prices (2015),"Economy/Label,Year,Component/Label,M0940/Value",get_unctadstat,
 143,US.ExchangeRateCrosstab,"Currency exchange rates, annual",M0200/Value,National currency at current prices,"Economy/Label,Year,ForeignEconomy/Label,M0200/Value",get_unctadstat_tradelike,
+144,US.CommodityPriceIndices_A,"UNCTAD Commodity Price Index, annual (2015=100)",M4024/Value,Growth rate (over previous period),"Commodity/Label,Year,M4024/Value",get_unctadstat,
+145,US.CommodityPriceIndices_A,"UNCTAD Commodity Price Index, annual (2015=100)",M6475/Value,Index Base 2015,"Commodity/Label,Year,M6475/Value",get_unctadstat,
