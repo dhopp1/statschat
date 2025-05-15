@@ -249,7 +249,7 @@ def get_unctadstat(
     Parameters:
         report_code: the code of the desired dataset.
         indicator_code: the desired indicator code or name of the dataset.
-        geography (str or list[str]): either a single ISO 3-letter country code, a list of ISO 3-letter country codes, 'all' for all countries, a single one of the following country group names, or a list of the following country group names. ISO3 and country group names cannot be passed in the same list. Individual country names cannot be passed to this parameter, use ISO3 codes if you want figures for individual countries:
+        geography (str or list[str]): either a single ISO 3-letter country code, a list of ISO 3-letter country codes, 'all' for all countries, a single one of the following country group names, or a list of the following country group names. ISO3 and country group names cannot be passed in the same list. Individual country names cannot be passed to this parameter, use ISO3 codes if you want figures for individual countries. If 'report_code' = 'US.PLSCI', can also input the port name or list of port names directly in the format 'country_name, port_name':
             'Africa'
             'Americas'
             'Asia'
@@ -393,7 +393,12 @@ def get_unctadstat(
     if end_date is None:
         if semi_annual_port:
             end_date = str(datetime.datetime.now().year) + "S02"
-        elif report_code in ["US.LSCI", "US.LSCI_M", "US.MerchVolumeQuarterly"]:
+        elif report_code in [
+            "US.LSCI",
+            "US.LSCI_M",
+            "US.MerchVolumeQuarterly",
+            "US.PLSCI",
+        ]:
             if monthly_liner:
                 end_date = f"{datetime.datetime.now().year}M12"
             else:
@@ -403,7 +408,7 @@ def get_unctadstat(
         else:
             end_date = datetime.datetime.now().year
 
-    if report_code in ["US.LSCI", "US.MerchVolumeQuarterly"]:
+    if report_code in ["US.LSCI", "US.MerchVolumeQuarterly", "US.PLSCI"]:
         if isinstance(start_date, int):
             start_date = f"{start_date}Q01"
         if isinstance(end_date, int):
@@ -414,7 +419,7 @@ def get_unctadstat(
         date_filter = f"""Period/Label in ({",".join(["'" + str(_) + "'" for _ in range(start_date, end_date + 1)])})"""
     elif semi_annual_port:
         date_filter = f"""Period/Code in ({",".join([f"'{year}S{season:02}'" for year in list(range(int(start_date[:4]), int(end_date[:4])+1)) for season in range(1, 3) if f"{year}S{season:02}" >= start_date and f"{year}S{season:02}" <= end_date])})"""
-    elif report_code in ["US.LSCI", "US.LSCI_M", "US.MerchVolumeQuarterly"]:
+    elif report_code in ["US.LSCI", "US.LSCI_M", "US.MerchVolumeQuarterly", "US.PLSCI"]:
         if monthly_liner:
             date_filter = f"""Month/Code in ({",".join([f"'{year}M{month:02}'" for year in list(range(int(start_date[:4]), int(end_date[:4])+1)) for month in range(1, 13) if f"{year}M{month:02}" >= start_date and f"{year}M{month:02}" <= end_date])})"""
         else:
@@ -430,19 +435,32 @@ def get_unctadstat(
     if geography == "all":
         country_codes = list(country_key.loc[:, "UNCTAD_code"].values)
     else:
-        country_codes = gen_country_filter(
-            country_key, country_group_key, geography, group_or_countries
-        )
+        if report_code in ["US.PLSCI"]:
+            if isinstance(geography, str):
+                country_codes = [geography]
+            else:
+                country_codes = geography
+        else:
+            country_codes = gen_country_filter(
+                country_key, country_group_key, geography, group_or_countries
+            )
 
     # different country filter for vessel value report
     if report_code in ["US.VesselValueByOwnership"]:
         country_filter = f"""BeneficialOwnership/Code in ({','.join(["'" + _ + "'" for _ in country_codes])})"""
     elif report_code in ["US.VesselValueByRegistration"]:
         country_filter = f"""FlagOfRegistration/Code in ({','.join(["'" + _ + "'" for _ in country_codes])})"""
+    elif report_code in ["US.PLSCI"]:
+        country_filter = (
+            f"""Port/Label in ({','.join(["'" + _ + "'" for _ in country_codes])})"""
+        )
     else:
         country_filter = (
             f"""Economy/Code in ({','.join(["'" + _ + "'" for _ in country_codes])})"""
         )
+
+    if report_code in ["US.PLSCI"] and (geography == "all" or geography == "World"):
+        country_filter = ""
 
     # combined filter
     combined_filter = (
@@ -490,7 +508,7 @@ def get_unctadstat(
             for d in df["Period_Code"]
         ]
 
-    if report_code in ["US.LSCI", "US.LSCI_M", "US.MerchVolumeQuarterly"]:
+    if report_code in ["US.LSCI", "US.LSCI_M", "US.MerchVolumeQuarterly", "US.PLSCI"]:
         if monthly_liner:
             df["Month_Code"] = [
                 datetime.datetime.strptime(d, "%YM%m").date() for d in df["Month_Code"]
