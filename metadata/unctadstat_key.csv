@@ -136,3 +136,5 @@ id,report_code,report_name,indicator_code,indicator_name,return_columns,function
 135,US.FleetBeneficialOwners,"Merchant fleet by country of beneficial ownership, annual (analytical)",M6900/Value,Number of ships,"BeneficialOwnership/Label,Year,FlagOfRegistration/Label,M6900/Value",get_unctadstat_tradelike,
 136,US.LSBCI,"Liner shipping bilateral connectivity index, quarterly (analytical)",M6700/Value,Liner index,"Economy/Label,Partner/Label,Quarter/Code,M6700/Value",get_unctadstat_tradelike,
 137,US.PLSCI,"Port liner shipping connectivity index, quarterly (analytical)",M6047/Value,Index (Average Q1 2023 = 100),"Port/Label,Quarter/Code,M6047/Value",get_unctadstat,
+138,US.Seafarers,"Seafarer supply, quinquennial, 2015 and 2021 (analytical)",M5011/Value,Percentage of total world,"Economy/Label,Year,SeafarerType/Label,M5011/Value",get_unctadstat,
+139,US.Seafarers,"Seafarer supply, quinquennial, 2015 and 2021 (analytical)",M3700/Value,Absolute value,"Economy/Label,Year,SeafarerType/Label,M3700/Value",get_unctadstat,
