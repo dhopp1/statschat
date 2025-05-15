@@ -138,3 +138,6 @@ id,report_code,report_name,indicator_code,indicator_name,return_columns,function
 137,US.PLSCI,"Port liner shipping connectivity index, quarterly (analytical)",M6047/Value,Index (Average Q1 2023 = 100),"Port/Label,Quarter/Code,M6047/Value",get_unctadstat,
 138,US.Seafarers,"Seafarer supply, quinquennial, 2015 and 2021 (analytical)",M5011/Value,Percentage of total world,"Economy/Label,Year,SeafarerType/Label,M5011/Value",get_unctadstat,
 139,US.Seafarers,"Seafarer supply, quinquennial, 2015 and 2021 (analytical)",M3700/Value,Absolute value,"Economy/Label,Year,SeafarerType/Label,M3700/Value",get_unctadstat,
+140,US.GDPComponent,"Gross domestic product: GDP by type of expenditure, VA by kind of economic activity, total and shares, annual",M5025/Value,Percentage of Gross Domestic Product,"Economy/Label,Year,Component/Label,M5025/Value",get_unctadstat,
+141,US.GDPComponent,"Gross domestic product: GDP by type of expenditure, VA by kind of economic activity, total and shares, annual",M0100/Value,US$ at current prices,"Economy/Label,Year,Component/Label,M0100/Value",get_unctadstat,
+142,US.GDPComponent,"Gross domestic product: GDP by type of expenditure, VA by kind of economic activity, total and shares, annual",M0940/Value,US$ at constant prices (2015),"Economy/Label,Year,Component/Label,M0940/Value",get_unctadstat,
