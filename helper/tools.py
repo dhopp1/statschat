@@ -721,6 +721,10 @@ def get_unctadstat_tradelike(
         economy_label = "BeneficialOwnership"
         partner_label = "FlagOfRegistration"
         flow = "all"
+    elif report_code in ["US.ExchangeRateCrosstab"]:
+        partner_label = "ForeignEconomy"
+        flow = "all"
+        products = "all"
 
     if report_code in ["US.LSBCI"]:
         flow = "all"
