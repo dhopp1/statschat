@@ -459,9 +459,12 @@ def get_unctadstat(
             else:
                 country_codes = geography
         else:
-            country_codes = gen_country_filter(
-                country_key, country_group_key, geography, group_or_countries
-            )
+            try:
+                country_codes = gen_country_filter(
+                    country_key, country_group_key, geography, group_or_countries
+                )
+            except:
+                country_codes = ""
 
     # different country filter for vessel value report
     if report_code in ["US.VesselValueByOwnership"]:
@@ -479,7 +482,11 @@ def get_unctadstat(
 
     if report_code in ["US.PLSCI"] and (geography == "all" or geography == "World"):
         country_filter = ""
-    if report_code in ["US.CommodityPriceIndices_A", "US.CommodityPriceIndices_M"]:
+    if report_code in [
+        "US.CommodityPriceIndices_A",
+        "US.CommodityPriceIndices_M",
+        "US.CommodityPrice_A",
+    ]:
         country_filter = ""
 
     # combined filter

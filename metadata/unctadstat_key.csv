@@ -147,3 +147,4 @@ id,report_code,report_name,indicator_code,indicator_name,return_columns,function
 146,US.CommodityPriceIndices_M,"UNCTAD Commodity Price Index, annual (2015=100)",M4023/Value,"Growth rate, year-on-year","Commodity/Label,Period/Code,M4023/Value",get_unctadstat,
 147,US.CommodityPriceIndices_M,"UNCTAD Commodity Price Index, annual (2015=100)",M6475/Value,Index Base 2015,"Commodity/Label,Period/Code,M6475/Value",get_unctadstat,
 148,US.CommodityPriceIndices_M,"UNCTAD Commodity Price Index, annual (2015=100)",M4024/Value,Growth rate (over previous period),"Commodity/Label,Period/Code,M4024/Value",get_unctadstat,
+149,US.CommodityPrice_A,"Commodity prices, annual",M7110/Value,Prices,"Commodity/Label,Year,M7110/Value",get_unctadstat,

@@ -304,6 +304,8 @@ def user_question():
                     prior_query_id=st.session_state["prior_query_id"],
                     addt_context_gen_tool_call=addt_context_gen_tool_call,
                     modules=[helper.tools, helper.viz_tools],
+                    data_desc_unique_threshold=60,
+                    data_desc_top_n_values=10,
                 )["tool_result"]["query_id"]
 
                 try:
