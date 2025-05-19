@@ -152,3 +152,5 @@ id,report_code,report_name,indicator_code,indicator_name,return_columns,function
 151,US.GovExpenditures,Government expenditures,M5025/Value,Percentage of Gross Domestic Product,"Economy/Label,Year,GovernmentExpenditure/Label,M5025/Value",get_unctadstat,
 152,US.GovExpenditures,Government expenditures,M0100/Value,US dollars at current prices,"Economy/Label,Year,GovernmentExpenditure/Label,M5025/Value",get_unctadstat,
 153,US.CreativeGoodsIndex,"Market concentration index of creative goods exports and imports, annual (analytical)",M6036/Value,Concentration Index,"Product/Label,Flow/Label,Year,M6036/Value",get_unctadstat,
+154,US.Tariff,"Import tariff rates on non-agricultural and non-fuel products, annual",M4000/Value,Rate,"Market/Label,Origin/Label,DutyType/Label,Indicator/Label,M4000/Value",get_unctadstat,
+155,US.Tariff,"Import tariff rates on non-agricultural and non-fuel products, annual",M3700/Value,Absolute value,"Market/Label,Origin/Label,DutyType/Label,Indicator/Label,M3700/Value",get_unctadstat,

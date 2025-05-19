@@ -481,6 +481,9 @@ def get_unctadstat(
             f"""Economy/Code in ({','.join(["'" + _ + "'" for _ in country_codes])})"""
         )
 
+    if report_code in ["US.Tariff"]:
+        country_filter = country_filter.replace("Economy", "Market")
+
     if report_code in ["US.PLSCI"] and (geography == "all" or geography == "World"):
         country_filter = ""
     if report_code in [
