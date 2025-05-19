@@ -360,6 +360,10 @@ def get_unctadstat(
         report_code += "_S"
 
     # if passed a M01 for start or end_date, change report to US.PortCalls_M for monthly data
+    monthly = False
+    if report_code in ["US.CommodityPriceIndices_M"]:
+        monthly = True
+
     monthly_liner = report_code in ["US.LSCI"] and (
         "M" in str(start_date) or "M" in str(end_date)
     )
@@ -382,7 +386,7 @@ def get_unctadstat(
         if semi_annual_port:
             start_date = "1950S01"
         elif report_code in ["US.LSCI", "US.LSCI_M", "US.MerchVolumeQuarterly"]:
-            if monthly_liner:
+            if monthly_liner or monthly:
                 start_date = "1950M01"
             else:
                 start_date = "1950Q01"
@@ -399,7 +403,7 @@ def get_unctadstat(
             "US.MerchVolumeQuarterly",
             "US.PLSCI",
         ]:
-            if monthly_liner:
+            if monthly_liner or monthly:
                 end_date = f"{datetime.datetime.now().year}M12"
             else:
                 end_date = f"{datetime.datetime.now().year}Q04"
@@ -414,14 +418,28 @@ def get_unctadstat(
         if isinstance(end_date, int):
             end_date = f"{end_date}Q04"
 
+    if report_code in ["US.CommodityPriceIndices_M"]:
+        if isinstance(start_date, int):
+            start_date = f"{start_date}M01"
+        if isinstance(end_date, int):
+            end_date = f"{end_date}M12"
+
     # different date filter for population growth report
     if report_code in ["US.PopGR"]:
         date_filter = f"""Period/Label in ({",".join(["'" + str(_) + "'" for _ in range(start_date, end_date + 1)])})"""
     elif semi_annual_port:
         date_filter = f"""Period/Code in ({",".join([f"'{year}S{season:02}'" for year in list(range(int(start_date[:4]), int(end_date[:4])+1)) for season in range(1, 3) if f"{year}S{season:02}" >= start_date and f"{year}S{season:02}" <= end_date])})"""
-    elif report_code in ["US.LSCI", "US.LSCI_M", "US.MerchVolumeQuarterly", "US.PLSCI"]:
+    elif report_code in [
+        "US.LSCI",
+        "US.LSCI_M",
+        "US.MerchVolumeQuarterly",
+        "US.PLSCI",
+        "US.CommodityPriceIndices_M",
+    ]:
         if monthly_liner:
             date_filter = f"""Month/Code in ({",".join([f"'{year}M{month:02}'" for year in list(range(int(start_date[:4]), int(end_date[:4])+1)) for month in range(1, 13) if f"{year}M{month:02}" >= start_date and f"{year}M{month:02}" <= end_date])})"""
+        elif report_code in ["US.CommodityPriceIndices_M"]:
+            date_filter = f"""Period/Code in ({",".join([f"'{year}M{month:02}'" for year in list(range(int(start_date[:4]), int(end_date[:4])+1)) for month in range(1, 13) if f"{year}M{month:02}" >= start_date and f"{year}M{month:02}" <= end_date])})"""
         else:
             date_filter = f"""Quarter/Code in ({",".join([f"'{year}Q{quarter:02}'" for year in list(range(int(start_date[:4]), int(end_date[:4])+1)) for quarter in range(1, 5) if f"{year}Q{quarter:02}" >= start_date and f"{year}Q{quarter:02}" <= end_date])})"""
     elif report_code in ["US.TradeMerchGR"]:
@@ -461,7 +479,7 @@ def get_unctadstat(
 
     if report_code in ["US.PLSCI"] and (geography == "all" or geography == "World"):
         country_filter = ""
-    if report_code in ["US.CommodityPriceIndices_A"]:
+    if report_code in ["US.CommodityPriceIndices_A", "US.CommodityPriceIndices_M"]:
         country_filter = ""
 
     # combined filter
@@ -510,10 +528,20 @@ def get_unctadstat(
             for d in df["Period_Code"]
         ]
 
-    if report_code in ["US.LSCI", "US.LSCI_M", "US.MerchVolumeQuarterly", "US.PLSCI"]:
+    if report_code in [
+        "US.LSCI",
+        "US.LSCI_M",
+        "US.MerchVolumeQuarterly",
+        "US.PLSCI",
+        "US.CommodityPriceIndices_M",
+    ]:
         if monthly_liner:
             df["Month_Code"] = [
                 datetime.datetime.strptime(d, "%YM%m").date() for d in df["Month_Code"]
+            ]
+        elif report_code in ["US.CommodityPriceIndices_M"]:
+            df["Period_Code"] = [
+                datetime.datetime.strptime(d, "%YM%m").date() for d in df["Period_Code"]
             ]
         else:
             df["Quarter_Code"] = [
