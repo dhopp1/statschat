@@ -361,7 +361,7 @@ def get_unctadstat(
 
     # if passed a M01 for start or end_date, change report to US.PortCalls_M for monthly data
     monthly = False
-    if report_code in ["US.CommodityPriceIndices_M"]:
+    if report_code in ["US.CommodityPriceIndices_M", "US.CommodityPrice_M"]:
         monthly = True
 
     monthly_liner = report_code in ["US.LSCI"] and (
@@ -418,7 +418,7 @@ def get_unctadstat(
         if isinstance(end_date, int):
             end_date = f"{end_date}Q04"
 
-    if report_code in ["US.CommodityPriceIndices_M"]:
+    if report_code in ["US.CommodityPriceIndices_M", "US.CommodityPrice_M"]:
         if isinstance(start_date, int):
             start_date = f"{start_date}M01"
         if isinstance(end_date, int):
@@ -435,10 +435,11 @@ def get_unctadstat(
         "US.MerchVolumeQuarterly",
         "US.PLSCI",
         "US.CommodityPriceIndices_M",
+        "US.CommodityPrice_M",
     ]:
         if monthly_liner:
             date_filter = f"""Month/Code in ({",".join([f"'{year}M{month:02}'" for year in list(range(int(start_date[:4]), int(end_date[:4])+1)) for month in range(1, 13) if f"{year}M{month:02}" >= start_date and f"{year}M{month:02}" <= end_date])})"""
-        elif report_code in ["US.CommodityPriceIndices_M"]:
+        elif report_code in ["US.CommodityPriceIndices_M", "US.CommodityPrice_M"]:
             date_filter = f"""Period/Code in ({",".join([f"'{year}M{month:02}'" for year in list(range(int(start_date[:4]), int(end_date[:4])+1)) for month in range(1, 13) if f"{year}M{month:02}" >= start_date and f"{year}M{month:02}" <= end_date])})"""
         else:
             date_filter = f"""Quarter/Code in ({",".join([f"'{year}Q{quarter:02}'" for year in list(range(int(start_date[:4]), int(end_date[:4])+1)) for quarter in range(1, 5) if f"{year}Q{quarter:02}" >= start_date and f"{year}Q{quarter:02}" <= end_date])})"""
@@ -486,6 +487,7 @@ def get_unctadstat(
         "US.CommodityPriceIndices_A",
         "US.CommodityPriceIndices_M",
         "US.CommodityPrice_A",
+        "US.CommodityPrice_M",
     ]:
         country_filter = ""
 
@@ -541,12 +543,13 @@ def get_unctadstat(
         "US.MerchVolumeQuarterly",
         "US.PLSCI",
         "US.CommodityPriceIndices_M",
+        "US.CommodityPrice_M",
     ]:
         if monthly_liner:
             df["Month_Code"] = [
                 datetime.datetime.strptime(d, "%YM%m").date() for d in df["Month_Code"]
             ]
-        elif report_code in ["US.CommodityPriceIndices_M"]:
+        elif report_code in ["US.CommodityPriceIndices_M", "US.CommodityPrice_M"]:
             df["Period_Code"] = [
                 datetime.datetime.strptime(d, "%YM%m").date() for d in df["Period_Code"]
             ]
