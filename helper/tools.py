@@ -488,7 +488,8 @@ def get_unctadstat(
         "US.CommodityPriceIndices_M",
         "US.CommodityPrice_A",
         "US.CommodityPrice_M",
-    ]:
+        "US.CreativeGoodsIndex",
+    ]:  # no country/economy dimension
         country_filter = ""
 
     # combined filter

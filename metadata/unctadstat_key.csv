@@ -150,3 +150,5 @@ id,report_code,report_name,indicator_code,indicator_name,return_columns,function
 149,US.CommodityPrice_A,"Commodity prices, annual",M7110/Value,Prices,"Commodity/Label,Year,M7110/Value",get_unctadstat,
 150,US.CommodityPrice_M,"Commodity prices, monthly",M7110/Value,Prices,"Commodity/Label,Period/Code,M7110/Value",get_unctadstat,
 151,US.GovExpenditures,Government expenditures,M5025/Value,Percentage of Gross Domestic Product,"Economy/Label,Year,GovernmentExpenditure/Label,M5025/Value",get_unctadstat,
+152,US.GovExpenditures,Government expenditures,M0100/Value,US dollars at current prices,"Economy/Label,Year,GovernmentExpenditure/Label,M5025/Value",get_unctadstat,
+153,US.CreativeGoodsIndex,"Market concentration index of creative goods exports and imports, annual (analytical)",M6036/Value,Concentration Index,"Product/Label,Flow/Label,Year,M6036/Value",get_unctadstat,
