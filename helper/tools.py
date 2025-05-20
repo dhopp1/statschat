@@ -818,6 +818,9 @@ def get_unctadstat_tradelike(
     if report_code in ["US.IctGoodsValue"]:
         total_product = "ICT00"
         product_colname = "IctGoodsCategory"
+    elif report_code in ["US.TradeServCatByPartner"]:
+        total_product = "S"
+        product_colname = "Category"
     elif report_code in [
         "US.BiotradeMerch",
         "US.BiotradeMerchGR",
