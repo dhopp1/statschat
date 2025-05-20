@@ -770,7 +770,7 @@ def get_unctadstat_tradelike(
         flow = "all"
         products = "all"
 
-    if report_code in ["US.LSBCI"]:
+    if report_code in ["US.LSBCI", "US.RCA"]:
         flow = "all"
 
     if report_code in [
@@ -788,6 +788,7 @@ def get_unctadstat_tradelike(
             "US.OceanRCARegionalAggregates",
             "US.OceanTheilIndicesIndividualEconomies",
             "US.IntraTrade",
+            "US.RCA",
         ]:  # no partner for these tables
             country_filter += f""" and {partner_label}/Code in ({','.join(["'" + _ + "'" for _ in geography_b_country_codes])})"""
 
@@ -822,7 +823,12 @@ def get_unctadstat_tradelike(
         total_product = "P_12"
     elif report_code in ["US.NonPlasticSubstsTradeByPartner"]:
         total_product = "NPS000"
-    elif report_code in ["US.ConcentStructIndices", "US.TradeMatrix", "US.IntraTrade"]:
+    elif report_code in [
+        "US.ConcentStructIndices",
+        "US.TradeMatrix",
+        "US.IntraTrade",
+        "US.RCA",
+    ]:
         total_product = "TOTAL"
     else:  # table doesn't have a product field
         total_product = "NA"
