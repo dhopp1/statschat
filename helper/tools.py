@@ -821,7 +821,7 @@ def get_unctadstat_tradelike(
         total_product = "P_12"
     elif report_code in ["US.NonPlasticSubstsTradeByPartner"]:
         total_product = "NPS000"
-    elif report_code in ["US.ConcentStructIndices"]:
+    elif report_code in ["US.ConcentStructIndices", "US.TradeMatrix"]:
         total_product = "TOTAL"
     else:  # table doesn't have a product field
         total_product = "NA"
