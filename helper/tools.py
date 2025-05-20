@@ -385,7 +385,13 @@ def get_unctadstat(
     if start_date is None:
         if semi_annual_port:
             start_date = "1950S01"
-        elif report_code in ["US.LSCI", "US.LSCI_M", "US.MerchVolumeQuarterly"]:
+        elif report_code in [
+            "US.LSCI",
+            "US.LSCI_M",
+            "US.MerchVolumeQuarterly",
+            "US.PLSCI",
+            "US.TotAndComServicesQuarterly",
+        ]:
             if monthly_liner or monthly:
                 start_date = "1950M01"
             else:
@@ -402,6 +408,7 @@ def get_unctadstat(
             "US.LSCI_M",
             "US.MerchVolumeQuarterly",
             "US.PLSCI",
+            "US.TotAndComServicesQuarterly",
         ]:
             if monthly_liner or monthly:
                 end_date = f"{datetime.datetime.now().year}M12"
@@ -412,7 +419,12 @@ def get_unctadstat(
         else:
             end_date = datetime.datetime.now().year
 
-    if report_code in ["US.LSCI", "US.MerchVolumeQuarterly", "US.PLSCI"]:
+    if report_code in [
+        "US.LSCI",
+        "US.MerchVolumeQuarterly",
+        "US.PLSCI",
+        "US.TotAndComServicesQuarterly",
+    ]:
         if isinstance(start_date, int):
             start_date = f"{start_date}Q01"
         if isinstance(end_date, int):
@@ -436,13 +448,19 @@ def get_unctadstat(
         "US.PLSCI",
         "US.CommodityPriceIndices_M",
         "US.CommodityPrice_M",
+        "US.TotAndComServicesQuarterly",
     ]:
         if monthly_liner:
             date_filter = f"""Month/Code in ({",".join([f"'{year}M{month:02}'" for year in list(range(int(start_date[:4]), int(end_date[:4])+1)) for month in range(1, 13) if f"{year}M{month:02}" >= start_date and f"{year}M{month:02}" <= end_date])})"""
         elif report_code in ["US.CommodityPriceIndices_M", "US.CommodityPrice_M"]:
             date_filter = f"""Period/Code in ({",".join([f"'{year}M{month:02}'" for year in list(range(int(start_date[:4]), int(end_date[:4])+1)) for month in range(1, 13) if f"{year}M{month:02}" >= start_date and f"{year}M{month:02}" <= end_date])})"""
         else:
-            date_filter = f"""Quarter/Code in ({",".join([f"'{year}Q{quarter:02}'" for year in list(range(int(start_date[:4]), int(end_date[:4])+1)) for quarter in range(1, 5) if f"{year}Q{quarter:02}" >= start_date and f"{year}Q{quarter:02}" <= end_date])})"""
+            period_label = (
+                "Quarter"
+                if report_code not in ["US.TotAndComServicesQuarterly"]
+                else "Period"
+            )
+            date_filter = f"""{period_label}/Code in ({",".join([f"'{year}Q{quarter:02}'" for year in list(range(int(start_date[:4]), int(end_date[:4])+1)) for quarter in range(1, 5) if f"{year}Q{quarter:02}" >= start_date and f"{year}Q{quarter:02}" <= end_date])})"""
     elif report_code in ["US.TradeMerchGR"]:
         date_filter = f"""Year/Code in ({",".join([f"'{year}{year+1}'" for year in range(start_date - 1, end_date)])})"""
     else:
@@ -548,6 +566,7 @@ def get_unctadstat(
         "US.PLSCI",
         "US.CommodityPriceIndices_M",
         "US.CommodityPrice_M",
+        "US.TotAndComServicesQuarterly",
     ]:
         if monthly_liner:
             df["Month_Code"] = [
@@ -558,7 +577,7 @@ def get_unctadstat(
                 datetime.datetime.strptime(d, "%YM%m").date() for d in df["Period_Code"]
             ]
         else:
-            df["Quarter_Code"] = [
+            df[f"{period_label}_Code"] = [
                 (
                     lambda d: (
                         datetime.date(int(d[:4]), (int(d[5:]) - 1) * 3 + 3, 1)
@@ -570,7 +589,7 @@ def get_unctadstat(
                         else None
                     )
                 )(d)
-                for d in df["Quarter_Code"]
+                for d in df[f"{period_label}_Code"]
             ]
 
     # naming date column
