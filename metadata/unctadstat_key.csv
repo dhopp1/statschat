@@ -178,3 +178,4 @@ id,report_code,report_name,indicator_code,indicator_name,return_columns,function
 177,US.CreativeGoodsValue,"Creative goods matrix, annual (analytical)",M0100/Value,US$ at current prices,"Economy/Label,Year,Partner/Label,Flow/Label,Product/Label,M0100/Value",get_unctadstat_tradelike,
 178,US.CreativeGoodsValue,"Creative goods matrix, annual (analytical)",M5019/Value,Percentage by destination,"Economy/Label,Year,Partner/Label,Flow/Label,Product/Label,M5019/Value",get_unctadstat_tradelike,
 179,US.CreativeGoodsValue,"Creative goods matrix, annual (analytical)",M5058/Value,Percentage of total merchandise trade,"Economy/Label,Year,Partner/Label,Flow/Label,Product/Label,M5058/Value",get_unctadstat_tradelike,
+180,US.CreativeGoodsGR,"Creative goods matrix, growth rates, annual (analytical)",M4017/Value,Annual average growth rate,"Economy/Label,Period/Label,Partner/Label,Flow/Label,Product/Label,M4017/Value",get_unctadstat_tradelike,

@@ -764,6 +764,8 @@ def get_unctadstat_tradelike(
 
     if quarterly:
         date_filter = f"""Quarter/Code in ({",".join([f"'{year}Q{quarter:02}'" for year in list(range(int(start_date[:4]), int(end_date[:4])+1)) for quarter in range(1, 5) if f"{year}Q{quarter:02}" >= start_date and f"{year}Q{quarter:02}" <= end_date])})"""
+    elif report_code in ["US.CreativeGoodsGR"]:
+        date_filter = f"""Period/Code in ({",".join([f"'{year}{year+1}'" for year in range(start_date - 1, end_date)])})"""
     else:
         date_filter = (
             f"""Year in ({",".join([str(_) for _ in range(start_date, end_date+1)])})"""
