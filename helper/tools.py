@@ -811,6 +811,7 @@ def get_unctadstat_tradelike(
             "US.IntraTrade",
             "US.RCA",
             "US.TradeFoodProcCat_Cat_RCA",
+            "US.TradeFoodProcCat_Proc_RCA",
         ]:  # no partner for these tables
             country_filter += f""" and {partner_label}/Code in ({','.join(["'" + _ + "'" for _ in geography_b_country_codes])})"""
 
@@ -852,6 +853,7 @@ def get_unctadstat_tradelike(
         "US.TradeFoodCatByProc",
         "US.TradeFoodProcCat_Cat_RCA",
         "US.TradeFoodProcByCat",
+        "US.TradeFoodProcCat_Proc_RCA",
     ]:
         total_product = "T00"
         product_colname = "ProcessFoodCategory"
