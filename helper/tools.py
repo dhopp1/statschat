@@ -786,6 +786,10 @@ def get_unctadstat_tradelike(
         economy_label = "BeneficialOwnership"
         partner_label = "FlagOfRegistration"
         flow = "all"
+    elif report_code in ["US.TransportCosts"]:
+        economy_label = "Origin"
+        partner_label = "Destination"
+        flow = "all"
     elif report_code in ["US.ExchangeRateCrosstab"]:
         partner_label = "ForeignEconomy"
         flow = "all"
@@ -862,6 +866,7 @@ def get_unctadstat_tradelike(
         "US.TradeMatrix",
         "US.IntraTrade",
         "US.RCA",
+        "US.TransportCosts",
     ]:
         total_product = "TOTAL"
     else:  # table doesn't have a product field
