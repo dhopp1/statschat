@@ -1,0 +1,1209 @@
+ProcessFoodCategory_Code,ProcessFoodCategory_Label
+A01,Raw - Vegetable
+A02,Raw - Fruit
+A03,Raw - Cereals
+A04,Raw - Meat
+A05,Raw - Poultry
+A06,Raw - Fish
+A07,Raw - Shellfish
+A08,Raw - Dairy
+A10,Raw - Nuts
+A11,Raw - Oilseeds
+A14,Raw - Non-alcoholic
+A16,"Raw - Sugars, jams"
+B01,Minimal Processing - Vegetable
+B02,Minimal Processing - Fruit
+B03,Minimal Processing - Cereals
+B06,Minimal Processing - Fish
+B08,Minimal Processing - Dairy
+B10,Minimal Processing - Nuts
+B11,Minimal Processing - Oilseeds
+B13,Minimal Processing - Vegetable fats
+B17,Minimal Processing - Cocoa et cie
+C01,"Processing: Salt, Sugar - Vegetable"
+C02,"Processing: Salt, Sugar - Fruit"
+C04,"Processing: Salt, Sugar - Meat"
+C06,"Processing: Salt, Sugar - Fish"
+C07,"Processing: Salt, Sugar - Shellfish"
+C08,"Processing: Salt, Sugar - Dairy"
+C09,"Processing: Salt, Sugar - Egg"
+C10,"Processing: Salt, Sugar - Nuts"
+C12,"Processing: Salt, Sugar - Animal fats"
+C14,"Processing: Salt, Sugar - Non-alcoholic"
+C16,"Processing: Salt, Sugar - Sugars, jams"
+C17,"Processing: Salt, Sugar - Cocoa et cie"
+C18,"Processing: Salt, Sugar - Edible preparations"
+D06,"Processing: fermentation, smoking - Fish"
+D07,"Processing: fermentation, smoking - Shellfish"
+D08,"Processing: fermentation, smoking - Dairy"
+D15,"Processing: fermentation, smoking - Alcoholic beverages"
+D16,"Processing: fermentation, smoking - Sugars, jams"
+D18,"Processing: fermentation, smoking - Edible preparations"
+E01,Composite - Vegetable
+E04,Composite - Meat
+E05,Composite - Poultry
+E06,Composite - Fish
+E07,Composite - Shellfish
+E08,Composite - Dairy
+E12,Composite - Animal fats
+E13,Composite - Vegetable fats
+E16,"Composite - Sugars, jams"
+E17,Composite - Cocoa et cie
+E18,Composite - Edible preparations
+F01,Ingredients - Vegetable
+F02,Ingredients - Fruit
+F14,Ingredients - Non-alcoholic
+F15,Ingredients - Alcoholic beverages
+F18,Ingredients - Edible preparations
+G01,Precursor - Vegetable
+G04,Precursor - Meat
+G05,Precursor - Poultry
+G06,Precursor - Fish
+G19,"Precursor - Other, n.e.c."
+T00,Total
+T01,Vegetable
+T02,Fruit
+T03,Cereals
+T04,Meat
+T05,Poultry
+T06,Fish
+T07,Shellfish
+T08,Dairy
+T09,Egg
+T10,Nuts
+T11,Oilseeds
+T12,Animal fats
+T13,Vegetable fats
+T14,Non-alcoholic
+T15,Alcoholic beverages
+T16,"Sugars, jams"
+T17,Cocoa et cie
+T18,Edible preparations
+T19,"Other, n.e.c."
+Z99,All products
+A01,Raw - Vegetable
+A02,Raw - Fruit
+A03,Raw - Cereals
+A04,Raw - Meat
+A05,Raw - Poultry
+A06,Raw - Fish
+A07,Raw - Shellfish
+A08,Raw - Dairy
+A10,Raw - Nuts
+A11,Raw - Oilseeds
+A14,Raw - Non-alcoholic
+A16,"Raw - Sugars, jams"
+B01,Minimal Processing - Vegetable
+B02,Minimal Processing - Fruit
+B03,Minimal Processing - Cereals
+B06,Minimal Processing - Fish
+B08,Minimal Processing - Dairy
+B10,Minimal Processing - Nuts
+B11,Minimal Processing - Oilseeds
+B13,Minimal Processing - Vegetable fats
+B17,Minimal Processing - Cocoa et cie
+C01,"Processing: Salt, Sugar - Vegetable"
+C02,"Processing: Salt, Sugar - Fruit"
+C04,"Processing: Salt, Sugar - Meat"
+C06,"Processing: Salt, Sugar - Fish"
+C07,"Processing: Salt, Sugar - Shellfish"
+C08,"Processing: Salt, Sugar - Dairy"
+C09,"Processing: Salt, Sugar - Egg"
+C10,"Processing: Salt, Sugar - Nuts"
+C12,"Processing: Salt, Sugar - Animal fats"
+C14,"Processing: Salt, Sugar - Non-alcoholic"
+C16,"Processing: Salt, Sugar - Sugars, jams"
+C17,"Processing: Salt, Sugar - Cocoa et cie"
+C18,"Processing: Salt, Sugar - Edible preparations"
+D06,"Processing: fermentation, smoking - Fish"
+D07,"Processing: fermentation, smoking - Shellfish"
+D08,"Processing: fermentation, smoking - Dairy"
+D15,"Processing: fermentation, smoking - Alcoholic beverages"
+D16,"Processing: fermentation, smoking - Sugars, jams"
+D18,"Processing: fermentation, smoking - Edible preparations"
+E01,Composite - Vegetable
+E04,Composite - Meat
+E05,Composite - Poultry
+E06,Composite - Fish
+E07,Composite - Shellfish
+E08,Composite - Dairy
+E12,Composite - Animal fats
+E13,Composite - Vegetable fats
+E16,"Composite - Sugars, jams"
+E17,Composite - Cocoa et cie
+E18,Composite - Edible preparations
+F01,Ingredients - Vegetable
+F02,Ingredients - Fruit
+F14,Ingredients - Non-alcoholic
+F15,Ingredients - Alcoholic beverages
+F18,Ingredients - Edible preparations
+G01,Precursor - Vegetable
+G04,Precursor - Meat
+G05,Precursor - Poultry
+G06,Precursor - Fish
+G19,"Precursor - Other, n.e.c."
+T00,Total
+T01,Vegetable
+T02,Fruit
+T03,Cereals
+T04,Meat
+T05,Poultry
+T06,Fish
+T07,Shellfish
+T08,Dairy
+T09,Egg
+T10,Nuts
+T11,Oilseeds
+T12,Animal fats
+T13,Vegetable fats
+T14,Non-alcoholic
+T15,Alcoholic beverages
+T16,"Sugars, jams"
+T17,Cocoa et cie
+T18,Edible preparations
+T19,"Other, n.e.c."
+Z99,All products
+A01,Raw - Vegetable
+A02,Raw - Fruit
+A03,Raw - Cereals
+A04,Raw - Meat
+A05,Raw - Poultry
+A06,Raw - Fish
+A07,Raw - Shellfish
+A08,Raw - Dairy
+A09,Raw - Egg
+A10,Raw - Nuts
+A11,Raw - Oilseeds
+A14,Raw - Non-alcoholic
+A16,"Raw - Sugars, jams"
+B01,Minimal Processing - Vegetable
+B02,Minimal Processing - Fruit
+B03,Minimal Processing - Cereals
+B06,Minimal Processing - Fish
+B08,Minimal Processing - Dairy
+B10,Minimal Processing - Nuts
+B11,Minimal Processing - Oilseeds
+B13,Minimal Processing - Vegetable fats
+B14,Minimal Processing - Non-alcoholic
+B16,"Minimal Processing - Sugars, jams"
+B17,Minimal Processing - Cocoa et cie
+C01,"Processing: Salt, Sugar - Vegetable"
+C02,"Processing: Salt, Sugar - Fruit"
+C04,"Processing: Salt, Sugar - Meat"
+C06,"Processing: Salt, Sugar - Fish"
+C07,"Processing: Salt, Sugar - Shellfish"
+C08,"Processing: Salt, Sugar - Dairy"
+C09,"Processing: Salt, Sugar - Egg"
+C10,"Processing: Salt, Sugar - Nuts"
+C12,"Processing: Salt, Sugar - Animal fats"
+C14,"Processing: Salt, Sugar - Non-alcoholic"
+C16,"Processing: Salt, Sugar - Sugars, jams"
+C17,"Processing: Salt, Sugar - Cocoa et cie"
+C18,"Processing: Salt, Sugar - Edible preparations"
+D06,"Processing: fermentation, smoking - Fish"
+D07,"Processing: fermentation, smoking - Shellfish"
+D08,"Processing: fermentation, smoking - Dairy"
+D14,"Processing: fermentation, smoking - Non-alcoholic"
+D15,"Processing: fermentation, smoking - Alcoholic beverages"
+D16,"Processing: fermentation, smoking - Sugars, jams"
+D18,"Processing: fermentation, smoking - Edible preparations"
+E01,Composite - Vegetable
+E04,Composite - Meat
+E05,Composite - Poultry
+E06,Composite - Fish
+E07,Composite - Shellfish
+E08,Composite - Dairy
+E12,Composite - Animal fats
+E13,Composite - Vegetable fats
+E16,"Composite - Sugars, jams"
+E17,Composite - Cocoa et cie
+E18,Composite - Edible preparations
+F01,Ingredients - Vegetable
+F02,Ingredients - Fruit
+F14,Ingredients - Non-alcoholic
+F15,Ingredients - Alcoholic beverages
+F18,Ingredients - Edible preparations
+G01,Precursor - Vegetable
+G04,Precursor - Meat
+G05,Precursor - Poultry
+G06,Precursor - Fish
+G09,Precursor - Egg
+G19,"Precursor - Other, n.e.c."
+T00,Total
+T01,Vegetable
+T02,Fruit
+T03,Cereals
+T04,Meat
+T05,Poultry
+T06,Fish
+T07,Shellfish
+T08,Dairy
+T09,Egg
+T10,Nuts
+T11,Oilseeds
+T12,Animal fats
+T13,Vegetable fats
+T14,Non-alcoholic
+T15,Alcoholic beverages
+T16,"Sugars, jams"
+T17,Cocoa et cie
+T18,Edible preparations
+T19,"Other, n.e.c."
+Z99,All products
+A01,Raw - Vegetable
+A02,Raw - Fruit
+A03,Raw - Cereals
+A04,Raw - Meat
+A05,Raw - Poultry
+A06,Raw - Fish
+A07,Raw - Shellfish
+A08,Raw - Dairy
+A09,Raw - Egg
+A10,Raw - Nuts
+A11,Raw - Oilseeds
+A14,Raw - Non-alcoholic
+A16,"Raw - Sugars, jams"
+B01,Minimal Processing - Vegetable
+B02,Minimal Processing - Fruit
+B03,Minimal Processing - Cereals
+B06,Minimal Processing - Fish
+B08,Minimal Processing - Dairy
+B10,Minimal Processing - Nuts
+B11,Minimal Processing - Oilseeds
+B13,Minimal Processing - Vegetable fats
+B14,Minimal Processing - Non-alcoholic
+B16,"Minimal Processing - Sugars, jams"
+B17,Minimal Processing - Cocoa et cie
+C01,"Processing: Salt, Sugar - Vegetable"
+C02,"Processing: Salt, Sugar - Fruit"
+C04,"Processing: Salt, Sugar - Meat"
+C06,"Processing: Salt, Sugar - Fish"
+C07,"Processing: Salt, Sugar - Shellfish"
+C08,"Processing: Salt, Sugar - Dairy"
+C09,"Processing: Salt, Sugar - Egg"
+C10,"Processing: Salt, Sugar - Nuts"
+C12,"Processing: Salt, Sugar - Animal fats"
+C14,"Processing: Salt, Sugar - Non-alcoholic"
+C16,"Processing: Salt, Sugar - Sugars, jams"
+C17,"Processing: Salt, Sugar - Cocoa et cie"
+C18,"Processing: Salt, Sugar - Edible preparations"
+D06,"Processing: fermentation, smoking - Fish"
+D07,"Processing: fermentation, smoking - Shellfish"
+D08,"Processing: fermentation, smoking - Dairy"
+D14,"Processing: fermentation, smoking - Non-alcoholic"
+D15,"Processing: fermentation, smoking - Alcoholic beverages"
+D16,"Processing: fermentation, smoking - Sugars, jams"
+D18,"Processing: fermentation, smoking - Edible preparations"
+E01,Composite - Vegetable
+E04,Composite - Meat
+E05,Composite - Poultry
+E06,Composite - Fish
+E07,Composite - Shellfish
+E08,Composite - Dairy
+E12,Composite - Animal fats
+E13,Composite - Vegetable fats
+E16,"Composite - Sugars, jams"
+E17,Composite - Cocoa et cie
+E18,Composite - Edible preparations
+F01,Ingredients - Vegetable
+F02,Ingredients - Fruit
+F14,Ingredients - Non-alcoholic
+F15,Ingredients - Alcoholic beverages
+F18,Ingredients - Edible preparations
+G01,Precursor - Vegetable
+G04,Precursor - Meat
+G05,Precursor - Poultry
+G06,Precursor - Fish
+G09,Precursor - Egg
+G19,"Precursor - Other, n.e.c."
+T00,Total
+T01,Vegetable
+T02,Fruit
+T03,Cereals
+T04,Meat
+T05,Poultry
+T06,Fish
+T07,Shellfish
+T08,Dairy
+T09,Egg
+T10,Nuts
+T11,Oilseeds
+T12,Animal fats
+T13,Vegetable fats
+T14,Non-alcoholic
+T15,Alcoholic beverages
+T16,"Sugars, jams"
+T17,Cocoa et cie
+T18,Edible preparations
+T19,"Other, n.e.c."
+Z99,All products
+A01,Raw - Vegetable
+A02,Raw - Fruit
+A03,Raw - Cereals
+A04,Raw - Meat
+A05,Raw - Poultry
+A06,Raw - Fish
+A07,Raw - Shellfish
+A08,Raw - Dairy
+A09,Raw - Egg
+A10,Raw - Nuts
+A11,Raw - Oilseeds
+A14,Raw - Non-alcoholic
+A16,"Raw - Sugars, jams"
+B01,Minimal Processing - Vegetable
+B02,Minimal Processing - Fruit
+B03,Minimal Processing - Cereals
+B06,Minimal Processing - Fish
+B08,Minimal Processing - Dairy
+B10,Minimal Processing - Nuts
+B11,Minimal Processing - Oilseeds
+B13,Minimal Processing - Vegetable fats
+B14,Minimal Processing - Non-alcoholic
+B16,"Minimal Processing - Sugars, jams"
+B17,Minimal Processing - Cocoa et cie
+C01,"Processing: Salt, Sugar - Vegetable"
+C02,"Processing: Salt, Sugar - Fruit"
+C04,"Processing: Salt, Sugar - Meat"
+C06,"Processing: Salt, Sugar - Fish"
+C07,"Processing: Salt, Sugar - Shellfish"
+C08,"Processing: Salt, Sugar - Dairy"
+C09,"Processing: Salt, Sugar - Egg"
+C10,"Processing: Salt, Sugar - Nuts"
+C12,"Processing: Salt, Sugar - Animal fats"
+C14,"Processing: Salt, Sugar - Non-alcoholic"
+C16,"Processing: Salt, Sugar - Sugars, jams"
+C17,"Processing: Salt, Sugar - Cocoa et cie"
+C18,"Processing: Salt, Sugar - Edible preparations"
+D06,"Processing: fermentation, smoking - Fish"
+D07,"Processing: fermentation, smoking - Shellfish"
+D08,"Processing: fermentation, smoking - Dairy"
+D14,"Processing: fermentation, smoking - Non-alcoholic"
+D15,"Processing: fermentation, smoking - Alcoholic beverages"
+D16,"Processing: fermentation, smoking - Sugars, jams"
+D18,"Processing: fermentation, smoking - Edible preparations"
+E01,Composite - Vegetable
+E04,Composite - Meat
+E05,Composite - Poultry
+E06,Composite - Fish
+E07,Composite - Shellfish
+E08,Composite - Dairy
+E12,Composite - Animal fats
+E13,Composite - Vegetable fats
+E16,"Composite - Sugars, jams"
+E17,Composite - Cocoa et cie
+E18,Composite - Edible preparations
+F01,Ingredients - Vegetable
+F02,Ingredients - Fruit
+F14,Ingredients - Non-alcoholic
+F15,Ingredients - Alcoholic beverages
+F18,Ingredients - Edible preparations
+G01,Precursor - Vegetable
+G04,Precursor - Meat
+G05,Precursor - Poultry
+G06,Precursor - Fish
+G09,Precursor - Egg
+G19,"Precursor - Other, n.e.c."
+T00,Total
+T01,Vegetable
+T02,Fruit
+T03,Cereals
+T04,Meat
+T05,Poultry
+T06,Fish
+T07,Shellfish
+T08,Dairy
+T09,Egg
+T10,Nuts
+T11,Oilseeds
+T12,Animal fats
+T13,Vegetable fats
+T14,Non-alcoholic
+T15,Alcoholic beverages
+T16,"Sugars, jams"
+T17,Cocoa et cie
+T18,Edible preparations
+T19,"Other, n.e.c."
+Z99,All products
+A01,Raw - Vegetable
+A02,Raw - Fruit
+A03,Raw - Cereals
+A04,Raw - Meat
+A05,Raw - Poultry
+A06,Raw - Fish
+A07,Raw - Shellfish
+A08,Raw - Dairy
+A09,Raw - Egg
+A10,Raw - Nuts
+A11,Raw - Oilseeds
+A14,Raw - Non-alcoholic
+A16,"Raw - Sugars, jams"
+B01,Minimal Processing - Vegetable
+B02,Minimal Processing - Fruit
+B03,Minimal Processing - Cereals
+B06,Minimal Processing - Fish
+B08,Minimal Processing - Dairy
+B10,Minimal Processing - Nuts
+B11,Minimal Processing - Oilseeds
+B13,Minimal Processing - Vegetable fats
+B14,Minimal Processing - Non-alcoholic
+B16,"Minimal Processing - Sugars, jams"
+B17,Minimal Processing - Cocoa et cie
+C01,"Processing: Salt, Sugar - Vegetable"
+C02,"Processing: Salt, Sugar - Fruit"
+C04,"Processing: Salt, Sugar - Meat"
+C06,"Processing: Salt, Sugar - Fish"
+C07,"Processing: Salt, Sugar - Shellfish"
+C08,"Processing: Salt, Sugar - Dairy"
+C09,"Processing: Salt, Sugar - Egg"
+C10,"Processing: Salt, Sugar - Nuts"
+C12,"Processing: Salt, Sugar - Animal fats"
+C14,"Processing: Salt, Sugar - Non-alcoholic"
+C16,"Processing: Salt, Sugar - Sugars, jams"
+C17,"Processing: Salt, Sugar - Cocoa et cie"
+C18,"Processing: Salt, Sugar - Edible preparations"
+D06,"Processing: fermentation, smoking - Fish"
+D07,"Processing: fermentation, smoking - Shellfish"
+D08,"Processing: fermentation, smoking - Dairy"
+D14,"Processing: fermentation, smoking - Non-alcoholic"
+D15,"Processing: fermentation, smoking - Alcoholic beverages"
+D16,"Processing: fermentation, smoking - Sugars, jams"
+D18,"Processing: fermentation, smoking - Edible preparations"
+E01,Composite - Vegetable
+E04,Composite - Meat
+E05,Composite - Poultry
+E06,Composite - Fish
+E07,Composite - Shellfish
+E08,Composite - Dairy
+E12,Composite - Animal fats
+E13,Composite - Vegetable fats
+E16,"Composite - Sugars, jams"
+E17,Composite - Cocoa et cie
+E18,Composite - Edible preparations
+F01,Ingredients - Vegetable
+F02,Ingredients - Fruit
+F14,Ingredients - Non-alcoholic
+F15,Ingredients - Alcoholic beverages
+F18,Ingredients - Edible preparations
+G01,Precursor - Vegetable
+G04,Precursor - Meat
+G05,Precursor - Poultry
+G06,Precursor - Fish
+G09,Precursor - Egg
+G19,"Precursor - Other, n.e.c."
+T00,Total
+T01,Vegetable
+T02,Fruit
+T03,Cereals
+T04,Meat
+T05,Poultry
+T06,Fish
+T07,Shellfish
+T08,Dairy
+T09,Egg
+T10,Nuts
+T11,Oilseeds
+T12,Animal fats
+T13,Vegetable fats
+T14,Non-alcoholic
+T15,Alcoholic beverages
+T16,"Sugars, jams"
+T17,Cocoa et cie
+T18,Edible preparations
+T19,"Other, n.e.c."
+Z99,All products
+A01,Raw - Vegetable
+A02,Raw - Fruit
+A03,Raw - Cereals
+A04,Raw - Meat
+A05,Raw - Poultry
+A06,Raw - Fish
+A07,Raw - Shellfish
+A08,Raw - Dairy
+A09,Raw - Egg
+A10,Raw - Nuts
+A11,Raw - Oilseeds
+A14,Raw - Non-alcoholic
+A16,"Raw - Sugars, jams"
+B01,Minimal Processing - Vegetable
+B02,Minimal Processing - Fruit
+B03,Minimal Processing - Cereals
+B06,Minimal Processing - Fish
+B08,Minimal Processing - Dairy
+B10,Minimal Processing - Nuts
+B11,Minimal Processing - Oilseeds
+B13,Minimal Processing - Vegetable fats
+B14,Minimal Processing - Non-alcoholic
+B16,"Minimal Processing - Sugars, jams"
+B17,Minimal Processing - Cocoa et cie
+C01,"Processing: Salt, Sugar - Vegetable"
+C02,"Processing: Salt, Sugar - Fruit"
+C04,"Processing: Salt, Sugar - Meat"
+C06,"Processing: Salt, Sugar - Fish"
+C07,"Processing: Salt, Sugar - Shellfish"
+C08,"Processing: Salt, Sugar - Dairy"
+C09,"Processing: Salt, Sugar - Egg"
+C10,"Processing: Salt, Sugar - Nuts"
+C12,"Processing: Salt, Sugar - Animal fats"
+C14,"Processing: Salt, Sugar - Non-alcoholic"
+C16,"Processing: Salt, Sugar - Sugars, jams"
+C17,"Processing: Salt, Sugar - Cocoa et cie"
+C18,"Processing: Salt, Sugar - Edible preparations"
+D06,"Processing: fermentation, smoking - Fish"
+D07,"Processing: fermentation, smoking - Shellfish"
+D08,"Processing: fermentation, smoking - Dairy"
+D14,"Processing: fermentation, smoking - Non-alcoholic"
+D15,"Processing: fermentation, smoking - Alcoholic beverages"
+D16,"Processing: fermentation, smoking - Sugars, jams"
+D18,"Processing: fermentation, smoking - Edible preparations"
+E01,Composite - Vegetable
+E04,Composite - Meat
+E05,Composite - Poultry
+E06,Composite - Fish
+E07,Composite - Shellfish
+E08,Composite - Dairy
+E12,Composite - Animal fats
+E13,Composite - Vegetable fats
+E16,"Composite - Sugars, jams"
+E17,Composite - Cocoa et cie
+E18,Composite - Edible preparations
+F01,Ingredients - Vegetable
+F02,Ingredients - Fruit
+F14,Ingredients - Non-alcoholic
+F15,Ingredients - Alcoholic beverages
+F18,Ingredients - Edible preparations
+G01,Precursor - Vegetable
+G04,Precursor - Meat
+G05,Precursor - Poultry
+G06,Precursor - Fish
+G09,Precursor - Egg
+G19,"Precursor - Other, n.e.c."
+T00,Total
+T01,Vegetable
+T02,Fruit
+T03,Cereals
+T04,Meat
+T05,Poultry
+T06,Fish
+T07,Shellfish
+T08,Dairy
+T09,Egg
+T10,Nuts
+T11,Oilseeds
+T12,Animal fats
+T13,Vegetable fats
+T14,Non-alcoholic
+T15,Alcoholic beverages
+T16,"Sugars, jams"
+T17,Cocoa et cie
+T18,Edible preparations
+T19,"Other, n.e.c."
+Z99,All products
+A01,Raw - Vegetable
+A02,Raw - Fruit
+A03,Raw - Cereals
+A04,Raw - Meat
+A05,Raw - Poultry
+A06,Raw - Fish
+A07,Raw - Shellfish
+A08,Raw - Dairy
+A09,Raw - Egg
+A10,Raw - Nuts
+A11,Raw - Oilseeds
+A14,Raw - Non-alcoholic
+A16,"Raw - Sugars, jams"
+B01,Minimal Processing - Vegetable
+B02,Minimal Processing - Fruit
+B03,Minimal Processing - Cereals
+B06,Minimal Processing - Fish
+B08,Minimal Processing - Dairy
+B10,Minimal Processing - Nuts
+B11,Minimal Processing - Oilseeds
+B13,Minimal Processing - Vegetable fats
+B14,Minimal Processing - Non-alcoholic
+B16,"Minimal Processing - Sugars, jams"
+B17,Minimal Processing - Cocoa et cie
+C01,"Processing: Salt, Sugar - Vegetable"
+C02,"Processing: Salt, Sugar - Fruit"
+C04,"Processing: Salt, Sugar - Meat"
+C06,"Processing: Salt, Sugar - Fish"
+C07,"Processing: Salt, Sugar - Shellfish"
+C08,"Processing: Salt, Sugar - Dairy"
+C09,"Processing: Salt, Sugar - Egg"
+C10,"Processing: Salt, Sugar - Nuts"
+C12,"Processing: Salt, Sugar - Animal fats"
+C14,"Processing: Salt, Sugar - Non-alcoholic"
+C16,"Processing: Salt, Sugar - Sugars, jams"
+C17,"Processing: Salt, Sugar - Cocoa et cie"
+C18,"Processing: Salt, Sugar - Edible preparations"
+D06,"Processing: fermentation, smoking - Fish"
+D07,"Processing: fermentation, smoking - Shellfish"
+D08,"Processing: fermentation, smoking - Dairy"
+D14,"Processing: fermentation, smoking - Non-alcoholic"
+D15,"Processing: fermentation, smoking - Alcoholic beverages"
+D16,"Processing: fermentation, smoking - Sugars, jams"
+D18,"Processing: fermentation, smoking - Edible preparations"
+E01,Composite - Vegetable
+E04,Composite - Meat
+E05,Composite - Poultry
+E06,Composite - Fish
+E07,Composite - Shellfish
+E08,Composite - Dairy
+E12,Composite - Animal fats
+E13,Composite - Vegetable fats
+E16,"Composite - Sugars, jams"
+E17,Composite - Cocoa et cie
+E18,Composite - Edible preparations
+F01,Ingredients - Vegetable
+F02,Ingredients - Fruit
+F14,Ingredients - Non-alcoholic
+F15,Ingredients - Alcoholic beverages
+F18,Ingredients - Edible preparations
+G01,Precursor - Vegetable
+G04,Precursor - Meat
+G05,Precursor - Poultry
+G06,Precursor - Fish
+G09,Precursor - Egg
+G19,"Precursor - Other, n.e.c."
+T00,Total
+T01,Vegetable
+T02,Fruit
+T03,Cereals
+T04,Meat
+T05,Poultry
+T06,Fish
+T07,Shellfish
+T08,Dairy
+T09,Egg
+T10,Nuts
+T11,Oilseeds
+T12,Animal fats
+T13,Vegetable fats
+T14,Non-alcoholic
+T15,Alcoholic beverages
+T16,"Sugars, jams"
+T17,Cocoa et cie
+T18,Edible preparations
+T19,"Other, n.e.c."
+Z99,All products
+A01,Raw - Vegetable
+A02,Raw - Fruit
+A03,Raw - Cereals
+A04,Raw - Meat
+A05,Raw - Poultry
+A06,Raw - Fish
+A07,Raw - Shellfish
+A08,Raw - Dairy
+A09,Raw - Egg
+A10,Raw - Nuts
+A11,Raw - Oilseeds
+A14,Raw - Non-alcoholic
+A16,"Raw - Sugars, jams"
+B01,Minimal Processing - Vegetable
+B02,Minimal Processing - Fruit
+B03,Minimal Processing - Cereals
+B06,Minimal Processing - Fish
+B08,Minimal Processing - Dairy
+B10,Minimal Processing - Nuts
+B11,Minimal Processing - Oilseeds
+B13,Minimal Processing - Vegetable fats
+B14,Minimal Processing - Non-alcoholic
+B16,"Minimal Processing - Sugars, jams"
+B17,Minimal Processing - Cocoa et cie
+C01,"Processing: Salt, Sugar - Vegetable"
+C02,"Processing: Salt, Sugar - Fruit"
+C04,"Processing: Salt, Sugar - Meat"
+C06,"Processing: Salt, Sugar - Fish"
+C07,"Processing: Salt, Sugar - Shellfish"
+C08,"Processing: Salt, Sugar - Dairy"
+C09,"Processing: Salt, Sugar - Egg"
+C10,"Processing: Salt, Sugar - Nuts"
+C12,"Processing: Salt, Sugar - Animal fats"
+C14,"Processing: Salt, Sugar - Non-alcoholic"
+C16,"Processing: Salt, Sugar - Sugars, jams"
+C17,"Processing: Salt, Sugar - Cocoa et cie"
+D06,"Processing: fermentation, smoking - Fish"
+D07,"Processing: fermentation, smoking - Shellfish"
+D08,"Processing: fermentation, smoking - Dairy"
+D14,"Processing: fermentation, smoking - Non-alcoholic"
+D15,"Processing: fermentation, smoking - Alcoholic beverages"
+D16,"Processing: fermentation, smoking - Sugars, jams"
+D18,"Processing: fermentation, smoking - Edible preparations"
+E01,Composite - Vegetable
+E04,Composite - Meat
+E05,Composite - Poultry
+E06,Composite - Fish
+E07,Composite - Shellfish
+E08,Composite - Dairy
+E12,Composite - Animal fats
+E13,Composite - Vegetable fats
+E16,"Composite - Sugars, jams"
+E17,Composite - Cocoa et cie
+E18,Composite - Edible preparations
+F01,Ingredients - Vegetable
+F02,Ingredients - Fruit
+F14,Ingredients - Non-alcoholic
+F15,Ingredients - Alcoholic beverages
+F18,Ingredients - Edible preparations
+G01,Precursor - Vegetable
+G04,Precursor - Meat
+G05,Precursor - Poultry
+G06,Precursor - Fish
+G09,Precursor - Egg
+G19,"Precursor - Other, n.e.c."
+T00,Total
+T01,Vegetable
+T02,Fruit
+T03,Cereals
+T04,Meat
+T05,Poultry
+T06,Fish
+T07,Shellfish
+T08,Dairy
+T09,Egg
+T10,Nuts
+T11,Oilseeds
+T12,Animal fats
+T13,Vegetable fats
+T14,Non-alcoholic
+T15,Alcoholic beverages
+T16,"Sugars, jams"
+T17,Cocoa et cie
+T18,Edible preparations
+T19,"Other, n.e.c."
+Z99,All products
+A01,Raw - Vegetable
+A02,Raw - Fruit
+A03,Raw - Cereals
+A04,Raw - Meat
+A05,Raw - Poultry
+A06,Raw - Fish
+A07,Raw - Shellfish
+A08,Raw - Dairy
+A09,Raw - Egg
+A10,Raw - Nuts
+A11,Raw - Oilseeds
+A14,Raw - Non-alcoholic
+A16,"Raw - Sugars, jams"
+B01,Minimal Processing - Vegetable
+B02,Minimal Processing - Fruit
+B03,Minimal Processing - Cereals
+B06,Minimal Processing - Fish
+B08,Minimal Processing - Dairy
+B10,Minimal Processing - Nuts
+B11,Minimal Processing - Oilseeds
+B13,Minimal Processing - Vegetable fats
+B14,Minimal Processing - Non-alcoholic
+B16,"Minimal Processing - Sugars, jams"
+B17,Minimal Processing - Cocoa et cie
+C01,"Processing: Salt, Sugar - Vegetable"
+C02,"Processing: Salt, Sugar - Fruit"
+C04,"Processing: Salt, Sugar - Meat"
+C06,"Processing: Salt, Sugar - Fish"
+C07,"Processing: Salt, Sugar - Shellfish"
+C08,"Processing: Salt, Sugar - Dairy"
+C09,"Processing: Salt, Sugar - Egg"
+C10,"Processing: Salt, Sugar - Nuts"
+C12,"Processing: Salt, Sugar - Animal fats"
+C14,"Processing: Salt, Sugar - Non-alcoholic"
+C16,"Processing: Salt, Sugar - Sugars, jams"
+C17,"Processing: Salt, Sugar - Cocoa et cie"
+C18,"Processing: Salt, Sugar - Edible preparations"
+D06,"Processing: fermentation, smoking - Fish"
+D07,"Processing: fermentation, smoking - Shellfish"
+D08,"Processing: fermentation, smoking - Dairy"
+D14,"Processing: fermentation, smoking - Non-alcoholic"
+D15,"Processing: fermentation, smoking - Alcoholic beverages"
+D16,"Processing: fermentation, smoking - Sugars, jams"
+D18,"Processing: fermentation, smoking - Edible preparations"
+E01,Composite - Vegetable
+E04,Composite - Meat
+E05,Composite - Poultry
+E06,Composite - Fish
+E07,Composite - Shellfish
+E08,Composite - Dairy
+E12,Composite - Animal fats
+E13,Composite - Vegetable fats
+E16,"Composite - Sugars, jams"
+E17,Composite - Cocoa et cie
+E18,Composite - Edible preparations
+F01,Ingredients - Vegetable
+F02,Ingredients - Fruit
+F14,Ingredients - Non-alcoholic
+F15,Ingredients - Alcoholic beverages
+F18,Ingredients - Edible preparations
+G01,Precursor - Vegetable
+G04,Precursor - Meat
+G05,Precursor - Poultry
+G06,Precursor - Fish
+G09,Precursor - Egg
+G19,"Precursor - Other, n.e.c."
+T00,Total
+T01,Vegetable
+T02,Fruit
+T03,Cereals
+T04,Meat
+T05,Poultry
+T06,Fish
+T07,Shellfish
+T08,Dairy
+T09,Egg
+T10,Nuts
+T11,Oilseeds
+T12,Animal fats
+T13,Vegetable fats
+T14,Non-alcoholic
+T15,Alcoholic beverages
+T16,"Sugars, jams"
+T17,Cocoa et cie
+T18,Edible preparations
+T19,"Other, n.e.c."
+Z99,All products
+A01,Raw - Vegetable
+A02,Raw - Fruit
+A03,Raw - Cereals
+A04,Raw - Meat
+A05,Raw - Poultry
+A06,Raw - Fish
+A07,Raw - Shellfish
+A08,Raw - Dairy
+A09,Raw - Egg
+A10,Raw - Nuts
+A11,Raw - Oilseeds
+A14,Raw - Non-alcoholic
+A16,"Raw - Sugars, jams"
+B01,Minimal Processing - Vegetable
+B02,Minimal Processing - Fruit
+B03,Minimal Processing - Cereals
+B06,Minimal Processing - Fish
+B08,Minimal Processing - Dairy
+B10,Minimal Processing - Nuts
+B11,Minimal Processing - Oilseeds
+B13,Minimal Processing - Vegetable fats
+B14,Minimal Processing - Non-alcoholic
+B16,"Minimal Processing - Sugars, jams"
+B17,Minimal Processing - Cocoa et cie
+C01,"Processing: Salt, Sugar - Vegetable"
+C02,"Processing: Salt, Sugar - Fruit"
+C04,"Processing: Salt, Sugar - Meat"
+C06,"Processing: Salt, Sugar - Fish"
+C07,"Processing: Salt, Sugar - Shellfish"
+C08,"Processing: Salt, Sugar - Dairy"
+C09,"Processing: Salt, Sugar - Egg"
+C10,"Processing: Salt, Sugar - Nuts"
+C12,"Processing: Salt, Sugar - Animal fats"
+C14,"Processing: Salt, Sugar - Non-alcoholic"
+C16,"Processing: Salt, Sugar - Sugars, jams"
+C17,"Processing: Salt, Sugar - Cocoa et cie"
+C18,"Processing: Salt, Sugar - Edible preparations"
+D06,"Processing: fermentation, smoking - Fish"
+D07,"Processing: fermentation, smoking - Shellfish"
+D08,"Processing: fermentation, smoking - Dairy"
+D14,"Processing: fermentation, smoking - Non-alcoholic"
+D15,"Processing: fermentation, smoking - Alcoholic beverages"
+D18,"Processing: fermentation, smoking - Edible preparations"
+E01,Composite - Vegetable
+E04,Composite - Meat
+E05,Composite - Poultry
+E06,Composite - Fish
+E07,Composite - Shellfish
+E08,Composite - Dairy
+E12,Composite - Animal fats
+E13,Composite - Vegetable fats
+E16,"Composite - Sugars, jams"
+E17,Composite - Cocoa et cie
+E18,Composite - Edible preparations
+F01,Ingredients - Vegetable
+F02,Ingredients - Fruit
+F14,Ingredients - Non-alcoholic
+F15,Ingredients - Alcoholic beverages
+F18,Ingredients - Edible preparations
+G01,Precursor - Vegetable
+G04,Precursor - Meat
+G05,Precursor - Poultry
+G06,Precursor - Fish
+G09,Precursor - Egg
+G19,"Precursor - Other, n.e.c."
+T00,Total
+T01,Vegetable
+T02,Fruit
+T03,Cereals
+T04,Meat
+T05,Poultry
+T06,Fish
+T07,Shellfish
+T08,Dairy
+T09,Egg
+T10,Nuts
+T11,Oilseeds
+T12,Animal fats
+T13,Vegetable fats
+T14,Non-alcoholic
+T15,Alcoholic beverages
+T16,"Sugars, jams"
+T17,Cocoa et cie
+T18,Edible preparations
+T19,"Other, n.e.c."
+Z99,All products
+A01,Raw - Vegetable
+A02,Raw - Fruit
+A03,Raw - Cereals
+A04,Raw - Meat
+A05,Raw - Poultry
+A06,Raw - Fish
+A07,Raw - Shellfish
+A08,Raw - Dairy
+A09,Raw - Egg
+A10,Raw - Nuts
+A11,Raw - Oilseeds
+A14,Raw - Non-alcoholic
+A16,"Raw - Sugars, jams"
+B01,Minimal Processing - Vegetable
+B02,Minimal Processing - Fruit
+B03,Minimal Processing - Cereals
+B06,Minimal Processing - Fish
+B08,Minimal Processing - Dairy
+B10,Minimal Processing - Nuts
+B11,Minimal Processing - Oilseeds
+B13,Minimal Processing - Vegetable fats
+B14,Minimal Processing - Non-alcoholic
+B16,"Minimal Processing - Sugars, jams"
+B17,Minimal Processing - Cocoa et cie
+C01,"Processing: Salt, Sugar - Vegetable"
+C02,"Processing: Salt, Sugar - Fruit"
+C04,"Processing: Salt, Sugar - Meat"
+C06,"Processing: Salt, Sugar - Fish"
+C07,"Processing: Salt, Sugar - Shellfish"
+C08,"Processing: Salt, Sugar - Dairy"
+C09,"Processing: Salt, Sugar - Egg"
+C10,"Processing: Salt, Sugar - Nuts"
+C12,"Processing: Salt, Sugar - Animal fats"
+C14,"Processing: Salt, Sugar - Non-alcoholic"
+C16,"Processing: Salt, Sugar - Sugars, jams"
+C17,"Processing: Salt, Sugar - Cocoa et cie"
+C18,"Processing: Salt, Sugar - Edible preparations"
+D06,"Processing: fermentation, smoking - Fish"
+D07,"Processing: fermentation, smoking - Shellfish"
+D08,"Processing: fermentation, smoking - Dairy"
+D14,"Processing: fermentation, smoking - Non-alcoholic"
+D15,"Processing: fermentation, smoking - Alcoholic beverages"
+D16,"Processing: fermentation, smoking - Sugars, jams"
+D18,"Processing: fermentation, smoking - Edible preparations"
+E01,Composite - Vegetable
+E04,Composite - Meat
+E05,Composite - Poultry
+E06,Composite - Fish
+E07,Composite - Shellfish
+E08,Composite - Dairy
+E12,Composite - Animal fats
+E13,Composite - Vegetable fats
+E16,"Composite - Sugars, jams"
+E17,Composite - Cocoa et cie
+E18,Composite - Edible preparations
+F01,Ingredients - Vegetable
+F02,Ingredients - Fruit
+F14,Ingredients - Non-alcoholic
+F15,Ingredients - Alcoholic beverages
+F18,Ingredients - Edible preparations
+G01,Precursor - Vegetable
+G04,Precursor - Meat
+G05,Precursor - Poultry
+G06,Precursor - Fish
+G09,Precursor - Egg
+G19,"Precursor - Other, n.e.c."
+T00,Total
+T01,Vegetable
+T02,Fruit
+T03,Cereals
+T04,Meat
+T05,Poultry
+T06,Fish
+T07,Shellfish
+T08,Dairy
+T09,Egg
+T10,Nuts
+T11,Oilseeds
+T12,Animal fats
+T13,Vegetable fats
+T14,Non-alcoholic
+T15,Alcoholic beverages
+T16,"Sugars, jams"
+T17,Cocoa et cie
+T18,Edible preparations
+T19,"Other, n.e.c."
+Z99,All products
+A01,Raw - Vegetable
+A02,Raw - Fruit
+A03,Raw - Cereals
+A04,Raw - Meat
+A05,Raw - Poultry
+A06,Raw - Fish
+A07,Raw - Shellfish
+A08,Raw - Dairy
+A09,Raw - Egg
+A10,Raw - Nuts
+A11,Raw - Oilseeds
+A14,Raw - Non-alcoholic
+A16,"Raw - Sugars, jams"
+B01,Minimal Processing - Vegetable
+B02,Minimal Processing - Fruit
+B03,Minimal Processing - Cereals
+B06,Minimal Processing - Fish
+B08,Minimal Processing - Dairy
+B10,Minimal Processing - Nuts
+B11,Minimal Processing - Oilseeds
+B13,Minimal Processing - Vegetable fats
+B14,Minimal Processing - Non-alcoholic
+B16,"Minimal Processing - Sugars, jams"
+B17,Minimal Processing - Cocoa et cie
+C01,"Processing: Salt, Sugar - Vegetable"
+C02,"Processing: Salt, Sugar - Fruit"
+C04,"Processing: Salt, Sugar - Meat"
+C06,"Processing: Salt, Sugar - Fish"
+C07,"Processing: Salt, Sugar - Shellfish"
+C08,"Processing: Salt, Sugar - Dairy"
+C09,"Processing: Salt, Sugar - Egg"
+C10,"Processing: Salt, Sugar - Nuts"
+C12,"Processing: Salt, Sugar - Animal fats"
+C14,"Processing: Salt, Sugar - Non-alcoholic"
+C16,"Processing: Salt, Sugar - Sugars, jams"
+C17,"Processing: Salt, Sugar - Cocoa et cie"
+C18,"Processing: Salt, Sugar - Edible preparations"
+D04,"Processing: fermentation, smoking - Meat"
+D06,"Processing: fermentation, smoking - Fish"
+D07,"Processing: fermentation, smoking - Shellfish"
+D08,"Processing: fermentation, smoking - Dairy"
+D14,"Processing: fermentation, smoking - Non-alcoholic"
+D15,"Processing: fermentation, smoking - Alcoholic beverages"
+D16,"Processing: fermentation, smoking - Sugars, jams"
+D18,"Processing: fermentation, smoking - Edible preparations"
+E01,Composite - Vegetable
+E04,Composite - Meat
+E05,Composite - Poultry
+E06,Composite - Fish
+E07,Composite - Shellfish
+E08,Composite - Dairy
+E12,Composite - Animal fats
+E13,Composite - Vegetable fats
+E16,"Composite - Sugars, jams"
+E17,Composite - Cocoa et cie
+E18,Composite - Edible preparations
+F01,Ingredients - Vegetable
+F02,Ingredients - Fruit
+F14,Ingredients - Non-alcoholic
+F15,Ingredients - Alcoholic beverages
+F18,Ingredients - Edible preparations
+G01,Precursor - Vegetable
+G04,Precursor - Meat
+G05,Precursor - Poultry
+G06,Precursor - Fish
+G09,Precursor - Egg
+G19,"Precursor - Other, n.e.c."
+T00,Total
+T01,Vegetable
+T02,Fruit
+T03,Cereals
+T04,Meat
+T05,Poultry
+T06,Fish
+T07,Shellfish
+T08,Dairy
+T09,Egg
+T10,Nuts
+T11,Oilseeds
+T12,Animal fats
+T13,Vegetable fats
+T14,Non-alcoholic
+T15,Alcoholic beverages
+T16,"Sugars, jams"
+T17,Cocoa et cie
+T18,Edible preparations
+T19,"Other, n.e.c."
+Z99,All products
+A01,Raw - Vegetable
+A02,Raw - Fruit
+A03,Raw - Cereals
+A04,Raw - Meat
+A05,Raw - Poultry
+A06,Raw - Fish
+A07,Raw - Shellfish
+A08,Raw - Dairy
+A09,Raw - Egg
+A10,Raw - Nuts
+A11,Raw - Oilseeds
+A14,Raw - Non-alcoholic
+A16,"Raw - Sugars, jams"
+B01,Minimal Processing - Vegetable
+B02,Minimal Processing - Fruit
+B03,Minimal Processing - Cereals
+B06,Minimal Processing - Fish
+B08,Minimal Processing - Dairy
+B10,Minimal Processing - Nuts
+B11,Minimal Processing - Oilseeds
+B13,Minimal Processing - Vegetable fats
+B14,Minimal Processing - Non-alcoholic
+B16,"Minimal Processing - Sugars, jams"
+B17,Minimal Processing - Cocoa et cie
+C01,"Processing: Salt, Sugar - Vegetable"
+C02,"Processing: Salt, Sugar - Fruit"
+C04,"Processing: Salt, Sugar - Meat"
+C06,"Processing: Salt, Sugar - Fish"
+C07,"Processing: Salt, Sugar - Shellfish"
+C08,"Processing: Salt, Sugar - Dairy"
+C09,"Processing: Salt, Sugar - Egg"
+C10,"Processing: Salt, Sugar - Nuts"
+C12,"Processing: Salt, Sugar - Animal fats"
+C14,"Processing: Salt, Sugar - Non-alcoholic"
+C16,"Processing: Salt, Sugar - Sugars, jams"
+C17,"Processing: Salt, Sugar - Cocoa et cie"
+C18,"Processing: Salt, Sugar - Edible preparations"
+D04,"Processing: fermentation, smoking - Meat"
+D06,"Processing: fermentation, smoking - Fish"
+D07,"Processing: fermentation, smoking - Shellfish"
+D08,"Processing: fermentation, smoking - Dairy"
+D14,"Processing: fermentation, smoking - Non-alcoholic"
+D15,"Processing: fermentation, smoking - Alcoholic beverages"
+D16,"Processing: fermentation, smoking - Sugars, jams"
+D18,"Processing: fermentation, smoking - Edible preparations"
+E01,Composite - Vegetable
+E04,Composite - Meat
+E05,Composite - Poultry
+E06,Composite - Fish
+E07,Composite - Shellfish
+E08,Composite - Dairy
+E12,Composite - Animal fats
+E13,Composite - Vegetable fats
+E16,"Composite - Sugars, jams"
+E17,Composite - Cocoa et cie
+E18,Composite - Edible preparations
+F01,Ingredients - Vegetable
+F02,Ingredients - Fruit
+F14,Ingredients - Non-alcoholic
+F15,Ingredients - Alcoholic beverages
+F18,Ingredients - Edible preparations
+G01,Precursor - Vegetable
+G04,Precursor - Meat
+G05,Precursor - Poultry
+G06,Precursor - Fish
+G09,Precursor - Egg
+G19,"Precursor - Other, n.e.c."
+T00,Total
+T01,Vegetable
+T02,Fruit
+T03,Cereals
+T04,Meat
+T05,Poultry
+T06,Fish
+T07,Shellfish
+T08,Dairy
+T09,Egg
+T10,Nuts
+T11,Oilseeds
+T12,Animal fats
+T13,Vegetable fats
+T14,Non-alcoholic
+T15,Alcoholic beverages
+T16,"Sugars, jams"
+T17,Cocoa et cie
+T18,Edible preparations
+T19,"Other, n.e.c."
+Z99,All products

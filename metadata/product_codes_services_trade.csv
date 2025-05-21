@@ -1,0 +1,74 @@
+Category_Code,Category_Label
+S,Services
+SA,Manufacturing services on physical inputs owned by others
+SB,Maintenance and repair services n.i.e.
+SC,Transport
+SC4,Postal and courier services
+SD,Travel
+SE,Construction
+SE1,Construction abroad
+SE2,Construction in the reporting economy
+SF,Insurance and pension services
+SG,Financial services
+SG2,Financial intermediation services indirectly measured (FISIM)
+SH,Charges for the use of intellectual property n.i.e.
+SI,"Telecommunications, computer, and information services"
+SI1,Telecommunications services
+SI2,Computer services
+SI3,Information services
+SJ,Other business services
+SJ1,Research and development (R&D)
+SJ2,Professional and management consulting services
+SJ3,"Technical, trade-related, and other business services"
+SK,"Personal, cultural, and recreational services"
+SK1,Audiovisual and related services
+SK2,"Other personal, cultural, and recreational services (other than audiovisual and related)"
+SL,Government goods and services n.i.e.
+SC1,Sea transport
+SC11,"Passenger transport, Sea"
+SC12,"Freight transport, Sea"
+SC13,"Other transport, Sea (other than passenger and freight)"
+SC2,Air transport
+SC21,"Passenger transport, Air"
+SC22,"Freight transport, Air"
+SC23,"Other transport, Air  (other than passenger and freight)"
+SC3,Other modes of transport (other than sea and air)
+SC31,"Other modes of transport, Passenger"
+SC32,"Other modes of transport, Freight"
+SC33,"Other modes of transport, Other (other than passenger and freight)"
+SCA,"Passenger transport, All modes (ALT)"
+SCB,"Freight transport, All modes (ALT)"
+SCC,"Other transport (other than passenger and freight), All modes (ALT)"
+SD1,"Travel, Goods (ALT)"
+SD2,"Travel, Local transport (ALT)"
+SD3,"Travel, Accommodation (ALT)"
+SD4,"Travel, Food-serving (ALT)"
+SD5,"Travel, Other services (ALT)"
+SDA,"Travel, Business"
+SDA1,"Travel, Business, Acquisition of goods and services by border, seasonal, short-term workers"
+SDA2,"Travel, Business, Other (other than acquisition of goods and services by border and short-term workers)"
+SDB,"Travel, Personal"
+SDB1,"Travel, Personal, Health-related"
+SDB2,"Travel, Personal, Education-related"
+SDB3,"Travel, Personal, Other (other than health and education)"
+SF1,Direct insurance
+SF2,Reinsurance
+SF3,Auxiliary insurance services
+SF4,Pension and standardized guaranteed services
+SJ21,"Legal, accounting, management consulting, and public relations services"
+SJ31,"Architectural, engineering, scientific, and other technical services"
+SJ311,Architectural services
+SJ312,Engineering services
+SJ313,Scientific and other technical services
+SJ32,"Waste treatment and de-pollution, agricultural and mining services"
+SJ33,Operating leasing services
+SJ34,Trade-related services
+SJ35,Other business services n.i.e.
+SK21,"Other personal, cultural, and recreational services, Health services"
+SK22,"Other personal, cultural, and recreational services, Education services"
+SK23,"Other personal, cultural, and recreational services, Heritage and recreational services"
+SK24,"Other personal services (other than audiovisual and related, other than health, education and heritage)"
+SN,Services not allocated
+SOX,Memo item: Commercial services
+SPX1,Other services
+SPX4,Goods-related services

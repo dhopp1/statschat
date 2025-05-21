@@ -711,7 +711,7 @@ def get_unctadstat_tradelike(
         start_date (int or str): int start year of the data. If None, it will return from the earliest available date. For semi-annual/semester data, pass string like '2023S01' for first half of 2023, '2023S02' for second half, etc. For quarterly data, pass a string like '2023Q01', '2023Q04', etc. For monthly data, pass a string like '2023M01', '2023M10', etc.
         end_date (int or str): int end year of the data. If None, it will return until the present year.  For semi-annual/semester data, pass string like '2023S01' for first half of 2023, '2023S02' for second half, etc For quarterly data, pass a string like '2023Q01', '2023Q04', etc. For monthly data, pass a string like '2023M01', '2023M10', etc.
         flow (str or list[str]): if relevant, either a string of the desired trade flow, or a list of strings of desired trade flows. Options are: 'Exports', 'Imports', 'Re-exports', 'Re-imports', 'Balance'. Defaults to 'Exports'.
-        products (str or list[str]): if relevant, either a string of the desired product code, or a list of strings of the desired product codes. 'total' to return only the aggregate metric for all products. 'all' to return all products.
+        products (str or list[str]): if relevant, either a string of the desired product code, or a list of strings of the desired product codes. 'total' to return only the aggregate metric for all products. 'all' to return all products. Product codes are specific alpha-numeric codes, never decriptions in words of the desired product. If you want a specific product but don't know it's code, pass 'all' and filter the dataframe later for the desired product.
 
     Returns:
         pandas.DataFrame: DataFrame containing the data
