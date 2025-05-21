@@ -1,0 +1,70 @@
+Product_Code,Product_Label
+O_A,"Marine fisheries, aquaculture and hatcheries"
+O_A1,Finfish
+O_A12,Finfish - Fresh or chilled
+O_A121,Finfish - Fresh or chilled - Whole
+O_A123,"Finfish - Fresh or chilled - Fillet, meat"
+O_A13,Finfish - Frozen
+O_A131,Finfish - Frozen - Whole
+O_A132,"Finfish - Frozen - Parts, gilled, gutted, heads off, etc"
+O_A133,"Finfish - Frozen - Fillet, meat, portions and sticks"
+O_A14,"Finfish - Dried, salted and or in brine, smoked"
+O_A141,"Finfish - Dried, salted and or in brine, smoked - Whole"
+O_A142,"Finfish - Dried, salted and or in brine, smoked - Fillet, meat"
+O_A2,Crustaceans
+O_A3,Molluscs
+O_A5,"Other living marine products (excludes fish, crustacean, molluscs and aquatic invertebrates)"
+O_A51,"Other living marine products (excludes fish, crustacean, molluscs and aquatic invertebrates) - Aquatic plants, seaweeds and other algae"
+O_A52,"Other living marine products (excludes fish, crustacean, molluscs and aquatic invertebrates) - Natural pearls and sponges"
+O_C,Seafood processing
+O_C1,"Prepared and preserved fish, crustaceans and molluscs"
+O_C11,"Prepared and preserved fish, crustaceans and molluscs - Marine fishes"
+O_C13,"Prepared and preserved fish, crustaceans and molluscs - Molluscs"
+O_C2,"Flours, meals and pellets of fish, crustaceans, molluscs or other aquatic invertebrates"
+O_C21,"Flours, meals and pellets of fish, crustaceans, molluscs or other aquatic invertebrates - For human consumption"
+O_C22,"Flours, meals and pellets of fish, crustaceans, molluscs or other aquatic invertebrates - Unfit for human consumption"
+O_C3,Fats and oils of fish or marine mammals (refined or not)
+O_C4,Processed meals and dishes
+O_D,Sea minerals
+O_D1,Sea salt
+O_D2,Natural sea sand
+O_E,"Ships, port equipment and parts thereof"
+O_E1,Vessels
+O_E11,Vessels - Fishing vessels
+O_E12,Vessels - Transport vessels and floating structures for commercial marine logistics
+O_E13,Vessels - Pleasure and sporting boats
+O_E2,Parts of vessels and inputs supporting navigation and ports
+O_E21,"Parts of vessels and inputs supporting navigation and ports - Cargo-handling equipment and related supporting appliances (e.g. cranes, forklifts and other equipment and machinery)"
+O_E22,"Parts of vessels and inputs supporting navigation and ports - Navigation aids, communications and information technology systems appliances and equipments for maritime transport and ports"
+O_E23,"Parts of vessels and inputs supporting navigation and ports - Parts of vessels and other inputs n.e.c., specific to maritime transport and ports"
+O_F,High-technology and other manufactures n.e.c.
+O_F1,Manufactures for the fishing and aquaculture industries; excludes vessels and parts thereof
+O_F11,"Manufactures for the fishing and aquaculture industries; excludes vessels and parts thereof - Manufacture of fishing gear and fishing equipment, not including vessels and parts thereof"
+O_F12,Manufactures for the fishing and aquaculture industries; excludes vessels and parts thereof - Manufacture of products and technologies for aquaculture
+O_F2,High technology manufactures for environment sustainability and clean energy
+O_F21,"High technology manufactures for environment sustainability and clean energy - Technologies for wastewater management, water treatment and clean up or remediation"
+O_F22,High technology manufactures for environment sustainability and clean energy - Cleaner and renewable energy technologies
+O_F3,Pharmaceuticals and chemicals made of marine organisms; related appliances equipment of the industry
+O_F31,Pharmaceuticals and chemicals made of marine organisms; related appliances equipment of the industry - Medicines (pharmaceuticals)
+O_F32,Pharmaceuticals and chemicals made of marine organisms; related appliances equipment of the industry - Vitamins and food supplements
+O_F34,Pharmaceuticals and chemicals made of marine organisms; related appliances equipment of the industry - Cosmetics
+O_F4,"Manufacture of coastal and marine sport goods, textile articles (except apparel) and other materials"
+O_F5,"Other electrical equipment, machineries and appliances for other marine industries (such as food-processing technologies, and equipment for other industries n.e.c., part of ocean economy)"
+O_TOT,Total
+O_A143,"Finfish - Dried, salted and or in brine, smoked - Parts, gilled, gutted, heads off, etc"
+O_C12,"Prepared and preserved fish, crustaceans and molluscs - Crustaceans"
+O_C14,"Prepared and preserved fish, crustaceans and molluscs - Miscellaneous aquatic animals"
+O_A22,Crustaceans - Frozen
+O_A32,Molluscs - Frozen
+O_A33,"Molluscs - Dried, salted, smoked or in brine"
+O_A11,"Finfish - Live, but not ornamenal"
+O_A122,"Finfish - Fresh or chilled - Parts, gilled, gutted, heads off, etc"
+O_A21,"Crustaceans - Live (not including ornamental), fresh or chilled"
+O_A23,"Crustaceans - Dried, salted, smoked or in brine"
+O_A31,"Molluscs - Live (not including ornamental), fresh or chilled"
+O_A4,Aquatic invertebrates other than crustaceans
+O_A41,"Aquatic invertebrates other than crustaceans - Live (not including ornamental), fresh or chilled"
+O_A42,Aquatic invertebrates other than crustaceans - Frozen
+O_A43,"Aquatic invertebrates other than crustaceans - Dried, salted, smoked or in brine"
+O_A44,"Aquatic invertebrates other than crustaceans - Primary preparations of snails, jellyfish and other aquatic invertebrate"
+O_A53,"Other living marine products (excludes fish, crustacean, molluscs and aquatic invertebrates) - Coral and ornamental-fish (excludes freshwater ornamental fish)"

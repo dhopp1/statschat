@@ -310,7 +310,7 @@ def user_question():
                     users_question = f"This is the user's question: {prompt}"
 
                 if len(product_tables) > 0:
-                    pre_product_prompt = f"Will you need any of these reports/tables to answer the user's question? If so, respond with the report_code of the relevant table, nothing else. If not, respond only with 'no', nothing else. {users_question}\n\n"
+                    pre_product_prompt = f"Will you need any of these reports/tables to answer the user's question? If so, respond with the report_code of the relevant table, nothing else. If the user asks for an answer from a specific table that is not in this list of reports, response with 'no'. If not, respond only with 'no', nothing else. {users_question}\n\n"
                     product_prompt = pre_product_prompt + df_to_string(product_tables)
                 product_response = st.session_state["llm"](product_prompt).strip()
 
@@ -348,7 +348,7 @@ def user_question():
                     prior_query_id=st.session_state["prior_query_id"],
                     addt_context_gen_tool_call=addt_context_gen_tool_call,
                     modules=[helper.tools, helper.viz_tools],
-                    data_desc_unique_threshold=60,
+                    data_desc_unique_threshold=80,
                     data_desc_top_n_values=10,
                 )["tool_result"]["query_id"]
 
