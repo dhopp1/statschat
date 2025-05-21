@@ -847,6 +847,9 @@ def get_unctadstat_tradelike(
         total_product = "P_12"
     elif report_code in ["US.NonPlasticSubstsTradeByPartner"]:
         total_product = "NPS000"
+    elif report_code in ["US.TradeFoodCatByProc"]:
+        total_product = "T00"
+        product_colname = "ProcessFoodCategory"
     elif report_code in [
         "US.ConcentStructIndices",
         "US.TradeMatrix",
