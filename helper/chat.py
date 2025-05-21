@@ -292,6 +292,50 @@ def user_question():
                 )
                 # unctadstat indicator step
 
+                # additional info for product tables
+                product_tables = (
+                    st.session_state["selected_unctad_series"]
+                    .loc[
+                        lambda x: (x["Make available to LLM"] == True)
+                        & ~pd.isna(x["product_table"]),
+                        :,
+                    ]
+                    .drop(columns=["Make available to LLM"])
+                    .reset_index(drop=True)
+                )
+
+                if st.session_state["prior_query_id"] is not None:
+                    users_question = f"""This is the user's latest question: {prompt}\n\nThis is the prior context to their question: {st.session_state["llm"]._query_results[st.session_state["prior_query_id"]]["context_rich_prompt"]}"""
+                else:
+                    users_question = f"This is the user's question: {prompt}"
+
+                if len(product_tables) > 0:
+                    pre_product_prompt = f"Will you need any of these reports/tables to answer the user's question? If so, respond with the report_code of the relevant table, nothing else. If not, respond only with 'no', nothing else. {users_question}\n\n"
+                    product_prompt = pre_product_prompt + df_to_string(product_tables)
+                product_response = st.session_state["llm"](product_prompt).strip()
+
+                if product_response != "no":
+                    try:
+                        product_table = pd.read_csv(
+                            f"""metadata/{product_tables.loc[lambda x: x["report_code"] == product_response, "product_table"].values[0]}"""
+                        )
+                        product_filter_prompt = f"Given this user's query, generate a list of comma-separated keywords, and nothing else, which could help in searching a database for relevant products. Consider singulars and plurals as well as individual components of multi-word phrases: {users_question}"
+                        keywords = st.session_state["llm"](product_filter_prompt)
+                        keywords = [_.strip().lower() for _ in keywords.split(",")]
+
+                        # filter the table
+                        filtered_table = product_table.loc[
+                            product_table["Product_Label"]
+                            .str.lower()
+                            .str.contains("|".join(keywords), na=False),
+                            :,
+                        ].reset_index(drop=True)
+
+                        addt_context_gen_tool_call += f"\n\nHere are some product codes that may be relevant to the user's question: {df_to_string(filtered_table)}"
+                    except:
+                        pass
+                # additional info for product tables
+
                 old_stdout = sys.stdout
                 sys.stdout = Logger(st.progress(0), st.empty())
 

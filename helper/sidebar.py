@@ -44,7 +44,7 @@ def sidebar_unctad_selection():
     if "unctad_indicator_key" not in st.session_state:
         st.session_state["unctad_indicator_key"] = pd.read_csv(
             "metadata/unctadstat_key.csv"
-        ).drop(columns=["return_columns", "notes"])
+        ).drop(columns=["return_columns"])
 
     st.session_state["unctad_indicator_key"]["Make available to LLM"] = True
 
