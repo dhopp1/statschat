@@ -810,6 +810,7 @@ def get_unctadstat_tradelike(
             "US.OceanTheilIndicesIndividualEconomies",
             "US.IntraTrade",
             "US.RCA",
+            "US.TradeFoodProcCat_Cat_RCA",
         ]:  # no partner for these tables
             country_filter += f""" and {partner_label}/Code in ({','.join(["'" + _ + "'" for _ in geography_b_country_codes])})"""
 
@@ -847,7 +848,7 @@ def get_unctadstat_tradelike(
         total_product = "P_12"
     elif report_code in ["US.NonPlasticSubstsTradeByPartner"]:
         total_product = "NPS000"
-    elif report_code in ["US.TradeFoodCatByProc"]:
+    elif report_code in ["US.TradeFoodCatByProc", "US.TradeFoodProcCat_Cat_RCA"]:
         total_product = "T00"
         product_colname = "ProcessFoodCategory"
     elif report_code in [
