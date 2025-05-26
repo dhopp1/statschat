@@ -107,11 +107,17 @@ def display_explanation(result):
 
 
 def display_commentary(result):
-    st.markdown(
-        f'### Analysis and commentary\n\n{result["commentary"]["commentary"]}'.replace(
-            "$", "\\$"
+    try:
+        st.markdown(
+            f'### Analysis and commentary\n\n{result["commentary"]["commentary"]}'.replace(
+                "$", "\\$"
+            )
         )
-    )
+    except:
+        if st.session_state["run_gen_final_commentary"]:
+            st.markdown("There was an error generating the commentary")
+        else:
+            st.markdown("The commentary step was not run.")
 
 
 def display_viz(result):
@@ -119,46 +125,84 @@ def display_viz(result):
     try:
         st.pyplot(result["plots"]["invoked_result"][0])
     except:
-        st.markdown("There was an error generating the plot.")
+        if st.session_state["run_gen_plot"]:
+            st.markdown("There was an error generating the plot.")
+        else:
+            st.markdown("The visualization step was not run.")
 
 
 def display_time_token(result):
     text = ""
     # initial tool call
+    init_seconds = result["tool_result"]["seconds_taken"]
+    init_input = result["tool_result"]["n_tokens_input"]
+    init_output = result["tool_result"]["n_tokens_output"]
     text += "### Initial data call\n"
-    text += f"Seconds taken: `{round(result['tool_result']['seconds_taken'], 2)}`\n\n"
-    text += f"Input tokens: `{result['tool_result']['n_tokens_input']}`\n\n"
-    text += f"Output tokens: `{result['tool_result']['n_tokens_output']}`\n\n"
+    text += f"Seconds taken: `{round(init_seconds, 2)}`\n\n"
+    text += f"Input tokens: `{init_input}`\n\n"
+    text += f"Output tokens: `{init_output}`\n\n"
 
     # pandas manipulation
-    text += "### Python data manipulation\n"
-    text += f"Seconds taken: `{round(result['pd_code']['seconds_taken'], 2)}`\n\n"
-    text += f"Input tokens: `{result['pd_code']['n_tokens_input']}`\n\n"
-    text += f"Output tokens: `{result['pd_code']['n_tokens_output']}`\n\n"
+    try:
+        pd_seconds = result["pd_code"]["seconds_taken"]
+        pd_input = result["pd_code"]["n_tokens_input"]
+        pd_output = result["pd_code"]["n_tokens_output"]
+        text += "### Python data manipulation\n"
+        text += f"Seconds taken: `{round(pd_seconds, 2)}`\n\n"
+        text += f"Input tokens: `{pd_input}`\n\n"
+        text += f"Output tokens: `{pd_output}`\n\n"
+    except:
+        pd_seconds = 0
+        pd_input = 0
+        pd_output = 0
 
     # explanation
-    text += "### Data manipulation explanation\n"
-    text += f"Seconds taken: `{round(result['explanation']['seconds_taken'], 2)}`\n\n"
-    text += f"Input tokens: `{result['explanation']['n_tokens_input']}`\n\n"
-    text += f"Output tokens: `{result['explanation']['n_tokens_output']}`\n\n"
+    try:
+        exp_seconds = result["explanation"]["seconds_taken"]
+        exp_input = result["explanation"]["n_tokens_input"]
+        exp_output = result["explanation"]["n_tokens_output"]
+        text += "### Data manipulation explanation\n"
+        text += f"Seconds taken: `{round(exp_seconds, 2)}`\n\n"
+        text += f"Input tokens: `{exp_input}`\n\n"
+        text += f"Output tokens: `{exp_output}`\n\n"
+    except:
+        exp_seconds = 0
+        exp_input = 0
+        exp_output = 0
 
     # commentary
-    text += "### Analysis/commentary\n"
-    text += f"Seconds taken: `{round(result['commentary']['seconds_taken'], 2)}`\n\n"
-    text += f"Input tokens: `{result['commentary']['n_tokens_input']}`\n\n"
-    text += f"Output tokens: `{result['commentary']['n_tokens_output']}`\n\n"
+    try:
+        com_seconds = result["commentary"]["seconds_taken"]
+        com_input = result["commentary"]["n_tokens_input"]
+        com_output = result["commentary"]["n_tokens_output"]
+        text += "### Analysis/commentary\n"
+        text += f"Seconds taken: `{round(com_seconds, 2)}`\n\n"
+        text += f"Input tokens: `{com_input}`\n\n"
+        text += f"Output tokens: `{com_output}`\n\n"
+    except:
+        com_seconds = 0
+        com_input = 0
+        com_output = 0
 
     # viz call
-    text += "### Visualization call\n"
-    text += f"Seconds taken: `{round(result['plots']['seconds_taken'], 2)}`\n\n"
-    text += f"Input tokens: `{result['plots']['n_tokens_input']}`\n\n"
-    text += f"Output tokens: `{result['plots']['n_tokens_output']}`\n\n"
+    try:
+        viz_seconds = result["plots"]["seconds_taken"]
+        viz_input = result["plots"]["n_tokens_input"]
+        viz_output = result["plots"]["n_tokens_output"]
+        text += "### Visualization call\n"
+        text += f"Seconds taken: `{round(viz_seconds, 2)}`\n\n"
+        text += f"Input tokens: `{viz_input}`\n\n"
+        text += f"Output tokens: `{viz_output}`\n\n"
+    except:
+        viz_seconds = 0
+        viz_input = 0
+        viz_output = 0
 
     # total
     text += "### Total process\n"
-    text += f"Seconds taken: `{round(result['tool_result']['seconds_taken'] + result['pd_code']['seconds_taken'] + result['explanation']['seconds_taken'] + result['commentary']['seconds_taken'] + result['plots']['seconds_taken'], 2)}`\n\n"
-    text += f"Input tokens: `{result['tool_result']['n_tokens_input'] + result['pd_code']['n_tokens_input'] + result['explanation']['n_tokens_input'] + result['commentary']['n_tokens_input'] + result['plots']['n_tokens_input']}`\n\n"
-    text += f"Output tokens: `{result['tool_result']['n_tokens_output'] + result['pd_code']['n_tokens_output'] + result['explanation']['n_tokens_output'] + result['commentary']['n_tokens_output'] + result['plots']['n_tokens_output']}`\n\n"
+    text += f"Seconds taken: `{round(init_seconds + pd_seconds + exp_seconds + com_seconds + viz_seconds, 2)}`\n\n"
+    text += f"Input tokens: `{init_input + pd_input + exp_input + com_input + viz_input}`\n\n"
+    text += f"Output tokens: `{init_output + pd_output + exp_output + com_output + viz_output}`\n\n"
 
     st.markdown(text)
 
@@ -184,9 +228,12 @@ def display_llm_output(result):
         try:
             display_pd_code(result)
         except:
-            st.error(
-                "An error was encountered during the code manipulation step. Please try reformulating your query."
-            )
+            if st.session_state["run_gen_pandas_df"]:
+                st.error(
+                    "An error was encountered during the code manipulation step. Please try reformulating your query."
+                )
+            else:
+                st.markdown("The code manipulation step was not run.")
 
     # foldout for actual dataset
     with st.expander("Final dataset", expanded=False):
@@ -202,18 +249,24 @@ def display_llm_output(result):
         try:
             display_viz_call(result)
         except:
-            st.error(
-                "An error was encountered during the visualization step. Please try reformulating your query."
-            )
+            if st.session_state["run_gen_plot"]:
+                st.error(
+                    "An error was encountered during the visualization step. Please try reformulating your query."
+                )
+            else:
+                st.markdown("The visualization step was not run.")
 
     # foldout for explanation
     with st.expander("Data manipulation explanation", expanded=False):
         try:
             display_explanation(result)
         except:
-            st.error(
-                "An error was encountered during the data explanation step. Please try reformulating your query."
-            )
+            if st.session_state["run_explain_pandas_df"]:
+                st.error(
+                    "An error was encountered during the data explanation step. Please try reformulating your query."
+                )
+            else:
+                st.markdown("The code explanation step was not run.")
 
     # foldout for full python script
     with st.expander("Full runnable Python script", expanded=False):
@@ -347,6 +400,12 @@ def user_question():
                     use_free_plot=st.session_state["use_free_plot"],
                     prior_query_id=st.session_state["prior_query_id"],
                     addt_context_gen_tool_call=addt_context_gen_tool_call,
+                    run_gen_pandas_df=st.session_state["run_gen_pandas_df"],
+                    run_explain_pandas_df=st.session_state["run_explain_pandas_df"],
+                    run_gen_final_commentary=st.session_state[
+                        "run_gen_final_commentary"
+                    ],
+                    run_gen_plot=st.session_state["run_gen_plot"],
                     modules=[helper.tools, helper.viz_tools],
                     data_desc_unique_threshold=80,
                     data_desc_top_n_values=10,

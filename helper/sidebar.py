@@ -86,6 +86,20 @@ def sidebar_wb_selection():
     )
 
 
+def sidebar_which_steps():
+    st.markdown("")
+    st.session_state["run_gen_pandas_df"] = st.checkbox(
+        "Run Python data manipulation", value=True
+    )
+    st.session_state["run_explain_pandas_df"] = st.checkbox(
+        "Run explanation of Python data manipulation", value=True
+    )
+    st.session_state["run_gen_final_commentary"] = st.checkbox(
+        "Generate commentary", value=True
+    )
+    st.session_state["run_gen_plot"] = st.checkbox("Generate a plot", value=True)
+
+
 def sidebar_tools_selection():
     if "tools_info" not in st.session_state:
         st.session_state["tools_info"] = pd.read_csv("metadata/tools_list.csv")

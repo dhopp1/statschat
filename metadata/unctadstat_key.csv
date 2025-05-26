@@ -62,8 +62,8 @@ id,report_code,report_name,indicator_code,indicator_name,return_columns,function
 61,US.GDPTotal,"Gross domestic product: Total and per capita, current and constant (2015) prices, annual",M0110/Value,US$ at current prices per capita,"Economy/Label,Year,M0110/Value",get_unctadstat,NA
 62,US.GDPTotal,"Gross domestic product: Total and per capita, current and constant (2015) prices, annual",M0940/Value,US$ at constant prices (2015),"Economy/Label,Year,M0940/Value",get_unctadstat,NA
 63,US.GDPTotal,"Gross domestic product: Total and per capita, current and constant (2015) prices, annual",M0950/Value,US$ at constant prices (2015) per capita,"Economy/Label,Year,M0950/Value",get_unctadstat,NA
-64,US.GDPGR,"Real gross domestic product: Total and per capita, growth rates, annual",M4010/Value,Annual average growth rate per capita,"Economy/Label,Year,M4010/Value",get_unctadstat,NA
-65,US.GDPGR,"Real gross domestic product: Total and per capita, growth rates, annual",M4017/Value,Annual average growth rate,"Economy/Label,Year,M4017/Value",get_unctadstat,NA
+64,US.GDPGR,"Real gross domestic product: Total and per capita, growth rates, annual",M4010/Value,Annual average growth rate per capita,"Economy/Label,Period/Label,M4010/Value",get_unctadstat,NA
+65,US.GDPGR,"Real gross domestic product: Total and per capita, growth rates, annual",M4017/Value,Annual average growth rate,"Economy/Label,Period/Label,M4017/Value",get_unctadstat,NA
 66,US.GNI,"Nominal GNI, total and per capita, annual",M0110/Value,US dollars at current prices per capita,"Economy/Label,Year,M0110/Value",get_unctadstat,NA
 67,US.GNI,"Nominal GNI, total and per capita, annual",M0100/Value,US dollars at current prices,"Economy/Label,Year,M0100/Value",get_unctadstat,NA
 68,US.GoodsAndServicesBpm6,"Goods and services (BPM6): Exports and imports of goods and services, annual",M5024/Value,Percentage of total trade in goods and services,"Economy/Label,Year,Flow/Label,Series/Label,M5024/Value",get_unctadstat,NA

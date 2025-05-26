@@ -10,6 +10,7 @@ from helper.sidebar import (
     sidebar_unctad_selection,
     sidebar_viz_tools_selection,
     sidebar_wb_selection,
+    sidebar_which_steps,
 )
 from helper.ui import check_password
 from helper.tools import get_unctadstat, get_unctadstat_tradelike, get_world_bank
@@ -47,6 +48,9 @@ with st.sidebar:
     st.markdown("### WB indicators")
     with st.expander("Table of WB indicators"):
         sidebar_wb_selection()
+
+    st.markdown("### Steps to run")
+    sidebar_which_steps()
 
     st.markdown("### Data sources available to LLM")
     sidebar_tools_selection()
