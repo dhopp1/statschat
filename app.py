@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+import time
 
 from helper.chat import populate_chat, user_question
 from helper.llm import create_llm
@@ -50,7 +51,8 @@ with st.sidebar:
         sidebar_wb_selection()
 
     st.markdown("### Steps to run")
-    sidebar_which_steps()
+    with st.expander("Steps"):
+        sidebar_which_steps()
 
     st.markdown("### Data sources available to LLM")
     sidebar_tools_selection()

@@ -87,7 +87,6 @@ def sidebar_wb_selection():
 
 
 def sidebar_which_steps():
-    st.markdown("")
     st.session_state["run_gen_pandas_df"] = st.checkbox(
         "Run Python data manipulation", value=True
     )
